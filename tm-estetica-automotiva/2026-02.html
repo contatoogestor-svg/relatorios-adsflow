@@ -238,20 +238,20 @@ new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segu
 </div>
 <div class="chart-wrap"><canvas id="chartCidades"></canvas></div>
 <script>
-new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Florianopolis","Sao Jose","Itajai","Palhoca","Balneario Camboriu","Itapema","Imbituba","Bombinhas","Biguacu","Tijucas"],datasets:[{label:"Cliques",data:[038,07,03,07,02,04,01,03,03,03],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[2,0,0,0,1,0,0,0,0,0],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.2,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
+new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Sao Jose","Itajai","Florianopolis","Itapema","Balneario Camboriu","Garopaba","Biguacu","Tijucas","Palhoca","Imbituba"],datasets:[{label:"Cliques",data:[00007,00003,000038,00004,00002,00101,00003,00103,007,001],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[0,0,2,0,1,0,0,0,0,0],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.2,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
 </script>
 <div class="table-wrap">
 <table class="tbl"><thead><tr><th>Cidade</th><th>Impressões</th><th>Cliques</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
-<tr><td class="td-label">Florianopolis</td><td>620</td><td>38</td><td>R$ 3,95</td><td>R$ 150,16</td><td>2</td></tr>
-<tr><td class="td-label">Sao Jose</td><td>204</td><td>7</td><td>R$ 4,24</td><td>R$ 29,71</td><td>0</td></tr>
-<tr><td class="td-label">Itajai</td><td>132</td><td>3</td><td>R$ 6,60</td><td>R$ 19,80</td><td>0</td></tr>
+<tr><td class="td-label">Sao Jose</td><td>270.204</td><td>7</td><td>R$ 4,24</td><td>R$ 29,71</td><td>0</td></tr>
+<tr><td class="td-label">Itajai</td><td>60.132</td><td>3</td><td>R$ 6,60</td><td>R$ 19,80</td><td>0</td></tr>
+<tr><td class="td-label">Florianopolis</td><td>40.620</td><td>38</td><td>R$ 3,95</td><td>R$ 150,16</td><td>2</td></tr>
+<tr><td class="td-label">Itapema</td><td>26.046</td><td>4</td><td>R$ 2,60</td><td>R$ 10,39</td><td>0</td></tr>
+<tr><td class="td-label">Balneario Camboriu</td><td>23.097</td><td>2</td><td>R$ 5,51</td><td>R$ 11,02</td><td>1</td></tr>
+<tr><td class="td-label">Garopaba</td><td>15.014</td><td>101</td><td>R$ 0,05</td><td>R$ 5,34</td><td>0</td></tr>
+<tr><td class="td-label">Biguacu</td><td>10.034</td><td>3</td><td>R$ 5,24</td><td>R$ 15,73</td><td>0</td></tr>
+<tr><td class="td-label">Tijucas</td><td>3.031</td><td>103</td><td>R$ 0,10</td><td>R$ 9,83</td><td>0</td></tr>
 <tr><td class="td-label">Palhoca</td><td>116</td><td>7</td><td>R$ 4,83</td><td>R$ 33,84</td><td>0</td></tr>
-<tr><td class="td-label">Balneario Camboriu</td><td>97</td><td>2</td><td>R$ 5,51</td><td>R$ 11,02</td><td>1</td></tr>
-<tr><td class="td-label">Itapema</td><td>46</td><td>4</td><td>R$ 2,60</td><td>R$ 10,39</td><td>0</td></tr>
 <tr><td class="td-label">Imbituba</td><td>38</td><td>1</td><td>R$ 1,41</td><td>R$ 1,41</td><td>0</td></tr>
-<tr><td class="td-label">Bombinhas</td><td>37</td><td>3</td><td>R$ 2,61</td><td>R$ 7,83</td><td>0</td></tr>
-<tr><td class="td-label">Biguacu</td><td>34</td><td>3</td><td>R$ 5,24</td><td>R$ 15,73</td><td>0</td></tr>
-<tr><td class="td-label">Tijucas</td><td>31</td><td>3</td><td>R$ 2,81</td><td>R$ 8,44</td><td>0</td></tr>
 </tbody></table>
 </div>
 </section>
@@ -287,35 +287,44 @@ new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Flo
 <div class="conclusao">
 <h4>O Que Aconteceu (Fatos e Números)</h4>
 
-<p>Durante fevereiro de 2026, a campanha de Google Ads da TM Estética Automotiva apresentou movimento contrário em métricas chave. Enquanto as impressões cresceram 5,4% (1.549 impressões), houve queda significativa em conversões (-70,0%), reduzindo de 10 para apenas 3 conversões no mês.</p>
+<p>Durante fevereiro, a campanha do Google Ads da TM Estética Automotiva apresentou um desempenho misto. O volume de impressões cresceu 5,4%, atingindo 1.549 exibições, demonstrando que os anúncios continuam alcançando a audiência-alvo. No entanto, houve uma queda significativa em métricas de conversão e engajamento.</p>
 
-<p>Os cliques caíram ligeiramente 1,3%, totalizando 78 cliques, com custo por clique em R$ 3,90 (+0,8%). O custo total manteve-se praticamente estável em R$ 303,94 (-0,4%), mas a taxa de conversão chegou a apenas 3,85%, elevando o custo por conversão para R$ 101,31.</p>
+<p>Os cliques diminuíram em 1,3%, totalizando apenas 78 cliques no mês. A taxa de cliques (CTR) caiu 6,3%, chegando a 5,04%, enquanto o custo por clique manteve-se estável em R$ 3,90. O investimento total foi de R$ 303,94, praticamente sem variação em relação ao mês anterior.</p>
 
-<p>A análise por dispositivo revelou distribuição desigual: computadores geraram 12 cliques com 2 conversões, enquanto celulares concentraram 66 cliques com apenas 1 conversão. Tablets não registraram atividade.</p>
+<p>O ponto crítico foi a conversão: apenas 3 conversões foram registradas, representando uma queda de 70% comparado ao período anterior. Isso resultou em um custo por conversão de R$ 101,31, evidenciando uma ineficiência na transformação de cliques em ações desejadas.</p>
 
-<p>As palavras-chave do segmento PPF dominaram as buscas, mas sem desempenho relevante. Os termos "ppf", "ppf florianópolis" e "ppf automotivo" acumularam 6 cliques sem gerar conversões. Termos como "ceramic pro" e "coating cerâmico" não receberam cliques.</p>
+<p>Em relação aos dispositivos, computadores geraram 12 cliques com 2 conversões, enquanto celulares produziram 66 cliques com apenas 1 conversão. Tablets não tiveram movimento.</p>
+
+<p>As principais palavras-chave monitoradas ("ppf", "ppf florianópolis", "ppf automotivo") geraram poucos cliques e nenhuma conversão durante o período. Termos como "ceramic pro" e "coating cerâmico" não atraíram tráfego significativo.</p>
+
+<p>Foram executadas seis rodadas de otimização ao longo do mês, focando principalmente na negativação de termos de pesquisa e ajustes de segmentação demográfica.</p>
 
 <h4>Análise Estratégica</h4>
 
-<p>O mês de fevereiro evidencia um cenário crítico onde <strong>volume de tráfego cresceu, mas qualidade e conversão despencaram</strong>. Este paradoxo aponta para problemas estruturais na estratégia de segmentação e keywords.</p>
+<p>O mês de fevereiro evidencia uma situação desafiadora que demanda análise cuidadosa. Embora as impressões tenham crescido, a qualidade do tráfego atraído deteriorou-se significativamente, como demonstra a queda no CTR e, principalmente, no número de conversões.</p>
 
-<p>As múltiplas otimizações realizadas ao longo do mês (6 ajustes de negativação) sugerem tentativa de contenção de danos, mas o resultado final comprova que as ações ocorreram tardiamente ou de forma insuficiente. A queda de 70% em conversões é indicador de que o tráfego atraído não corresponde ao público-alvo ideal.</p>
+<p><strong>Pressão Sobre a Relevância:</strong> A redução de 70% nas conversões é um sinal crítico de desalinhamento entre os anúncios, palavras-chave e a página de destino. Apesar das múltiplas otimizações realizadas (negativações de termos), a estratégia de segmentação pode estar muito restritiva ou capturando intenção inadequada. A limitação ao segmento de renda mais alto (10% superior) pode ter reduzido o volume de potenciais clientes.</p>
+
+<p><strong>Questão do Dispositivo Móvel:</strong> Uma observação preocupante é que 84,6% dos cliques vieram de celulares, mas geraram apenas 1 conversão. Este é um indicador de possível problema na experiência mobile da página de destino ou incompatibilidade entre a mensagem do anúncio e a oferta visualizada no dispositivo.</p>
+
+<p><strong>Efetividade das Otimizações:</strong> As seis rodadas de otimização focaram em negativações, que reduzem impressões desnecessárias. Contudo, o efeito acumulativo pode ter tornado o público-alvo muito segmentado, reduzindo volume sem necessariamente melhorar qualidade. A pausa de "ppf" em correspondência ampla no dia 23/02 foi uma decisão tardia, considerando que essa palavra-chave não gerou conversões em todo o período.</p>
+
+<p><strong>Estrutura de Palavras-Chave:</strong> As top keywords monitoradas mostram volume muito baixo e zero conversões combinadas. Isso sugere que:</p>
 
 <ul>
-<li><strong>Problema de Qualidade do Tráfego:</strong> A negativação de termos genéricos no dia 23/02 (movimentação de "ppf" para correspondência de frase) foi necessária, mas chegou tarde demais para recuperar as conversões do mês.</li>
-<li><strong>Desequilíbrio por Dispositivo:</strong> Celulares representam 84,6% dos cliques mas apenas 33,3% das conversões. Computadores, com apenas 15,4% dos cliques, convertem 66,7% das transações. Isto sugere otimização inadequada para mobile ou público mobile com intenção de pesquisa diferente.</li>
-<li><strong>Segmentação Etária Inadequada:</strong> A abertura para faixa etária 25-34 anos no dia 11/02, associada à remoção de público que busca emprego, pode ter reduzido significativamente o pool de conversores qualificados.</li>
-<li><strong>Keywords Genéricas Dominando:</strong> O termo "ppf" isolado continua atraindo tráfego sem conversão, indicando persistência de problema que deveria ter sido resolvido antes.</li>
+<li>As palavras-chave priorizadas podem não refletir com precisão a intenção de compra do público-alvo</li>
+<li>Há possibilidade de palavras-chave mais relevantes não estarem sendo capturadas adequadamente</li>
+<li>A competição por termos genéricos como "ppf" pode estar elevada, atraindo tráfego com baixa intenção</li>
 </ul>
 
-<p>A campanha necessita de <strong>recalibração profunda</strong> em três frentes: revisão da segmentação demográfica (potencialmente revertendo restrições etárias), otimização de landing pages específicas para mobile, e estratégia de keywords que privilegie termos com intenção comercial clara (ex: "ppf em Florianópolis" vs. "ppf" genérico).</p>
+<p><strong>Recomendação Estratégica:</strong> Fevereiro foi um mês de ajustes agressivos que parecem ter impactado negativamente a quantidade de conversões. É necessário avaliar se houve mudanças externas (sazonalidade, concorrência) ou se as otimizações
 </div>
 </section>
 </main>
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
-    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:06</div>
+    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:43</div>
   </div>
 </footer>
 <script>

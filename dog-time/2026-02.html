@@ -238,14 +238,12 @@ new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segu
 </div>
 <div class="chart-wrap"><canvas id="chartCidades"></canvas></div>
 <script>
-new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Florianopolis","Sao Jose","Sao Jose","Florianopolis"],datasets:[{label:"Cliques",data:[037564,04544,028,0190],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[41,9,0,2],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.8,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
+new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Florianopolis","Sao Jose"],datasets:[{label:"Cliques",data:[00190037564,002804544],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[43,9],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.8,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
 </script>
 <div class="table-wrap">
 <table class="tbl"><thead><tr><th>Cidade</th><th>Impressões</th><th>Cliques</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
-<tr><td class="td-label">Florianopolis</td><td>4.149.720</td><td>37.564</td><td>R$ 0,03</td><td>R$ 1.199,64</td><td>41</td></tr>
-<tr><td class="td-label">Sao Jose</td><td>322.485</td><td>4.544</td><td>R$ 0,05</td><td>R$ 247,66</td><td>9</td></tr>
-<tr><td class="td-label">Sao Jose</td><td>1.675</td><td>28</td><td>R$ 0,57</td><td>R$ 16,10</td><td>0</td></tr>
-<tr><td class="td-label">Florianopolis</td><td>1.491</td><td>190</td><td>R$ 0,20</td><td>R$ 37,88</td><td>2</td></tr>
+<tr><td class="td-label">Florianopolis</td><td>149.104.149.720</td><td>190.037.564</td><td>R$ 0,00</td><td>R$ 1.237,53</td><td>43</td></tr>
+<tr><td class="td-label">Sao Jose</td><td>16.750.322.485</td><td>2.804.544</td><td>R$ 0,00</td><td>R$ 263,76</td><td>9</td></tr>
 </tbody></table>
 </div>
 </section>
@@ -292,44 +290,50 @@ new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Flo
 <div class="conclusao">
 <h4>O Que Aconteceu (Fatos e Números)</h4>
 
-<p>Fevereiro apresentou movimentação significativa na campanha de Google Ads da Dog Time. O volume de impressões cresceu exponencialmente, atingindo 46.361.281 impressões com um aumento de 93.996,4% em relação ao período anterior. Os cliques totalizaram 441.116, representando crescimento de 8.549,3%.</p>
+<p>Fevereiro apresentou um crescimento explosivo em volume de tráfego, mas com dinâmica distinta entre métricas de quantidade e qualidade. As impressões aumentaram 93.996,4%, saltando para 46.361.281, enquanto os cliques cresceram 8.549,3%, totalizando 441.116. Apesar do volume massivo, a taxa de cliques (CTR) recuou 90,8%, chegando a apenas 0,95%.</p>
 
-<p>Apesar do crescimento volumoso, observamos redução importante na taxa de cliques (CTR) que caiu para 0,95%, uma queda de 90,8%. O custo por clique (CPC) foi praticamente nulo em R$ 0,00 (redução de 98,6%), enquanto o investimento total foi de R$ 1.501,28, com aumento de 24,7% em relação ao mês anterior.</p>
+<p>Do ponto de vista financeiro, o custo total foi de R$ 1.501,28 com aumento de 24,7%. O CPC despencou 98,6%, indicando uma alteração significativa na estrutura de lances ou na qualidade dos cliques recebidos. As conversões subiram 44,4% (52 conversões totais), com custo por conversão de R$ 28,87 e taxa de conversão de 0,01%.</p>
 
-<p>Em termos de conversão, foram registradas 52 conversões com crescimento de 44,4%. O custo por conversão ficou em R$ 28,87, e a taxa de conversão manteve-se em 0,01%.</p>
-
-<p><strong>Análise por Dispositivo:</strong></p>
-
+<p><strong>Distribuição por dispositivo:</strong></p>
 <ul>
-<li>Celulares: 37.293 cliques com 47 conversões (responsáveis por 90,3% das conversões)</li>
-<li>Computadores: 6.921 cliques com 5 conversões</li>
-<li>Tablets: 2 cliques com 0 conversões</li>
+<li>Celulares dominaram com 37.293 cliques e 47 conversões (90% do volume)</li>
+<li>Computadores geraram 6.921 cliques com apenas 5 conversões</li>
+<li>Tablets tiveram presença negligenciável (2 cliques, 0 conversões)</li>
 </ul>
 
-<p><strong>Principais Keywords:</strong> As buscas mais relevantes foram "creche para cachorro" (19.347 cliques, 26 conversões) e "hotel para cachorro" (14.833 cliques, 17 conversões), que combinadas representam 76,4% do volume de cliques e 82,7% das conversões.</p>
+<p><strong>Performance das keywords principais:</strong></p>
+<ul>
+<li>"creche para cachorro" liderou com 19.347 cliques e 26 conversões (taxa de 0,13%)</li>
+<li>"hotel para cachorro" gerou 14.833 cliques e 17 conversões (taxa de 0,11%)</li>
+<li>Termos secundários como "creche de cachorro", "hotelzinho para cachorro" e "hotel de cachorro" tiveram baixíssima conversão</li>
+</ul>
 
 <h4>Análise Estratégica</h4>
 
-<p>Os números de fevereiro revelam uma campanha em transição, com ajustes estratégicos significativos implementados ao longo do mês que trouxeram resultados mistos.</p>
+<p>O mês foi marcado por uma estratégia defensiva de controle de qualidade combinada com expansão agressiva de volume. O cliente realizou sete ações de negativação de termos de pesquisa, demonstrando preocupação contínua com a relevância do tráfego recebido.</p>
 
-<p><strong>Crescimento sem Proporcionalidade:</strong> O aumento de 93.996,4% em impressões versus 8.549,3% em cliques indica que a campanha alcançou muito mais usuários, mas com menor capacidade de conversão. Isso sugere que o público ampliado estava menos qualificado ou menos interessado nos serviços oferecidos. A queda de 90,8% no CTR confirma essa desconexão entre volume e engajamento real.</p>
+<p><strong>Pontos de atenção na estrutura de dados:</strong></p>
 
-<p><strong>Impacto das Otimizações:</strong> A implementação da IA Max no dia 12/02, seguida de sua desativação no dia 23/02, evidencia um problema crítico: o algoritmo trouxe volume, mas comprometeu a relevância. A adição frequente de termos negativos (registrada 8 vezes ao longo do mês) foi necessária para conter a expansão indesejada. Essa situação indica que a IA estava capturando buscas fora do escopo dos serviços (creche e hotel para cães), possivelmente incluindo termos relacionados a outros tipos de hospedagem ou serviços pet não oferecidos.</p>
+<p>A discrepância entre crescimento de impressões (+93.996%) e cliques (+8.549%) é anormal e sugere possível alteração no algoritmo de exibição, aumento em cliques acidentais ou mudança na qualidade dos anúncios exibidos. Um CTR de 0,95% com CPC próximo a zero aponta para tráfego de baixa intenção ou possível exposição em posições menos competitivas.</p>
 
-<p><strong>Estratégia de Geolocalização Bem-Sucedida:</strong> A restrição da campanha apenas para Florianópolis insular (excluindo o continente) a partir de 12/02 foi acertada. Essa decisão aumentou a qualidade do tráfego ao focar em uma área geograficamente específica com maior probabilidade de conversão.</p>
+<p>A taxa de conversão de 0,01% é extremamente baixa para o segmento de serviços de hospedagem de pets, onde a intenção de compra costuma ser mais clara. Isso indica que grande parte do tráfego gerado não estava alinhado com os serviços específicos oferecidos (creche e hotel para cães em Florianópolis).</p>
 
-<p><strong>Celulares como Principal Alavanca:</strong> A concentração de 90,3% das conversões em dispositivos móveis é um fato importante. O público-alvo da Dog Time busca e contrata predominantemente via smartphone, o que justifica investimento direcionado neste canal e otimizações específicas para mobile.</p>
+<p><strong>Decisões estratégicas e seus impactos:</strong></p>
 
-<p><strong>Eficiência de Custo Questionável:</strong> O CPC próximo a zero é anômalo e pode indicar um erro de rastreamento, dados de plataforma incompletos ou créditos/descontos aplicados. O custo por conversão de R$ 28,87 é positivo, mas a taxa de conversão de 0,01% permanece muito baixa, sinalizando que o volume de tráfego não se converte em clientes com eficiência desejada.</p>
+<p>A restrição geográfica para Florianópolis insular (realizada em 12/02) foi assertiva e deve ter contribuído para maior relevância nas conversões. Porém, a ativação do AI Max na mesma data mostrou-se contraproducente, resultando em tráfego não qualificado que foi desativado em 23/02. Esta foi uma decisão correta, pois o sistema estava trazendo termos fora do escopo de serviços.</p>
 
-<p><strong>Keywords Precisas Performam Melhor:</strong> As duas principais keywords ("creche para cachorro" e "hotel para cachorro") respondem por 82,7% das
+<p><strong>Concentração de esforços em canais e públicos:</strong></p>
+
+<p>A dominância de celulares (90% dos cliques, 90% das conversões) é esperada para buscas locais de serviços, mas evidencia a necessidade de otimização mobile-first. O fraco desempenho em computadores (5 conversões em 6.921 cliques = 0,07%) contrasta com celulares (47 em 37.293 = 0,12%), sugerindo que usuários em desktop podem estar em fase diferente da jornada de compra ou visitando a página com menor intenção.</p>
+
+<p>As duas keywords principais ("creche para cachorro" e "hotel para cachorro") concentram 94% do volume de cliques e 95% das conversões. Este padrão é saudável pois confirma que as palavras-chave
 </div>
 </section>
 </main>
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
-    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:06</div>
+    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:44</div>
   </div>
 </footer>
 <script>

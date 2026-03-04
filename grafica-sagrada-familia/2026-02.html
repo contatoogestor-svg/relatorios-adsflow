@@ -238,13 +238,12 @@ new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segu
 </div>
 <div class="chart-wrap"><canvas id="chartCidades"></canvas></div>
 <script>
-new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Florianopolis","Sao Jose","Sao Jose"],datasets:[{label:"Cliques",data:[0201,058,021],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[43,18,5],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.8,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
+new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Sao Jose","Florianopolis"],datasets:[{label:"Cliques",data:[0021058,00201],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[23,43],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.8,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
 </script>
 <div class="table-wrap">
 <table class="tbl"><thead><tr><th>Cidade</th><th>Impressões</th><th>Cliques</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">Sao Jose</td><td>1.310.467</td><td>21.058</td><td>R$ 0,00</td><td>R$ 23,82</td><td>23</td></tr>
 <tr><td class="td-label">Florianopolis</td><td>1.682</td><td>201</td><td>R$ 0,26</td><td>R$ 52,43</td><td>43</td></tr>
-<tr><td class="td-label">Sao Jose</td><td>467</td><td>58</td><td>R$ 0,29</td><td>R$ 17,07</td><td>18</td></tr>
-<tr><td class="td-label">Sao Jose</td><td>131</td><td>21</td><td>R$ 0,32</td><td>R$ 6,75</td><td>5</td></tr>
 </tbody></table>
 </div>
 </section>
@@ -287,32 +286,37 @@ new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Flo
 <div class="conclusao">
 <h4>O Que Aconteceu (Fatos e Números)</h4>
 
-<p>Fevereiro apresentou uma redução significativa no volume de impressões, caindo 43,6% em relação ao mês anterior, passando de aproximadamente 4.040 para 2.280 impressões. Apesar dessa queda, o comportamento dos usuários que clicaram nos anúncios melhorou consideravelmente: o CTR (taxa de cliques) cresceu 45,2%, atingindo 12,28%, enquanto o número de conversões diminuiu apenas 19,5%, resultando em 66 conversões.</p>
+<p>Fevereiro apresentou um cenário de contração em métricas-chave, mas com sinais positivos em eficiência. A campanha registrou <strong>2.280 impressões</strong>, representando uma queda de 43,6% em relação ao mês anterior. Os <strong>cliques caíram 18,1%</strong>, totalizando 280 interações, enquanto o custo se manteve praticamente estável em <strong>R$ 76,25</strong> (-0,1%).</p>
 
-<p>O custo por clique subiu 22,0%, chegando a R$ 0,27, mas o custo total manteve-se praticamente estável (-0,1%), permanecendo em R$ 76,25. O custo por conversão alcançou R$ 1,16, indicando uma eficiência notável. A taxa de conversão do mês foi de 23,57%, demonstrando uma qualidade elevada no tráfego gerado.</p>
+<p>Apesar da redução em volume, a qualidade do tráfego melhorou significativamente. A <strong>taxa de cliques (CTR) cresceu 45,2%</strong>, atingindo 12,28%, e a <strong>taxa de conversão alcançou 23,57%</strong>, com 66 conversões registradas. O custo por conversão manteve-se competitivo em <strong>R$ 1,16</strong>. No entanto, o custo por clique subiu 22%, chegando a R$ 0,27.</p>
 
-<p>Em relação aos dispositivos, celulares foram responsáveis por 78% dos cliques (218) e 71% das conversões (47), enquanto computadores geraram 22% dos cliques (61) e 29% das conversões (19). Tablets tiveram participação negligenciável com apenas 1 clique e 0 conversões.</p>
+<p>A distribuição por dispositivo mostra domínio absoluto do mobile, que concentrou 218 cliques (77,9%) e 47 conversões (71,2%). Computadores responderam por 61 cliques com 19 conversões, enquanto tablets tiveram participação negligenciável.</p>
 
-<p>A palavra-chave "gráfica" concentrou a maior parte do desempenho, com 238 cliques e 60 conversões. As buscas por localização, como "gráfica perto de mim" e "gráfica em florianópolis", somaram 28 cliques e 5 conversões juntas.</p>
+<p>A palavra-chave "gráfica" continua sendo o motor da campanha, gerando 238 cliques e 60 conversões. As buscas por localização ("perto de mim", "em Florianópolis", "em São José") representam volume menor, mas mantêm taxas de conversão relevantes.</p>
 
 <h4>Análise Estratégica</h4>
 
-<p><strong>Qualidade em detrimento de volume:</strong> A redução de 43,6% em impressões não reflete uma performance negativa. Na verdade, indica que as otimizações realizadas durante o mês — especialmente a negativação de termos irrelevantes como "plotagem" — resultaram em um tráfego mais qualificado. O aumento do CTR em 45,2% comprova que os anúncios exibidos geravam maior interesse, e a queda de apenas 19,5% em conversões reforça essa tese.</p>
+<p>O mês reflete uma estratégia clara de refinamento. As três rodadas de negativações de termos de pesquisa (02, 09 e 23 de fevereiro) demonstram um trabalho ativo para eliminar tráfego não-qualificado. A exclusão de "plotagem" foi particularmente estratégica, removendo procuras por serviços que a Gráfica Sagrada Família não oferece, evitando desperdício de orçamento.</p>
 
-<p><strong>Custo-benefício otimizado:</strong> O custo por conversão de R$ 1,16 permanece extremamente competitivo no segmento de gráficas. O aumento no CPC é secundário diante da manutenção do custo total e da elevada taxa de conversão de 23,57%, que está muito acima da média de mercado para o setor.</p>
+<p>A queda em impressões e cliques, embora pareça negativa em primeira análise, é consequência direta dessa estratégia de filtragem. O resultado líquido é positivo: mantivemos o investimento praticamente igual (R$ 76,25), mas melhoramos significativamente a qualidade, como comprovam os aumentos no CTR (+45,2%) e na taxa de conversão (23,57%).</p>
 
-<p><strong>Dependência de buscas genéricas:</strong> A palavra-chave "gráfica" sozinha representa 85,7% de todos os cliques e 90,9% das conversões. Embora essa palavra-chave seja eficiente, essa concentração sugere uma oportunidade: expandir o desempenho de buscas por localização e serviços específicos. As campanhas locais ("perto de mim", "em florianópolis") têm potencial de crescimento.</p>
+<p>A concentração de performance no mobile (77,9% dos cliques) é um padrão importante a considerar. Para um negócio B2C como gráfica, essa tendência é esperada, mas exige atenção especial à experiência mobile e aos anúncios otimizados para esse dispositivo.</p>
 
-<p><strong>Mobilidade como prioridade:</strong> Com 71% das conversões vindas de celulares, a estratégia de anúncios mobile é acertada. A qualidade do landing page e a experiência mobile devem ser mantidas como foco principal, já que é o principal condutor de resultados.</p>
+<p>Dois pontos de atenção merecem destaque:</p>
 
-<p><strong>Impacto positivo das negativações:</strong> As três otimizações realizadas durante fevereiro (negativação de "plotagem" e demais termos de pesquisa irrelevantes) demonstraram efetividade ao eliminar cliques desperdiçados. Esse ajuste fino de palavras-chave negativas contribuiu diretamente para a melhoria da taxa de conversão e do CTR.</p>
+<ul>
+<li>O aumento de 22% no CPC pode estar relacionado à maior concorrência ou ajustes de lances durante as otimizações. Monitorar essa métrica é essencial para garantir rentabilidade;</li>
+<li>A queda de 19,5% em conversões absolutas, apesar da melhoria em taxa de conversão, sugere que o volume de tráfego qualificado pode estar próximo do seu potencial atual. Será necessário avaliar estratégias de expansão para retomar crescimento em conversões.</li>
+</ul>
+
+<p>O custo por conversão de R$ 1,16 continua excelente, indicando que a campanha opera em nível eficiente. A estratégia de limpeza implementada está funcionando corretamente, gerando tráfego mais qualificado e reduzindo desperdícios. O desafio do próximo período será equilibrar essa eficiência com a necessidade de retomar crescimento em volume de conversões.</p>
 </div>
 </section>
 </main>
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
-    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:06</div>
+    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:44</div>
   </div>
 </footer>
 <script>

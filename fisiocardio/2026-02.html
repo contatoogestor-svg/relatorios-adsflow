@@ -238,14 +238,12 @@ new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segu
 </div>
 <div class="chart-wrap"><canvas id="chartCidades"></canvas></div>
 <script>
-new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Florianopolis","Sao Jose","Florianopolis","Sao Jose"],datasets:[{label:"Cliques",data:[055,010,02,02],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[7,0,0,1],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.8,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
+new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Florianopolis","Sao Jose"],datasets:[{label:"Cliques",data:[002055,002010],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[7,1],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.8,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
 </script>
 <div class="table-wrap">
 <table class="tbl"><thead><tr><th>Cidade</th><th>Impressões</th><th>Cliques</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
-<tr><td class="td-label">Florianopolis</td><td>953</td><td>55</td><td>R$ 5,07</td><td>R$ 278,72</td><td>7</td></tr>
-<tr><td class="td-label">Sao Jose</td><td>178</td><td>10</td><td>R$ 6,09</td><td>R$ 60,90</td><td>0</td></tr>
-<tr><td class="td-label">Florianopolis</td><td>56</td><td>2</td><td>R$ 1,91</td><td>R$ 3,82</td><td>0</td></tr>
-<tr><td class="td-label">Sao Jose</td><td>22</td><td>2</td><td>R$ 3,94</td><td>R$ 7,88</td><td>1</td></tr>
+<tr><td class="td-label">Florianopolis</td><td>560.953</td><td>2.055</td><td>R$ 0,14</td><td>R$ 282,54</td><td>7</td></tr>
+<tr><td class="td-label">Sao Jose</td><td>220.178</td><td>2.010</td><td>R$ 0,03</td><td>R$ 68,78</td><td>1</td></tr>
 </tbody></table>
 </div>
 </section>
@@ -282,43 +280,32 @@ new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Flo
 <div class="conclusao">
 <h4>O Que Aconteceu (Fatos e Números)</h4>
 
-<p>Fevereiro apresentou um cenário de <strong>contração significativa em volume</strong>, porém com <strong>melhoria em eficiência</strong>. As impressões caíram 43,3% (1.209), acompanhadas pela queda de 29,6% nos cliques (69). Em contrapartida, a taxa de cliques (CTR) cresceu 24,2%, atingindo 5,71%, sinalizando que os anúncios restantes geraram maior interesse proporcional.</p>
+<p>Fevereiro apresentou uma redução significativa em volume de tráfego pago. As impressões caíram 43,3%, passando de 1.209 impressões, enquanto os cliques diminuíram 29,6% para um total de 69. Apesar dessa contração, o percentual de cliques em relação às impressões (CTR) melhorou 24,2%, atingindo 5,71%.</p>
 
-<p>O custo por clique (CPC) aumentou 38,4%, chegando a R$ 5,09, enquanto o custo total manteve-se praticamente estável em R$ 351,32 (-2,6%). As conversões caíram para 8 (-20,0%), mas com custo por conversão de R$ 43,91 e taxa de conversão de 11,59%, demonstrando uma <strong>qualidade de tráfego superior</strong>.</p>
+<p>O investimento total foi de R$ 351,32, uma redução de apenas 2,6% em relação ao mês anterior, indicando um aumento no custo por clique (CPC) de 38,4%, alcançando R$ 5,09. As conversões também diminuíram em 20%, totalizando 8 conversões com custo por conversão de R$ 43,91 e taxa de conversão de 11,59%.</p>
 
-<p>A análise por dispositivo revelou <strong>forte dependência do tráfego mobile</strong>: celulares geraram 52 cliques (75% do total) e 5 conversões, enquanto computadores representaram 15 cliques com 3 conversões. Tablets praticamente não contribuíram (2 cliques, 0 conversões).</p>
+<p>Em relação aos dispositivos, celulares lideraram o desempenho com 52 cliques e 5 conversões. Computadores geraram 15 cliques e 3 conversões, enquanto tablets contribuíram minimamente com 2 cliques e nenhuma conversão.</p>
 
-<p>As palavras-chave de melhor desempenho foram "fisioterapia domiciliar" (53 cliques, 6 conversões) e sua variação geográfica "fisioterapia domiciliar florianópolis" (11 cliques, 2 conversões). Termos como "fisioterapia neurológica" e "fisioterapia respiratória" não geraram conversões apesar de receberem tráfego.</p>
+<p>As palavras-chave mais efetivas foram "fisioterapia domiciliar" com 53 cliques e 6 conversões, seguida por "fisioterapia domiciliar florianópolis" com 11 cliques e 2 conversões. Termos como "fisioterapia neurológica" e "fisioterapia respiratória" geraram poucos cliques sem conversões.</p>
 
 <h4>Análise Estratégica</h4>
 
-<p>O mês de fevereiro reflete uma <strong>estratégia defensiva bem executada</strong>. As múltiplas otimizações realizadas (8 ações de negativação de termos) combinadas com o ajuste de lances (CPA para R$ 40 e CPC máximo para R$ 10) resultaram em <strong>redução agressiva de tráfego de baixa qualidade</strong>. Isso explica a queda em volume mas a melhoria significativa no CTR e na qualidade de conversão.</p>
+<p>O mês de fevereiro reflete um período de ajustes e otimizações contínuas na conta. A queda de 43,3% em impressões sugere que as múltiplas inclusões de palavras-chave negativas (realizadas em 8 ocasiões diferentes) tiveram impacto direto no volume de tráfego. Embora essa redução possa parecer negativa à primeira vista, o aumento simultâneo no CTR indica que o tráfego residual é de melhor qualidade, com usuários mais relevantes clicando nos anúncios.</p>
 
-<p>O aumento de 38,4% no CPC, apesar da queda em volume, sugere que os termos que permaneceram ativos têm maior concorrência ou maior valor comercial. Isso é positivo, pois indica que a campanha está focada em palavras-chave mais relevantes e com maior probabilidade de conversão.</p>
+<p>O aumento de 38,4% no CPC é preocupante e merece atenção. Esse crescimento não foi acompanhado por um aumento proporcional em conversões, sugerindo que o ajuste de CPC máximo para R$ 10,00 realizado em 09/02 pode ter resultado em pujas mais altas do que o necessário. O custo por conversão de R$ 43,91 aproxima-se do CPA alvo de R$ 40, demonstrando eficiência, mas a margem é apertada.</p>
 
-<p><strong>Pontos de Atenção:</strong></p>
+<p>O desempenho por dispositivo evidencia que celulares são o principal canal de conversão para a Fisiocárdio, representando 62,5% das conversões (5 de 8). Tablets praticamente não contribuem para o resultado, sugerindo possível desperdício de orçamento neste segmento.</p>
 
-<ul>
-<li>A queda de 20% em conversões é preocupante e sugere que o ajuste de CPA para R$ 40 pode ter sido restritivo demais. O custo por conversão atual (R$ 43,91) está acima do alvo estabelecido.</li>
-<li>A concentração em "fisioterapia domiciliar" (83% dos cliques dos top keywords) indica risco de dependência em um único termo. A diversificação de palavras-chave de longa cauda ainda apresenta oportunidades não exploradas.</li>
-<li>Tablets recebem pouco investimento de atenção, mas o volume é negligenciável. O foco deve permanecer em computadores e celulares.</li>
-<li>Os termos "fisioterapia neurológica" e "fisioterapia respiratória" geraram cliques sem conversão. A negativação progressiva foi a estratégia correta, mas a velocidade de teste foi adequada.</li>
-</ul>
+<p>A concentração de conversões em "fisioterapia domiciliar" (75% das conversões) indica que este é o serviço mais relevante para o público-alvo. As palavras-chave de especialidades específicas (neurológica e respiratória) não geraram conversões, o que pode indicar baixa demanda ou público desalinhado com a proposta de valor apresentada nos anúncios.</p>
 
-<p><strong>Oportunidades Identificadas:</strong></p>
-
-<ul>
-<li>A taxa de conversão de 11,59% é excelente para o segmento de saúde, indicando que o público-alvo e as mensagens estão bem alinhados quando o tráfego é qualificado.</li>
-<li>O termo "fisioterapeuta domiciliar", adicionado em 09/02, não aparece nos dados suficientemente para avaliar, sugerindo que merece mais impressões para validação.</li>
-<li>A performance do mobile (96,4% dos cliques via celular) é uma força. Recomenda-se considerar otimizações específicas para esta audiência.</li>
-</ul>
+<p>A estratégia de otimização do mês foi essencialmente defensiva, focando em negativações contínuas para refinar o público-alvo. Esse tipo de abordagem é adequada para melhorar a qualidade, mas é importante equilibrar a redução de volume com a manutenção de escala suficiente para gerar conversões consistentes. A redução de 20% em conversões reforça essa necessidade de equilíbrio.</p>
 </div>
 </section>
 </main>
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
-    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:05</div>
+    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:43</div>
   </div>
 </footer>
 <script>

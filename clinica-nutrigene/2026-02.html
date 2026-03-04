@@ -237,20 +237,20 @@ new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segu
 </div>
 <div class="chart-wrap"><canvas id="chartCidades"></canvas></div>
 <script>
-new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Sao Paulo","Rio de Janeiro","Brasilia","Salvador","Curitiba","Belo Horizonte","Recife","Campinas","Goiania","Niteroi"],datasets:[{label:"Cliques",data:[04,04,08,04,02,00,00,00,00,04],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[0,0,1,1,0,0,0,0,0,1],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.2,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
+new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Salvador","Florianopolis","Jau","Sao Paulo","Rio de Janeiro","Brasilia","Cuiaba","Belo Horizonte","Campinas","Valinhos"],datasets:[{label:"Cliques",data:[000004,000002,001010,0004,0024,0008,00000,0000,0000,00001],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[1,0,0,0,1,1,0,0,0,0],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.2,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
 </script>
 <div class="table-wrap">
 <table class="tbl"><thead><tr><th>Cidade</th><th>Impressões</th><th>Cliques</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
-<tr><td class="td-label">Sao Paulo</td><td>84</td><td>4</td><td>R$ 2,99</td><td>R$ 11,94</td><td>0</td></tr>
-<tr><td class="td-label">Rio de Janeiro</td><td>38</td><td>4</td><td>R$ 3,29</td><td>R$ 13,15</td><td>0</td></tr>
-<tr><td class="td-label">Brasilia</td><td>34</td><td>8</td><td>R$ 2,23</td><td>R$ 17,85</td><td>1</td></tr>
-<tr><td class="td-label">Salvador</td><td>23</td><td>4</td><td>R$ 2,79</td><td>R$ 11,16</td><td>1</td></tr>
-<tr><td class="td-label">Curitiba</td><td>20</td><td>2</td><td>R$ 2,51</td><td>R$ 5,03</td><td>0</td></tr>
-<tr><td class="td-label">Belo Horizonte</td><td>18</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
-<tr><td class="td-label">Recife</td><td>15</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
-<tr><td class="td-label">Campinas</td><td>15</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
-<tr><td class="td-label">Goiania</td><td>14</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
-<tr><td class="td-label">Niteroi</td><td>13</td><td>4</td><td>R$ 1,29</td><td>R$ 5,16</td><td>1</td></tr>
+<tr><td class="td-label">Salvador</td><td>10.323</td><td>4</td><td>R$ 2,79</td><td>R$ 11,16</td><td>1</td></tr>
+<tr><td class="td-label">Florianopolis</td><td>10.310</td><td>2</td><td>R$ 1,09</td><td>R$ 2,17</td><td>0</td></tr>
+<tr><td class="td-label">Jau</td><td>1.021</td><td>1.010</td><td>R$ 0,00</td><td>R$ 2,96</td><td>0</td></tr>
+<tr><td class="td-label">Sao Paulo</td><td>884</td><td>4</td><td>R$ 2,99</td><td>R$ 11,94</td><td>0</td></tr>
+<tr><td class="td-label">Rio de Janeiro</td><td>838</td><td>24</td><td>R$ 0,69</td><td>R$ 16,51</td><td>1</td></tr>
+<tr><td class="td-label">Brasilia</td><td>334</td><td>8</td><td>R$ 2,23</td><td>R$ 17,85</td><td>1</td></tr>
+<tr><td class="td-label">Cuiaba</td><td>303</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
+<tr><td class="td-label">Belo Horizonte</td><td>218</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
+<tr><td class="td-label">Campinas</td><td>215</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
+<tr><td class="td-label">Valinhos</td><td>202</td><td>1</td><td>R$ 2,89</td><td>R$ 2,89</td><td>0</td></tr>
 </tbody></table>
 </div>
 </section>
@@ -286,42 +286,42 @@ new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Sao
 <div class="conclusao">
 <h4>O Que Aconteceu (Fatos e Números)</h4>
 
-<p>A campanha de Google Ads da Clínica Nutrigene apresentou movimentos contraditórios em fevereiro. Enquanto as impressões cresceram 28,5% (838 impressões), houve retração nos indicadores de qualidade e conversão:</p>
+<p>Durante fevereiro, a campanha de Google Ads da Clínica Nutrigene apresentou movimentos contraditórios que refletem um período de ajustes estratégicos intensivos.</p>
 
-<ul>
-<li><strong>Cliques</strong>: 71 (-2,7%), indicando redução no interesse geral dos usuários</li>
-<li><strong>CTR</strong>: 8,47% (-24,3%), uma queda significativa na taxa de cliques por impressão</li>
-<li><strong>CPC</strong>: R$ 2,18 (+3,5%), pequeno aumento no custo por clique</li>
-<li><strong>Conversões</strong>: 10 (-33,3%), queda preocupante de 5 conversões em comparação ao mês anterior</li>
-<li><strong>Custo/Conversão</strong>: R$ 15,50, mantendo eficiência relativa apesar do volume menor</li>
-</ul>
+<p>No aspecto de volume, houve crescimento significativo de impressões (<strong>838, alta de 28,5%</strong>), indicando maior visibilidade da marca nos resultados de pesquisa. Porém, esse aumento não se converteu em mais cliques, que caíram 2,7% para 71 no mês. Como consequência, a taxa de cliques (CTR) recuou 24,3%, chegando a 8,47%.</p>
 
-<p>O dispositivo móvel foi o principal responsável pelos resultados positivos, com 61 cliques e todas as 10 conversões. Computadores geraram 10 cliques sem nenhuma conversão, sinalizando desperdício de orçamento neste segmento.</p>
+<p>O comportamento de conversões foi o aspecto mais crítico: <strong>apenas 10 conversões foram registradas, uma queda de 33,3%</strong> em relação ao mês anterior. O custo para cada conversão ficou em R$ 15,50, enquanto a taxa de conversão alcançou 14,08%.</p>
 
-<p>Entre as palavras-chave monitoradas, apenas "teste nutrigenético" apresentou performance, com 4 cliques e 1 conversão. As demais palavras não geraram movimento significativo.</p>
+<p>Quanto aos dispositivos, smartphones concentraram praticamente todo o resultado: <strong>61 dos 71 cliques vieram de celulares (85,9%), gerando 10 conversões</strong>. Computadores, por sua vez, trouxeram apenas 10 cliques sem nenhuma conversão.</p>
+
+<p>Investimento total foi de R$ 154,97 com custo por clique de R$ 2,18. A otimização ocorreu de forma contínua, com 7 intervenções ao longo do mês focadas principalmente em refinamento de palavras-chave e pausa de termos muito genéricos.</p>
 
 <h4>Análise Estratégica</h4>
 
-<p>Fevereiro refletiu uma campanha em transição, marcada por ajustes frequentes e realoação de recursos. Embora o volume de impressões tenha crescido, a qualidade do tráfego deteriorou, conforme evidenciado pela queda de 24,3% no CTR e redução de 33,3% nas conversões.</p>
+<p>O resultado de fevereiro reflete um período transicional onde as ações implementadas ainda não geraram impactos positivos consolidados. A situação exige análise em camadas:</p>
 
-<p><strong>Dilema Qualidade vs. Quantidade:</strong> O aumento de impressões com redução simultânea de cliques e conversões sugere que as palavras-chave negativadas ou ajustadas geravam tráfego relevante. As múltiplas otimizações realizadas (5 negações de termos, 1 pausa e 2 ajustes de correspondência) podem ter sido excessivamente agressivas, eliminando buscas qualificadas junto com as não relevantes.</p>
+<p><strong>A Questão do Volume Desconectado:</strong> O aumento de 28,5% em impressões sem acompanhamento em cliques sugere que a campanha está atingindo um público menos qualificado ou com menor intenção de conversão. As otimizações com palavras-chave negativas parecem estar funcionando para descartar buscas irrelevantes, mas a estratégia de adição de novos termos ("teste nutrigenético", "teste genético nutricional") ainda não apresenta volume suficiente para compensar as perdas.</p>
 
-<p><strong>Ajustes de Correspondência Problemáticos:</strong> A decisão de alterar "nutrigenética" para correspondência de frase (25/02) e posteriormente pausar "teste genético" em frase (26/02) evidencia incerteza estratégica. Essas mudanças ocorreram tardiamente no mês e contribuíram para instabilidade na performance.</p>
+<p><strong>O Desempenho Crítico em Conversões:</strong> A queda de 33,3% em conversões é preocupante e pode ser associada a dois fatores principais: (1) a redução natural de cliques, que caiu 2,7%, e (2) possíveis problemas na qualidade das landing pages ou nos anúncios em relação às novas palavras-chave testadas. As palavras que já convertiam bem ("teste nutrigenético") tiveram volume muito baixo (apenas 1 conversão).</p>
 
-<p><strong>Concentração em Mobile:</strong> O fato de 100% das conversões virem de dispositivos móveis, enquanto computadores desperdiçam orçamento, aponta para uma oportunidade clara de otimização. A campanha está alinhada ao comportamento do público-alvo, mas não está capitalizada adequadamente no desktop.</p>
+<p><strong>Concentração em Dispositivos Móveis:</strong> O fato de 100% das conversões virem de celulares enquanto computadores não converteram nada é um sinal relevante. Isso indica que:</p>
 
-<p><strong>Realocação de Orçamento (24/02):</strong> A transferência de verba do Meta Ads para Google (+R$ 19/dia) foi uma decisão correta baseada em qualidade. No entanto, o aumento de orçamento coincidiu com a redução de conversões, sugerindo que os ajustes de palavras-chave subsequentes não aproveitaram esse investimento adicional.</p>
+<ul>
+<li>O público da Clínica Nutrigene busca por seus serviços principalmente via smartphone</li>
+<li>A experiência mobile está funcionando melhor que a desktop</li>
+<li>Pode haver problemas na landing page desktop ou na compatibilidade dos anúncios para esse dispositivo</li>
+</ul>
 
-<p><strong>Dados Insuficientes nas Keywords:</strong> O relatório mostra baixíssimo volume nas palavras-chave rastreadas, dificultando a validação de decisões. É possível que o tráfego relevante esteja sendo capturado por variações de busca não explicitamente listadas, mascarando a real performance.</p>
+<p><strong>Qualidade das Otimizações:</strong> As múltiplas paradas de palavras-chave ("nutrigenomica", "teste genético") demonstram movimento tático correto de eliminar termos genéricos. Porém, a substituição dessas palavras por alternativas ainda não produziu escala. O ciclo pausa-pausa-pausa pode estar sendo muito agressivo, reduzindo o volume de testes sem conseguir encontrar termos substitutos com volume adequado.</p>
 
-<p>A campanha necessita de estabilização estratégica. O padrão de ajustes frequentes, embora demonstre atividade analítica, pode estar prejudicando o aprendizado dos algoritmos do Google Ads e fragmentando os resultados.</p>
+<p><strong>Recomendação Estratégica Geral:</strong> A campanha necesita de um período de estabilização. As mudanças frequentes dificultam a análise de causa-efeito. Seria prudente manter as configurações atuais por um período (2-3 semanas) para coletar dados suficientes sobre o desempenho real das novas palavras-chave implementadas, especialmente "teste nutrigenético" e variações em frase. Paralelamente, auditar a qualidade das landing pages mobile vs desktop e garantir que a página de destino está alinhada com a intenção de busca dos usuários.</p
 </div>
 </section>
 </main>
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
-    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:05</div>
+    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:43</div>
   </div>
 </footer>
 <script>
