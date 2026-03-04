@@ -217,7 +217,7 @@ section.sec{background:#fff;border-radius:16px;margin-top:24px;box-shadow:0 1px 
 </div>
 </div>
 <script>
-new Chart(document.getElementById("chartDevice"),{type:"doughnut",data:{labels:["Computadores","Celulares"],datasets:[{data:[010,061],backgroundColor:["#3b82f6","#8b5cf6","#f59e0b","#10b981","#ef4444"],borderWidth:0,borderRadius:4,hoverOffset:8}]},options:{responsive:true,cutout:"65%",plugins:{legend:{position:"bottom",labels:{padding:16,usePointStyle:true,pointStyle:"circle",font:{size:12,family:"Inter"}}}}}});
+new Chart(document.getElementById("chartDevice"),{type:"doughnut",data:{labels:["Computadores","Celulares"],datasets:[{data:[10,61],backgroundColor:["#3b82f6","#8b5cf6","#f59e0b","#10b981","#ef4444"],borderWidth:0,borderRadius:4,hoverOffset:8}]},options:{responsive:true,cutout:"65%",plugins:{legend:{position:"bottom",labels:{padding:16,usePointStyle:true,pointStyle:"circle",font:{size:12,family:"Inter"}}}}}});
 </script>
 </section>
 <section class="sec">
@@ -227,7 +227,7 @@ new Chart(document.getElementById("chartDevice"),{type:"doughnut",data:{labels:[
 </div>
 <div class="chart-wrap"><canvas id="chartSemana"></canvas></div>
 <script>
-new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segunda","Terca","Quarta","Quinta","Sexta","Sabado","Domingo"],datasets:[{label:"Cliques",data:[014,022,015,011,09,0,0],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[3,2,0,4,1,0,0],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:window.innerWidth<=768?1.2:2.2,interaction:{intersect:false,mode:"index"},plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}},y:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}}}}});
+new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segunda","Terca","Quarta","Quinta","Sexta","Sabado","Domingo"],datasets:[{label:"Cliques",data:[14,22,15,11,9,0,0],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[3,2,0,4,1,0,0],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:window.innerWidth<=768?1.2:2.2,interaction:{intersect:false,mode:"index"},plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}},y:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}}}}});
 </script>
 </section>
 <section class="sec">
@@ -237,20 +237,20 @@ new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segu
 </div>
 <div class="chart-wrap"><canvas id="chartCidades"></canvas></div>
 <script>
-new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Salvador","Florianopolis","Jau","Sao Paulo","Rio de Janeiro","Brasilia","Cuiaba","Belo Horizonte","Campinas","Valinhos"],datasets:[{label:"Cliques",data:[000004,000002,001010,0004,0024,0008,00000,0000,0000,00001],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[1,0,0,0,1,1,0,0,0,0],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.2,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
+new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Sao Paulo","Rio de Janeiro","Brasilia","Salvador","Curitiba","Belo Horizonte","Campinas","Recife","Florianopolis","Goiania"],datasets:[{label:"Cliques",data:[4,6,8,4,2,0,0,0,2,0],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[0,1,1,1,0,0,0,0,0,0],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.2,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
 </script>
 <div class="table-wrap">
 <table class="tbl"><thead><tr><th>Cidade</th><th>Impressões</th><th>Cliques</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
-<tr><td class="td-label">Salvador</td><td>10.323</td><td>4</td><td>R$ 2,79</td><td>R$ 11,16</td><td>1</td></tr>
-<tr><td class="td-label">Florianopolis</td><td>10.310</td><td>2</td><td>R$ 1,09</td><td>R$ 2,17</td><td>0</td></tr>
-<tr><td class="td-label">Jau</td><td>1.021</td><td>1.010</td><td>R$ 0,00</td><td>R$ 2,96</td><td>0</td></tr>
-<tr><td class="td-label">Sao Paulo</td><td>884</td><td>4</td><td>R$ 2,99</td><td>R$ 11,94</td><td>0</td></tr>
-<tr><td class="td-label">Rio de Janeiro</td><td>838</td><td>24</td><td>R$ 0,69</td><td>R$ 16,51</td><td>1</td></tr>
-<tr><td class="td-label">Brasilia</td><td>334</td><td>8</td><td>R$ 2,23</td><td>R$ 17,85</td><td>1</td></tr>
-<tr><td class="td-label">Cuiaba</td><td>303</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
-<tr><td class="td-label">Belo Horizonte</td><td>218</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
-<tr><td class="td-label">Campinas</td><td>215</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
-<tr><td class="td-label">Valinhos</td><td>202</td><td>1</td><td>R$ 2,89</td><td>R$ 2,89</td><td>0</td></tr>
+<tr><td class="td-label">Sao Paulo</td><td>92</td><td>4</td><td>R$ 2,99</td><td>R$ 11,94</td><td>0</td></tr>
+<tr><td class="td-label">Rio de Janeiro</td><td>46</td><td>6</td><td>R$ 2,75</td><td>R$ 16,51</td><td>1</td></tr>
+<tr><td class="td-label">Brasilia</td><td>37</td><td>8</td><td>R$ 2,23</td><td>R$ 17,85</td><td>1</td></tr>
+<tr><td class="td-label">Salvador</td><td>27</td><td>4</td><td>R$ 2,79</td><td>R$ 11,16</td><td>1</td></tr>
+<tr><td class="td-label">Curitiba</td><td>21</td><td>2</td><td>R$ 2,51</td><td>R$ 5,03</td><td>0</td></tr>
+<tr><td class="td-label">Belo Horizonte</td><td>20</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
+<tr><td class="td-label">Campinas</td><td>17</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
+<tr><td class="td-label">Recife</td><td>15</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
+<tr><td class="td-label">Florianopolis</td><td>14</td><td>2</td><td>R$ 1,09</td><td>R$ 2,17</td><td>0</td></tr>
+<tr><td class="td-label">Goiania</td><td>14</td><td>0</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
 </tbody></table>
 </div>
 </section>
@@ -284,44 +284,14 @@ new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Sal
   <h2 class="sec-title">Conclusão e Análise Estratégica</h2>
 </div>
 <div class="conclusao">
-<h4>O Que Aconteceu (Fatos e Números)</h4>
-
-<p>Durante fevereiro, a campanha de Google Ads da Clínica Nutrigene apresentou movimentos contraditórios que refletem um período de ajustes estratégicos intensivos.</p>
-
-<p>No aspecto de volume, houve crescimento significativo de impressões (<strong>838, alta de 28,5%</strong>), indicando maior visibilidade da marca nos resultados de pesquisa. Porém, esse aumento não se converteu em mais cliques, que caíram 2,7% para 71 no mês. Como consequência, a taxa de cliques (CTR) recuou 24,3%, chegando a 8,47%.</p>
-
-<p>O comportamento de conversões foi o aspecto mais crítico: <strong>apenas 10 conversões foram registradas, uma queda de 33,3%</strong> em relação ao mês anterior. O custo para cada conversão ficou em R$ 15,50, enquanto a taxa de conversão alcançou 14,08%.</p>
-
-<p>Quanto aos dispositivos, smartphones concentraram praticamente todo o resultado: <strong>61 dos 71 cliques vieram de celulares (85,9%), gerando 10 conversões</strong>. Computadores, por sua vez, trouxeram apenas 10 cliques sem nenhuma conversão.</p>
-
-<p>Investimento total foi de R$ 154,97 com custo por clique de R$ 2,18. A otimização ocorreu de forma contínua, com 7 intervenções ao longo do mês focadas principalmente em refinamento de palavras-chave e pausa de termos muito genéricos.</p>
-
-<h4>Análise Estratégica</h4>
-
-<p>O resultado de fevereiro reflete um período transicional onde as ações implementadas ainda não geraram impactos positivos consolidados. A situação exige análise em camadas:</p>
-
-<p><strong>A Questão do Volume Desconectado:</strong> O aumento de 28,5% em impressões sem acompanhamento em cliques sugere que a campanha está atingindo um público menos qualificado ou com menor intenção de conversão. As otimizações com palavras-chave negativas parecem estar funcionando para descartar buscas irrelevantes, mas a estratégia de adição de novos termos ("teste nutrigenético", "teste genético nutricional") ainda não apresenta volume suficiente para compensar as perdas.</p>
-
-<p><strong>O Desempenho Crítico em Conversões:</strong> A queda de 33,3% em conversões é preocupante e pode ser associada a dois fatores principais: (1) a redução natural de cliques, que caiu 2,7%, e (2) possíveis problemas na qualidade das landing pages ou nos anúncios em relação às novas palavras-chave testadas. As palavras que já convertiam bem ("teste nutrigenético") tiveram volume muito baixo (apenas 1 conversão).</p>
-
-<p><strong>Concentração em Dispositivos Móveis:</strong> O fato de 100% das conversões virem de celulares enquanto computadores não converteram nada é um sinal relevante. Isso indica que:</p>
-
-<ul>
-<li>O público da Clínica Nutrigene busca por seus serviços principalmente via smartphone</li>
-<li>A experiência mobile está funcionando melhor que a desktop</li>
-<li>Pode haver problemas na landing page desktop ou na compatibilidade dos anúncios para esse dispositivo</li>
-</ul>
-
-<p><strong>Qualidade das Otimizações:</strong> As múltiplas paradas de palavras-chave ("nutrigenomica", "teste genético") demonstram movimento tático correto de eliminar termos genéricos. Porém, a substituição dessas palavras por alternativas ainda não produziu escala. O ciclo pausa-pausa-pausa pode estar sendo muito agressivo, reduzindo o volume de testes sem conseguir encontrar termos substitutos com volume adequado.</p>
-
-<p><strong>Recomendação Estratégica Geral:</strong> A campanha necesita de um período de estabilização. As mudanças frequentes dificultam a análise de causa-efeito. Seria prudente manter as configurações atuais por um período (2-3 semanas) para coletar dados suficientes sobre o desempenho real das novas palavras-chave implementadas, especialmente "teste nutrigenético" e variações em frase. Paralelamente, auditar a qualidade das landing pages mobile vs desktop e garantir que a página de destino está alinhada com a intenção de busca dos usuários.</p
+<p style="color:#ef4444;font-weight:600">Análise estratégica será adicionada em breve.</p>
 </div>
 </section>
 </main>
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
-    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 11:43</div>
+    <div class="footer-meta">Relatório gerado automaticamente em 04/03/2026 13:04</div>
   </div>
 </footer>
 <script>
