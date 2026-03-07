@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Run Fitness Club - Fevereiro/2026 - Meta Ads</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#1f2937; }
+.hero { position:relative; background:#0a0a0a; color:#fff; padding:60px 20px 40px; text-align:center; overflow:hidden; }
+.hero-bg { position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(135deg,rgba(24,119,242,0.15),rgba(228,64,95,0.1)); }
+.hero-content { position:relative; z-index:1; max-width:900px; margin:0 auto; }
+.hero-logos { display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:24px; }
+.logo-af { height:40px; filter:brightness(0) invert(1); }
+.logo-cl { height:44px; }
+.logo-divider { width:1px; height:36px; background:rgba(255,255,255,0.3); }
+.hero-title { font-size:32px; font-weight:800; letter-spacing:-0.5px; margin-bottom:8px; }
+.hero-subtitle { font-size:16px; font-weight:400; color:rgba(255,255,255,0.7); margin-bottom:16px; }
+.hero-meta { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:24px; }
+.hero-badge { background:rgba(24,119,242,0.2); border:1px solid rgba(24,119,242,0.4); color:#60A5FA; padding:4px 16px; border-radius:20px; font-size:13px; font-weight:600; }
+.hero-period { color:rgba(255,255,255,0.5); font-size:13px; }
+.btn-download { background:#1877F2; color:#fff; border:none; padding:10px 24px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; transition:background 0.2s; }
+.btn-download:hover { background:#1565C0; }
+.main { max-width:900px; margin:24px auto; padding:0 16px; }
+.section { background:#fff; border-radius:12px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,0.08); overflow:hidden; }
+.section-header { display:flex; align-items:center; gap:10px; padding:16px 20px; cursor:pointer; border-bottom:1px solid #e5e7eb; user-select:none; }
+.section-header:hover { background:#f9fafb; }
+.section-icon { flex-shrink:0; }
+.section-title { font-size:16px; font-weight:700; color:#1f2937; flex:1; margin:0; }
+.section-chevron { color:#9ca3af; font-size:12px; transition:transform 0.2s; }
+.section-body { padding:20px; }
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media(max-width:700px) { .kpi-grid { grid-template-columns:repeat(2,1fr); } }
+.kpi-card { background:#f9fafb; border:1px solid #e5e7eb; border-left:3px solid #1877F2; border-radius:8px; padding:14px 16px; }
+.kpi-label { font-size:11px; color:#6b7280; font-weight:500; margin-bottom:6px; }
+.kpi-value { font-size:24px; font-weight:700; color:#111827; margin-bottom:4px; }
+.kpi-var { font-size:12px; font-weight:600; }
+.kpi-var.up { color:#16a34a; }
+.kpi-var.down { color:#dc2626; }
+.kpi-var.neutral { color:#9ca3af; }
+.charts-row { display:flex; gap:16px; }
+.chart-box { flex:1; min-width:0; }
+.chart-title { font-size:14px; font-weight:600; color:#374151; margin-bottom:12px; }
+.chart-center { display:flex; justify-content:center; margin-bottom:20px; }
+.tbl { width:100%; border-collapse:collapse; margin-top:16px; }
+.tbl th { font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:#6b7280; font-weight:600; text-align:center; padding:10px 8px; border-bottom:2px solid #e5e7eb; background:#e8f0fe; }
+.tbl th:first-child { text-align:left; }
+.tbl td { font-size:12px; padding:8px; border-bottom:1px solid #f3f4f6; color:#1f2937; text-align:center; }
+.tbl td:first-child { text-align:left; font-weight:600; }
+.tbl tr:nth-child(even) td { background:#f8f9fa; }
+.no-data { color:#9ca3af; font-style:italic; padding:20px 0; text-align:center; }
+.competitors-grid { display:flex; flex-direction:column; gap:12px; }
+.competitor-card { display:flex; align-items:center; gap:16px; padding:16px; border:1px solid #e5e7eb; border-radius:10px; }
+.competitor-rank { width:28px; height:28px; background:#E4405F; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+.competitor-pic { width:48px; height:48px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+.competitor-info { flex:1; min-width:0; }
+.competitor-name { font-size:14px; font-weight:700; color:#111827; margin:0 0 2px; }
+.competitor-bio { font-size:11px; color:#6b7280; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.competitor-stats { display:flex; gap:20px; }
+.competitor-stats div { text-align:center; }
+.competitor-stats strong { display:block; font-size:14px; font-weight:700; color:#111827; }
+.competitor-stats span { font-size:10px; color:#9ca3af; }
+.conclusao { background:#f9fafb; border-left:3px solid #1877F2; padding:20px 24px; border-radius:0 8px 8px 0; }
+.conclusao h4 { font-size:14px; font-weight:700; color:#111827; margin:16px 0 8px; }
+.conclusao h4:first-child { margin-top:0; }
+.conclusao p { font-size:13px; line-height:1.7; color:#374151; margin-bottom:8px; }
+.conclusao ul { padding-left:20px; margin-bottom:8px; }
+.conclusao li { font-size:13px; line-height:1.7; color:#374151; margin-bottom:4px; }
+.footer { max-width:900px; margin:0 auto 40px; padding:24px 16px; text-align:center; }
+.footer-brand { font-size:13px; font-weight:700; letter-spacing:1px; color:#374151; }
+.footer-meta { font-size:11px; color:#9ca3af; margin-top:4px; }
+@media print { body { background:#fff; } .main { margin:0; padding:0; max-width:100%; } .section { box-shadow:none; page-break-inside:avoid; } .hero { padding:30px 20px; } .btn-download { display:none; } .section-chevron { display:none; } }
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="hero-bg"></div>
+<div class="hero-content">
+<div class="hero-logos">
+</div>
+<h1 class="hero-title">Relatório Mensal</h1>
+<p class="hero-subtitle">Run Fitness Club — Meta Ads</p>
+<div class="hero-meta">
+<span class="hero-badge">Fevereiro/2026</span>
+<span class="hero-period">01/02/2026 a 28/02/2026</span>
+</div>
+<button class="btn-download" onclick="window.print()">Download PDF</button>
+</div>
+</header>
+<main class="main">
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg></div>
+<h2 class="section-title">Visão Geral</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-visao">
+<div class="kpi-grid">
+<div class="kpi-card" style="border-left-color:#1877F2;"><div class="kpi-label">Cliques (todos)</div><div class="kpi-value">1.565</div><div class="kpi-var up">&#9650; 21.88%</div></div>
+<div class="kpi-card" style="border-left-color:#00C853;"><div class="kpi-label">CTR (todos)</div><div class="kpi-value">3,08%</div><div class="kpi-var up">&#9650; 49.90%</div></div>
+<div class="kpi-card" style="border-left-color:#E4405F;"><div class="kpi-label">CPC (todos)</div><div class="kpi-value">R$ 0,59</div><div class="kpi-var up">&#9660; 25.61%</div></div>
+<div class="kpi-card" style="border-left-color:#833AB4;"><div class="kpi-label">Alcance</div><div class="kpi-value">46.670</div><div class="kpi-var down">&#9660; 16.80%</div></div>
+<div class="kpi-card" style="border-left-color:#FF6D00;"><div class="kpi-label">Frequência</div><div class="kpi-value">1,09</div><div class="kpi-var neutral">0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#1877F2;"><div class="kpi-label">Impressões</div><div class="kpi-value">50.794</div><div class="kpi-var down">&#9660; 18.69%</div></div>
+<div class="kpi-card" style="border-left-color:#E4405F;"><div class="kpi-label">Valor gasto</div><div class="kpi-value">R$ 926,97</div><div class="kpi-var up">&#9660; 9.33%</div></div>
+<div class="kpi-card" style="border-left-color:#00C853;"><div class="kpi-label">Conversas por mensagem iniciadas</div><div class="kpi-value">47</div><div class="kpi-var down">&#9660; 14.55%</div></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div>
+<h2 class="section-title">Visão Geral - Instagram</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-ig">
+<div class="kpi-grid">
+<div class="kpi-card" style="border-left-color:#E4405F;"><div class="kpi-label">Começaram a Seguir</div><div class="kpi-value">40</div><div class="kpi-var up">&#9650; 100.00%</div></div>
+<div class="kpi-card" style="border-left-color:#833AB4;"><div class="kpi-label">Publicações</div><div class="kpi-value">0</div><div class="kpi-var neutral">0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#FCAF45;"><div class="kpi-label">Curtidas</div><div class="kpi-value">0</div><div class="kpi-var neutral">0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#1877F2;"><div class="kpi-label">Comentários</div><div class="kpi-value">0</div><div class="kpi-var neutral">0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#00C853;"><div class="kpi-label">Média de curtidas por post</div><div class="kpi-value">0</div><div class="kpi-var neutral">0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#FF6D00;"><div class="kpi-label">Salvo</div><div class="kpi-value">0</div><div class="kpi-var neutral">0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#833AB4;"><div class="kpi-label">Compartilhamentos</div><div class="kpi-value">0</div><div class="kpi-var neutral">0.00%</div></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+<h2 class="section-title">Cliques em anúncios / Alcance</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-graficos">
+<div class="charts-row">
+<div class="chart-box"><h3 class="chart-title">Cliques em anúncios</h3><canvas id="chartCliques"></canvas></div>
+<div class="chart-box"><h3 class="chart-title">Alcance</h3><canvas id="chartAlcance"></canvas></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+<h2 class="section-title">Alcance demográfico (cliques)</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-idade">
+<p class="no-data">Dados demográficos indisponíveis para este período.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+<h2 class="section-title">Segmentação de gênero</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-genero">
+<p class="no-data">Dados de gênero indisponíveis para este período.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+<h2 class="section-title">Campanhas</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-campanhas">
+<p class="no-data">Dados de campanhas indisponíveis para este período.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+<h2 class="section-title">Principais Públicos</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-publicos">
+<p class="no-data">Dados de públicos indisponíveis para este período.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+<h2 class="section-title">Plataformas de exposição dos anúncios</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-plataformas">
+<p class="no-data">Dados de plataformas indisponíveis para este período.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div>
+<h2 class="section-title">Principais Concorrentes</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-concorrentes">
+<p class="no-data">Dados de concorrentes indisponíveis.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+<h2 class="section-title">Análise Estratégica – Fevereiro/2026: Run Fitness Club - Meta Ads</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-conclusao">
+<div class="conclusao">
+<h4>O Que Aconteceu (Fatos e Números)</h4>
+
+<p>Durante fevereiro, o Run Fitness Club investiu em duas estratégias complementares no Meta Ads, gerando resultados expressivos em alcance e engajamento:</p>
+
+<ul>
+<li><strong>Campanha de Engajamento (WhatsApp):</strong> Alcançamos 14.586 pessoas com um gasto de R$ 647,53, resultando em 47 mensagens qualificadas no WhatsApp. O custo por lead ficou em R$ 13,78, um valor competitivo para o segmento de fitness.</li>
+<li><strong>Campanha de Tráfego para Perfil:</strong> Geramos 32.084 impressões com 1.441 cliques no perfil do Instagram/Facebook, atraindo 40 novos seguidores ao custo de R$ 279,44. Os cliques no perfil cresceram 27,6% em relação ao período anterior, indicando conteúdo mais atrativo.</li>
+<li><strong>Investimento Total:</strong> R$ 926,97 em duas frentes estratégicas, com foco em leads qualificados e construção de audiência.</li>
+</ul>
+
+<h4>Análise de Eficiência do Investimento</h4>
+
+<p>A campanha de engajamento apresenta um <strong>custo por lead de R$ 13,78</strong>, que é o principal indicador de retorno nesta estratégia. Embora tenhamos registrado uma queda de 14,5% nas mensagens em relação ao mês anterior, o custo se mantém controlado e dentro de uma faixa aceitável para conversão de interesse em leads qualificados.</p>
+
+<p>A campanha de tráfego para perfil se comportou de forma positiva, com crescimento de 27,6% nos cliques. Isso sugere que o público está interagindo mais com o conteúdo publicado. O custo por clique nesta campanha é aproximadamente R$ 0,19, muito abaixo do padrão de mercado.</p>
+
+<p>A otimização realizada no dia 05/02 (ajuste geográfico removendo a região norte da ilha) foi uma decisão estratégica correta, evitando desperdício de orçamento com público fora da zona de cobertura da academia.</p>
+
+<h4>O Que Vamos Fazer (Próximos Passos)</h4>
+
+<ul>
+<li><strong>Revisar o conteúdo da campanha de engajamento:</strong> A queda de 14,5% em mensagens WhatsApp sugere que precisamos testar novos criativos e headlines mais persuasivos. Recomendamos A/B testar ofertas específicas (aula experimental, trial period, desconto de matrícula) para resgatar o volume de leads.</li>
+<li><strong>Expandir a campanha de tráfego com budget adicional:</strong> Com CTR positivo e crescimento de 27,6% em cliques, esta campanha merece mais investimento. O retorno em novos seguidores (40) demonstra que estamos atraindo público genuinamente interessado. Sugerimos aumentar o orçamento em 30-50% nesta frente.</li>
+<li><strong>Implementar rastreamento de conversão no WhatsApp:</strong> Para os próximos meses, é crítico rastrear quantas das 47 mensagens se convertem em matrículas. Isso nos permitirá calcular o custo real por cliente adquirido e otimizar melhor o investimento.</li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="footer-inner">
+<div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
+<div class="footer-meta">Relatório gerado automaticamente em 07/03/2026 15:33</div>
+</div>
+</footer>
+<script>
+function toggleSection(el){var b=el.nextElementSibling;var c=el.querySelector(".section-chevron");b.style.display=b.style.display==="none"?"block":"none";c.style.transform=b.style.display==="none"?"rotate(-90deg)":"";}
+window.addEventListener("beforeprint",function(){document.querySelectorAll("canvas").forEach(function(c){var i=document.createElement("img");i.src=c.toDataURL("image/png");i.style.width="100%";c.parentNode.insertBefore(i,c);c.style.display="none";});});
+window.addEventListener("afterprint",function(){document.querySelectorAll("canvas").forEach(function(c){c.style.display="";var i=c.previousElementSibling;if(i&&i.tagName==="IMG")i.remove();});});
+new Chart(document.getElementById("chartCliques"),{type:"line",data:{labels:["01/02","02/02","03/02","04/02","05/02","06/02","07/02","08/02","09/02","10/02","11/02","12/02","13/02","14/02","15/02","16/02","17/02","18/02","19/02","20/02","21/02","22/02","23/02","24/02","25/02","26/02","27/02","28/02"],datasets:[{data:[51,51,52,49,51,42,34,48,56,38,27,42,42,42,53,49,62,39,40,49,47,45,84,109,104,70,78,111],borderColor:"#1877F2",backgroundColor:"rgba(24,119,242,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}});
+new Chart(document.getElementById("chartAlcance"),{type:"line",data:{labels:["01/02","02/02","03/02","04/02","05/02","06/02","07/02","08/02","09/02","10/02","11/02","12/02","13/02","14/02","15/02","16/02","17/02","18/02","19/02","20/02","21/02","22/02","23/02","24/02","25/02","26/02","27/02","28/02"],datasets:[{data:[2012,1863,1866,1576,1471,1558,1729,1790,2022,1509,1010,1444,1188,1444,1616,1877,1785,1607,1494,1320,1416,1624,1922,2380,2027,1513,1668,1939],borderColor:"#60A5FA",backgroundColor:"rgba(96,165,250,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}});
+</script>
+</body>
+</html>
