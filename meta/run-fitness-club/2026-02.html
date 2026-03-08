@@ -41,11 +41,12 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 .kpi-var.up { color:#16a34a; }
 .kpi-var.down { color:#dc2626; }
 .kpi-var.neutral { color:#9ca3af; }
-.charts-row { display:flex; gap:16px; }
-.chart-box { flex:1; min-width:0; }
+.charts-row { display:flex; gap:16px; flex-wrap:wrap; }
+.chart-box { flex:1; min-width:280px; }
 .chart-title { font-size:14px; font-weight:600; color:#374151; margin-bottom:12px; }
 .chart-center { display:flex; justify-content:center; margin-bottom:20px; }
-.tbl { width:100%; border-collapse:collapse; margin-top:16px; }
+.tbl-wrapper { overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:16px; }
+.tbl { width:100%; border-collapse:collapse; min-width:600px; }
 .tbl th { font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:#6b7280; font-weight:600; text-align:center; padding:10px 8px; border-bottom:2px solid #e5e7eb; background:#e8f0fe; }
 .tbl th:first-child { text-align:left; }
 .tbl td { font-size:12px; padding:8px; border-bottom:1px solid #f3f4f6; color:#1f2937; text-align:center; }
@@ -53,13 +54,13 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 .tbl tr:nth-child(even) td { background:#f8f9fa; }
 .no-data { color:#9ca3af; font-style:italic; padding:20px 0; text-align:center; }
 .competitors-grid { display:flex; flex-direction:column; gap:12px; }
-.competitor-card { display:flex; align-items:center; gap:16px; padding:16px; border:1px solid #e5e7eb; border-radius:10px; }
+.competitor-card { display:flex; align-items:center; gap:16px; padding:16px; border:1px solid #e5e7eb; border-radius:10px; flex-wrap:wrap; }
 .competitor-rank { width:28px; height:28px; background:#E4405F; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
 .competitor-pic { width:48px; height:48px; border-radius:50%; object-fit:cover; flex-shrink:0; }
-.competitor-info { flex:1; min-width:0; }
+.competitor-info { flex:1; min-width:120px; }
 .competitor-name { font-size:14px; font-weight:700; color:#111827; margin:0 0 2px; }
-.competitor-bio { font-size:11px; color:#6b7280; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.competitor-stats { display:flex; gap:20px; }
+.competitor-bio { font-size:11px; color:#6b7280; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%; }
+.competitor-stats { display:flex; gap:20px; flex-shrink:0; }
 .competitor-stats div { text-align:center; }
 .competitor-stats strong { display:block; font-size:14px; font-weight:700; color:#111827; }
 .competitor-stats span { font-size:10px; color:#9ca3af; }
@@ -72,6 +73,7 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 .footer { max-width:900px; margin:0 auto 40px; padding:24px 16px; text-align:center; }
 .footer-brand { font-size:13px; font-weight:700; letter-spacing:1px; color:#374151; }
 .footer-meta { font-size:11px; color:#9ca3af; margin-top:4px; }
+@media (max-width:640px) { .charts-row { flex-direction:column; } .chart-box { min-width:100%; min-height:250px; } .chart-box canvas { min-height:220px !important; } .kpi-grid { grid-template-columns:1fr 1fr !important; } .competitor-card { flex-direction:column; align-items:flex-start; gap:12px; } .competitor-stats { width:100%; justify-content:space-around; padding-top:8px; border-top:1px solid #f3f4f6; } .competitor-info { min-width:0; width:100%; } .competitor-bio { white-space:normal; } }
 @media print { body { background:#fff; } .main { margin:0; padding:0; max-width:100%; } .section { box-shadow:none; page-break-inside:avoid; } .hero { padding:30px 20px; } .btn-download { display:none; } .section-chevron { display:none; } }
 </style>
 </head>
@@ -152,7 +154,7 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 </div>
 <div class="section-body" id="sec-idade">
 <div class="chart-center"><canvas id="chartIdade" style="max-width:400px;max-height:400px;"></canvas></div>
-<table class="tbl"><thead><tr><th>Idade</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Idade</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
 <tr><td>18-24</td><td>1.474</td><td>1.001</td><td>38</td><td>1</td><td>7,79</td><td>7,79</td></tr>
 <tr><td>25-34</td><td>26.610</td><td>14.404</td><td>649</td><td>28</td><td>8,40</td><td>235,22</td></tr>
 <tr><td>35-44</td><td>19.089</td><td>12.063</td><td>622</td><td>30</td><td>9,36</td><td>280,94</td></tr>
@@ -160,7 +162,7 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 <tr><td>55-64</td><td>8.569</td><td>6.134</td><td>413</td><td>13</td><td>17,59</td><td>228,63</td></tr>
 <tr><td>65+</td><td>3.920</td><td>2.859</td><td>188</td><td>9</td><td>14,21</td><td>127,89</td></tr>
 <tr><td>Unknown</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0,00</td><td>0,03</td></tr>
-</tbody></table>
+</tbody></table></div>
 </div>
 </section>
 <section class="section">
@@ -171,11 +173,11 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 </div>
 <div class="section-body" id="sec-genero">
 <div class="chart-center"><canvas id="chartGenero" style="max-width:400px;max-height:400px;"></canvas></div>
-<table class="tbl"><thead><tr><th>Gênero</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Gênero</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
 <tr><td>mulher</td><td>40.063</td><td>22.223</td><td>1.283</td><td>80</td><td>10,54</td><td>843,19</td></tr>
 <tr><td>homem</td><td>33.429</td><td>22.935</td><td>1.108</td><td>25</td><td>14,28</td><td>357,12</td></tr>
 <tr><td>desconhecido</td><td>262</td><td>174</td><td>9</td><td>0</td><td>0,00</td><td>4,08</td></tr>
-</tbody></table>
+</tbody></table></div>
 </div>
 </section>
 <section class="section">
@@ -185,11 +187,11 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 <span class="section-chevron">&#9660;</span>
 </div>
 <div class="section-body" id="sec-campanhas">
-<table class="tbl"><thead><tr><th>Campanhas</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>CPC (todos)</th><th>CPM médio</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Campanhas</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>CPC (todos)</th><th>CPM médio</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
 <tr><td>ADS FLOW | [WHATS] | ENGAJAMENTO</td><td>17.862</td><td>10.764</td><td>335</td><td>1,93</td><td>36,25</td><td>47</td><td>13,78</td><td>647,53</td></tr>
 <tr><td>ADS FLOW - ENGAJAMENTO | VAGA PROFESSOR PILATES</td><td>22.959</td><td>8.127</td><td>638</td><td>0,43</td><td>12,08</td><td>58</td><td>4,78</td><td>277,40</td></tr>
 <tr><td>ADS FLOW | [PERFIL IG] | TRÁFEGO</td><td>32.933</td><td>28.372</td><td>1.427</td><td>0,20</td><td>8,49</td><td>0</td><td>0,00</td><td>279,46</td></tr>
-</tbody></table>
+</tbody></table></div>
 </div>
 </section>
 <section class="section">
@@ -199,11 +201,11 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 <span class="section-chevron">&#9660;</span>
 </div>
 <div class="section-body" id="sec-publicos">
-<table class="tbl"><thead><tr><th>Conjuntos de anúncios</th><th>Cliques (todos)</th><th>CPC (todos)</th><th>Alcance</th><th>Frequência</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th></tr></thead><tbody>
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Conjuntos de anúncios</th><th>Cliques (todos)</th><th>CPC (todos)</th><th>Alcance</th><th>Frequência</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th></tr></thead><tbody>
 <tr><td>[PERFIL IG] - R2KM - ADV+ +INTERESSES EM FITNESS - EXCLUSÃO DE BAIRROS E CIDADES</td><td>1.427</td><td>0,20</td><td>28.372</td><td>1,16</td><td>0</td><td>0,00</td></tr>
 <tr><td>[WHATS] - IG - LOL LISTA DE CLIENTES</td><td>287</td><td>1,94</td><td>9.050</td><td>1,60</td><td>46</td><td>12,13</td></tr>
 <tr><td>[WHATS] - IG - RAIO 1KM - ABERTO</td><td>48</td><td>1,86</td><td>1.784</td><td>1,87</td><td>1</td><td>89,51</td></tr>
-</tbody></table>
+</tbody></table></div>
 </div>
 </section>
 <section class="section">
@@ -213,10 +215,10 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 <span class="section-chevron">&#9660;</span>
 </div>
 <div class="section-body" id="sec-plataformas">
-<table class="tbl"><thead><tr><th>Plataforma</th><th>Cliques (todos)</th><th>Alcance</th><th>Impressões</th><th>Valor gasto</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th></tr></thead><tbody>
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Plataforma</th><th>Cliques (todos)</th><th>Alcance</th><th>Impressões</th><th>Valor gasto</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th></tr></thead><tbody>
 <tr><td>Facebook</td><td>35</td><td>1.038</td><td>1.925</td><td>52,09</td><td>1</td><td>52,09</td></tr>
 <tr><td>Instagram</td><td>2.365</td><td>44.686</td><td>71.829</td><td>1.152,30</td><td>104</td><td>11,08</td></tr>
-</tbody></table>
+</tbody></table></div>
 </div>
 </section>
 <section class="section">
@@ -229,7 +231,7 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 <div class="competitors-grid">
 <div class="competitor-card">
 <div class="competitor-rank">1</div>
-<img src="https://scontent-atl3-3.xx.fbcdn.net/v/t51.2885-15/475410201_1281268659607940_4005809171731514941_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7d201b&_nc_ohc=J4v-AusuHNQQ7kNvwFERGSF&_nc_oc=Adks8_dFFNXtmiPw3O_dZb8yL-iOvddyRg_9k6r3puSY7R2HYIdVDmnXdLGVH_keS40&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&edm=AL-3X8kEAAAA&oh=00_AfwRXg7ksdDpt0JnL7JV6ABBElICa1_T5pnDWhfXnKFkOw&oe=69B36B14" class="competitor-pic" alt="Pratique Fitness">
+<img src="https://scontent-atl3-3.xx.fbcdn.net/v/t51.2885-15/475410201_1281268659607940_4005809171731514941_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7d201b&_nc_ohc=J4v-AusuHNQQ7kNvwHcYkOJ&_nc_oc=AdmY8kK_NcmSXT5sW5wr78eQ9_Qkb73tcbocrq7264JbDTxTmY_EPshdjTLsARFu56Q&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&edm=AL-3X8kEAAAA&oh=00_AfwOsR2DGgg9shsg-mFYs-FmP7H0FW01ntOxmu9Ui31EUQ&oe=69B36B14" class="competitor-pic" alt="Pratique Fitness">
 <div class="competitor-info">
 <h4 class="competitor-name">Pratique Fitness</h4>
 <p class="competitor-bio">🥰 Pratique, acredite & movimente-se
@@ -239,12 +241,12 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 <div class="competitor-stats">
 <div><strong>8601</strong><span>posts</span></div>
 <div><strong>2.219</strong><span>following</span></div>
-<div><strong>370.567</strong><span>followers</span></div>
+<div><strong>370.565</strong><span>followers</span></div>
 </div>
 </div>
 <div class="competitor-card">
 <div class="competitor-rank">2</div>
-<img src="https://scontent-atl3-2.xx.fbcdn.net/v/t51.82787-15/607595887_18557973454028774_7694850942578731576_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=7d201b&_nc_ohc=B61OZDcG8ZAQ7kNvwHhYFPv&_nc_oc=AdmNK9Tb93gkZUsh8IG-weTiDy_AiRwffkBRXGWgZ4-gan32Xd25iGi16-XxVMLFZAE&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&edm=AL-3X8kEAAAA&_nc_gid=a39sj1D8Paimc7aTgKGHjg&oh=00_Afy3nI3LrzGJhjA-SbVv7bFuD2PjdTKEDTQiAvwqsspdSw&oe=69B37818" class="competitor-pic" alt="Run Fitness Club | Trindade, Floripa">
+<img src="https://scontent-atl3-2.xx.fbcdn.net/v/t51.82787-15/607595887_18557973454028774_7694850942578731576_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=7d201b&_nc_ohc=B61OZDcG8ZAQ7kNvwFA42iu&_nc_oc=Adn0ltGV9LGM3n1paoHnfqi05T-r_AMM6lZQ3L0hS99hZki1HB2fBmSky4r3-2np42Y&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&edm=AL-3X8kEAAAA&_nc_gid=9KaLB1b9JMF511UCobebJQ&oh=00_Afzu11lED6t2FpomQHVC0BHvaHD3SIVdo0mkMtIuFm0wTA&oe=69B37818" class="competitor-pic" alt="Run Fitness Club | Trindade, Floripa">
 <div class="competitor-info">
 <h4 class="competitor-name">Run Fitness Club | Trindade, Floripa</h4>
 <p class="competitor-bio">​Para quem precisa de exercício, mas foge das comuns! Aqui o foco é você 🤝 Atenção de 1 prof p/ max</p>
@@ -257,7 +259,7 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 </div>
 <div class="competitor-card">
 <div class="competitor-rank">3</div>
-<img src="https://scontent-atl3-2.xx.fbcdn.net/v/t51.82787-15/590908580_18548185999049988_433985542103468265_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=7d201b&_nc_ohc=wUDyGP8TcCIQ7kNvwEAxYc1&_nc_oc=AdluiazcOem9LdHc9-VzMREs33gRc4msXuoEV1xU6MHQ-3Xf143wXBZFYTjI4fQ8Nuw&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&edm=AL-3X8kEAAAA&_nc_gid=OuB_PGLndIeshWcNOvwUaA&oh=00_Afz2_iK2XQEOiBFPTeslV6Vc0QUgXG4OOcDw8QuNRTkJHw&oe=69B37077" class="competitor-pic" alt="Academia Prime">
+<img src="https://scontent-atl3-2.xx.fbcdn.net/v/t51.82787-15/590908580_18548185999049988_433985542103468265_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=7d201b&_nc_ohc=wUDyGP8TcCIQ7kNvwGF7lKB&_nc_oc=AdlHhAH8mNfy4hb7Y6ACmg9n2cqBWP8ub-R_mKWXUlNxzQDZ2W8cTOIQPdEatX_SfLw&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&edm=AL-3X8kEAAAA&_nc_gid=CB-ZAobPJaGsjEiax2zwYg&oh=00_AfzQBkJn4ziwAXoC3of86E3rfQxO2X1-8jfuL-1zIDsvuw&oe=69B37077" class="competitor-pic" alt="Academia Prime">
 <div class="competitor-info">
 <h4 class="competitor-name">Academia Prime</h4>
 <p class="competitor-bio">🏆 Há +10 anos transformando vidas
@@ -312,33 +314,41 @@ WhatsApp (48)8845 0699</p>
 <div class="conclusao">
 <h4>O Que Aconteceu (Fatos e Numeros)</h4>
 
-<p>Em fevereiro, as campanhas permanentes do Run Fitness Club alcançaram <strong>46.948 impressões</strong> e <strong>46.670 pessoas</strong> na região, gerando engajamento consistente nas duas frentes estratégicas:</p>
+<p>Fevereiro foi um mês produtivo para o Run Fitness Club nas plataformas Meta. Trabalhamos com duas campanhas permanentes bem definidas, cada uma com um objetivo claro:</p>
 
 <ul>
-<li><strong>Campanha de Engajamento (WhatsApp):</strong> 47 leads qualificados contataram seu negócio via WhatsApp, com 124 cliques e investimento de R$ 647.53</li>
-<li><strong>Campanha de Tráfego para Perfil:</strong> 1.441 cliques direcionados para seu Instagram, com 40 novos seguidores conquistados a partir de um investimento de R$ 279.44</li>
+<li><strong>Campanha de Engajamento (WhatsApp):</strong> Geramos 47 leads via WhatsApp com um investimento de R$ 647,53. O alcance foi de 14.586 pessoas, com 124 cliques que resultaram em conversas diretas pelo aplicativo.</li>
+
+<li><strong>Campanha de Tráfego para Perfil:</strong> Atraímos 40 novos seguidores para o Instagram/Facebook com um gasto de R$ 279,44. Esta campanha recebeu 1.441 cliques de interesse no perfil, demonstrando forte engajamento com a marca.</li>
+
+<li><strong>Volume total de cliques:</strong> 1.565 cliques combinados entre as duas campanhas, indicando boa repercussão das mensagens junto ao público.</li>
 </ul>
 
-<p>Observamos quedas em algumas métricas comparadas ao mês anterior: alcance diminuiu 29,5% na campanha de engajamento e 9,4% na de tráfego. Estamos acompanhando estas variações e faremos otimizações para recuperar o desempenho em março.</p>
+<p>Observamos que algumas métricas apresentaram variações mês a mês. O alcance da campanha de engajamento recuou 29,5%, assim como a campanha de tráfego teve redução de 9,4% no alcance. Estamos atentos a essas flutuações e já iniciamos otimizações, inclusive com a revisão das exclusões geográficas que realizamos no início do mês.</p>
 
 <h4>Analise de Eficiencia do Investimento</h4>
 
-<p><strong>Custo Real por Lead: R$ 13,78</strong></p>
+<p><strong>Custo por Lead Real (Campanha de Engajamento):</strong> R$ 13,78 por lead gerado via WhatsApp. Este é o número que realmente importa para seu negócio: cada mensagem de um potencial cliente custou esse valor.</p>
 
-<p>A campanha de engajamento mantém um custo por lead sólido e previsível. Para cada real investido em leads via WhatsApp, você recebe uma oportunidade genuína de contato com potencial cliente interessado em suas aulas.</p>
-
-<p>Analisando por faixa etária, identificamos onde o investimento rende melhor:</p>
+<p>Analisando por faixa etária, identificamos oportunidades importantes:</p>
 
 <ul>
-<li><strong>25-34 anos:</strong> Melhor custo-benefício com R$ 8,40 por mensagem (28 leads) - seu público mais responsivo</li>
-<li><strong>35-44 anos:</strong> Segunda melhor performance com R$ 9,36 por mensagem (30 leads) - praticamente empatado em volume</li>
-<li><strong>45-54 anos:</strong> 24 leads gerados, porém com custo mais elevado (R$ 13,50 por mensagem)</li>
-<li><strong>18-24 anos:</strong> Menor conversão geral, com apenas 1 lead desta faixa etária</li>
+<li><strong>18-24 anos:</strong> Menor volume, mas custo bem controlado (R$ 7,79 por mensagem). Público jovem e receptivo.</li>
+
+<li><strong>25-34 anos:</strong> Seu melhor público em termos de eficiência. Gerou 28 leads com custo de apenas R$ 8,40 por mensagem. Este é o segmento que mais responde bem às campanhas.</li>
+
+<li><strong>35-44 anos:</strong> Segundo melhor segmento, com 30 leads e custo de R$ 9,36 por mensagem. Praticamente empatado com a faixa anterior em produtividade.</li>
+
+<li><strong>45-54 anos:</strong> Gerou 24 leads, mas com custo elevado de R$ 13,50 por mensagem. Ainda assim, representa um público importante que não deve ser ignorado.</li>
+
+<li><strong>55-64 anos e acima:</strong> Menor resposta em volume de leads, com custos progressivamente maiores. Requerem estratégia diferenciada se quiser expandir nestes públicos.</li>
 </ul>
 
-<p>Na campanha de tráfego para perfil, o conjunto de anúncios <strong>[WHATS] - IG - LOL LISTA DE CLIENTES</strong> se destaca como o mais eficiente, gerando 46 mensagens com custo controlado de R$ 12,13 por contato. Este segmento representa 98% de todos os leads dessa campanha e prova que sua lista de clientes é um ativo valioso para crescimento.</p>
+<p>Na análise dos conjuntos de anúncios, o destaque fica para <strong>[WHATS] - IG - LOL LISTA DE CLIENTES</strong>, que gerou 46 das suas 47 mensagens com um custo eficiente de R$ 12,13 por lead. Esta é claramente sua melhor audience, reafirmando o valor de trabalhar com listas de clientes já conhecidos.</p>
 
-<p>O investimento total de <strong>R$ 926,97</strong> resultou em <strong>47 contatos diretos qualificados</strong> - pessoas que buscam informações sobre suas aulas, horários e modalidades. Este é o combustível do seu funil de vendas, e o custo está controlado e competitivo para o segmento de fitness.</p>
+<p><strong>Eficiência de gasto:</strong> Você investiu R$ 927 nas duas campanhas permanentes e gerou 47 leads qualificados + 40 novos seguidores. Considerando que cada novo seguidor é um potencial cliente futuro, o investimento total produziu resultados sólidos em duas frentes simultâneas: geração imediata de leads e construção de comunidade.</p>
+
+<p>A campanha de tráfego para perfil também mostrou crescimento em cliques (+27,6%), o que indica que as pessoas estão cada vez mais interessadas em conhecer seu perfil e sua academia. Este é um sinal positivo para a construção de marca.</p>
 </div>
 </div>
 </section>
@@ -346,15 +356,16 @@ WhatsApp (48)8845 0699</p>
 <footer class="footer">
 <div class="footer-inner">
 <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
-<div class="footer-meta">Relatório gerado automaticamente em 08/03/2026 12:04</div>
+<div class="footer-meta">Relatório gerado automaticamente em 08/03/2026 12:12</div>
 </div>
 </footer>
 <script>
 function toggleSection(el){var b=el.nextElementSibling;var c=el.querySelector(".section-chevron");b.style.display=b.style.display==="none"?"block":"none";c.style.transform=b.style.display==="none"?"rotate(-90deg)":"";}
 window.addEventListener("beforeprint",function(){document.querySelectorAll("canvas").forEach(function(c){var i=document.createElement("img");i.src=c.toDataURL("image/png");i.style.width="100%";c.parentNode.insertBefore(i,c);c.style.display="none";});});
 window.addEventListener("afterprint",function(){document.querySelectorAll("canvas").forEach(function(c){c.style.display="";var i=c.previousElementSibling;if(i&&i.tagName==="IMG")i.remove();});});
-new Chart(document.getElementById("chartCliques"),{type:"line",data:{labels:["01/02","02/02","03/02","04/02","05/02","06/02","07/02","08/02","09/02","10/02","11/02","12/02","13/02","14/02","15/02","16/02","17/02","18/02","19/02","20/02","21/02","22/02","23/02","24/02","25/02","26/02","27/02","28/02"],datasets:[{data:[51,51,52,49,51,42,34,48,56,38,27,42,42,42,53,49,62,39,40,49,47,45,84,109,104,70,78,111],borderColor:"#1877F2",backgroundColor:"rgba(24,119,242,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}});
-new Chart(document.getElementById("chartAlcance"),{type:"line",data:{labels:["01/02","02/02","03/02","04/02","05/02","06/02","07/02","08/02","09/02","10/02","11/02","12/02","13/02","14/02","15/02","16/02","17/02","18/02","19/02","20/02","21/02","22/02","23/02","24/02","25/02","26/02","27/02","28/02"],datasets:[{data:[2012,1863,1866,1576,1471,1558,1729,1790,2022,1509,1010,1444,1188,1444,1616,1877,1785,1607,1494,1320,1416,1624,1922,2380,2027,1513,1668,1939],borderColor:"#60A5FA",backgroundColor:"rgba(96,165,250,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}});
+var isMobile=window.innerWidth<640;var lineAR=isMobile?1.2:2;
+new Chart(document.getElementById("chartCliques"),{type:"line",data:{labels:["01/02","02/02","03/02","04/02","05/02","06/02","07/02","08/02","09/02","10/02","11/02","12/02","13/02","14/02","15/02","16/02","17/02","18/02","19/02","20/02","21/02","22/02","23/02","24/02","25/02","26/02","27/02","28/02"],datasets:[{data:[51,51,52,49,51,42,34,48,56,38,27,42,42,42,53,49,62,39,40,49,47,45,84,109,104,70,78,111],borderColor:"#1877F2",backgroundColor:"rgba(24,119,242,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:{responsive:true,aspectRatio:lineAR,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}});
+new Chart(document.getElementById("chartAlcance"),{type:"line",data:{labels:["01/02","02/02","03/02","04/02","05/02","06/02","07/02","08/02","09/02","10/02","11/02","12/02","13/02","14/02","15/02","16/02","17/02","18/02","19/02","20/02","21/02","22/02","23/02","24/02","25/02","26/02","27/02","28/02"],datasets:[{data:[2012,1863,1866,1576,1471,1558,1729,1790,2022,1509,1010,1444,1188,1444,1616,1877,1785,1607,1494,1320,1416,1624,1922,2380,2027,1513,1668,1939],borderColor:"#60A5FA",backgroundColor:"rgba(96,165,250,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:{responsive:true,aspectRatio:lineAR,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}});
 new Chart(document.getElementById("chartIdade"),{type:"pie",data:{labels:["18-24","25-34","35-44","45-54","55-64","65+","Unknown"],datasets:[{data:[38,649,622,490,413,188,0],backgroundColor:["#1877F2","#E4405F","#FCAF45","#833AB4","#00C853","#FF6D00"]}]},options:{responsive:true,plugins:{legend:{position:"bottom"}}}});
 new Chart(document.getElementById("chartGenero"),{type:"pie",data:{labels:["mulher","homem","desconhecido"],datasets:[{data:[1283,1108,9],backgroundColor:["#1877F2","#E4405F","#9CA3AF"]}]},options:{responsive:true,plugins:{legend:{position:"bottom"}}}});
 </script>
