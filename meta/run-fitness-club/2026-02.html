@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Relatório Run Fitness Club - Fevereiro/2026 - Meta Ads</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -42,7 +44,7 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 .kpi-var.down { color:#dc2626; }
 .kpi-var.neutral { color:#9ca3af; }
 .charts-row { display:flex; gap:16px; flex-wrap:wrap; }
-.chart-box { flex:1; min-width:280px; }
+.chart-box { flex:1; min-width:280px; padding:0 8px 8px; }
 .chart-title { font-size:14px; font-weight:600; color:#374151; margin-bottom:12px; }
 .chart-center { display:flex; justify-content:center; margin-bottom:20px; }
 .tbl-wrapper { overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:16px; }
@@ -92,7 +94,7 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 <span class="hero-badge">Fevereiro/2026</span>
 <span class="hero-period">01/02/2026 a 28/02/2026</span>
 </div>
-<button class="btn-download" onclick="window.print()">Download PDF</button>
+<button class="btn-download" onclick="downloadPDF()">Download PDF</button>
 </div>
 </header>
 <main class="main">
@@ -230,8 +232,8 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 <div class="section-body" id="sec-concorrentes">
 <div class="competitors-grid">
 <div class="competitor-card">
-<div class="competitor-rank">1</div>
-<img src="https://scontent-dfw5-3.xx.fbcdn.net/v/t51.2885-15/475410201_1281268659607940_4005809171731514941_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7d201b&_nc_ohc=J4v-AusuHNQQ7kNvwEuimW5&_nc_oc=AdkO0BMKQkUwBthWtUFTvmj1mb5RN9apzMkIUJCBf_9KkDqwZIfQaRQHx8dSP6oyB64&_nc_zt=23&_nc_ht=scontent-dfw5-3.xx&edm=AL-3X8kEAAAA&oh=00_AfwxUUjOr4-9djVHFcGTEhnuK6Ng2BFUVY_abyVC1Msi-w&oe=69B36B14" class="competitor-pic" alt="Pratique Fitness">
+<div class="competitor-rank" style="background:#00C853">1</div>
+<img src="https://scontent-atl3-2.xx.fbcdn.net/v/t51.2885-15/475410201_1281268659607940_4005809171731514941_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=7d201b&_nc_ohc=J4v-AusuHNQQ7kNvwEWylUi&_nc_oc=AdlZYIUdex1BVc_CraU9a6F1UoIDr_ylNVAzD3B23n6bjZxwlpAix8--fvyUGoqawUI&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&edm=AL-3X8kEAAAA&oh=00_AfyIhbzj9GXojOlQTaqTCiUsCkvop33vNL5gmOz-0EJ4mA&oe=69B36B14" class="competitor-pic" alt="Pratique Fitness">
 <div class="competitor-info">
 <h4 class="competitor-name">Pratique Fitness</h4>
 <p class="competitor-bio">🥰 Pratique, acredite & movimente-se
@@ -241,12 +243,12 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 <div class="competitor-stats">
 <div><strong>8601</strong><span>posts</span></div>
 <div><strong>2.219</strong><span>following</span></div>
-<div><strong>370.565</strong><span>followers</span></div>
+<div><strong>370.569</strong><span>followers</span></div>
 </div>
 </div>
 <div class="competitor-card">
-<div class="competitor-rank">2</div>
-<img src="https://scontent-dfw5-1.xx.fbcdn.net/v/t51.82787-15/607595887_18557973454028774_7694850942578731576_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=7d201b&_nc_ohc=B61OZDcG8ZAQ7kNvwEZ4p0L&_nc_oc=AdkyGRhooXx1Jm1IYFiDbDz_BGh6r7IKhG136caCZ0WfezFVzBDI-1wADoD7RdVhDBw&_nc_zt=23&_nc_ht=scontent-dfw5-1.xx&edm=AL-3X8kEAAAA&_nc_gid=idLH2s3J7yncdk2trwe1Kw&oh=00_AfwXJbT8goHyivwQlj44AgxLDKPW5eLni-vhY9tp6V0Mng&oe=69B37818" class="competitor-pic" alt="Run Fitness Club | Trindade, Floripa">
+<div class="competitor-rank" style="background:#00C853">2</div>
+<img src="https://scontent-atl3-2.xx.fbcdn.net/v/t51.82787-15/607595887_18557973454028774_7694850942578731576_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=7d201b&_nc_ohc=B61OZDcG8ZAQ7kNvwHjgJmO&_nc_oc=AdmKvHjNYbp1mUd6NhlHOXMdK45yuVwoeyOCfokLa7kz18V5bYwzhEfxzxaZAGrixAw&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&edm=AL-3X8kEAAAA&_nc_gid=1SnNLhTCu2dZfIStE_Y4Ng&oh=00_AfzmMnih2gA4p07iSQoCdhzLzMe4RsaG4uKz-8SZGRKb6w&oe=69B37818" class="competitor-pic" alt="Run Fitness Club | Trindade, Floripa">
 <div class="competitor-info">
 <h4 class="competitor-name">Run Fitness Club | Trindade, Floripa</h4>
 <p class="competitor-bio">​Para quem precisa de exercício, mas foge das comuns! Aqui o foco é você 🤝 Atenção de 1 prof p/ max</p>
@@ -258,8 +260,8 @@ body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#
 </div>
 </div>
 <div class="competitor-card">
-<div class="competitor-rank">3</div>
-<img src="https://scontent-dfw5-1.xx.fbcdn.net/v/t51.82787-15/590908580_18548185999049988_433985542103468265_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=7d201b&_nc_ohc=wUDyGP8TcCIQ7kNvwEJT8v9&_nc_oc=AdnspygoewcvWBEUfWUjqW-J20k3cUJzF8CMrk56oZRzvDCW0G0r-ot5Xv2bDdW26nQ&_nc_zt=23&_nc_ht=scontent-dfw5-1.xx&edm=AL-3X8kEAAAA&_nc_gid=ZcHivYcVRVIBQM9nm34Kqg&oh=00_AfxB-OUy3LOjsMoXWhS-jv2A6Sr2d2x9F9WUTndUWEszLw&oe=69B37077" class="competitor-pic" alt="Academia Prime">
+<div class="competitor-rank" style="background:#00C853">3</div>
+<img src="https://scontent-atl3-2.xx.fbcdn.net/v/t51.82787-15/590908580_18548185999049988_433985542103468265_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=7d201b&_nc_ohc=wUDyGP8TcCIQ7kNvwFL0qvA&_nc_oc=Adn-Mlz5KfDJEGHA0CIGEpX8_e8pJ2moUAbzT8jrfdTzr29RvJyOx3eWMHxicd4-b9w&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&edm=AL-3X8kEAAAA&_nc_gid=hHbSEy07KeDNGzOaheqURQ&oh=00_Afyv5EO2b5d4OOGAUNwSplzGhLos-tmAc6slp3IbQalc2g&oe=69B37077" class="competitor-pic" alt="Academia Prime">
 <div class="competitor-info">
 <h4 class="competitor-name">Academia Prime</h4>
 <p class="competitor-bio">🏆 Há +10 anos transformando vidas
@@ -273,8 +275,8 @@ Musculação • Aulas Coletivas • Jiu-Jitsu
 </div>
 </div>
 <div class="competitor-card">
-<div class="competitor-rank">4</div>
-<img src="https://scontent-dfw5-2.xx.fbcdn.net/v/t51.2885-15/131246033_430637914632761_4040074606809292547_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=7d201b&_nc_ohc=BNhIxZHsIZ8Q7kNvwHTV_DM&_nc_oc=AdkDOmDjfLwuevu55ZyB4-Ye25FS4piTtRf36F1zpX9404PnW72EmvixZwzR80zq-rI&_nc_zt=23&_nc_ht=scontent-dfw5-2.xx&edm=AL-3X8kEAAAA&oh=00_Afz-v5LUiuu99PNcrawcBweUEuqX4wLuezZWgWnXW2koCA&oe=69B3718E" class="competitor-pic" alt="Racer Academia">
+<div class="competitor-rank" style="background:#E4405F">4</div>
+<img src="https://scontent-atl3-2.xx.fbcdn.net/v/t51.2885-15/131246033_430637914632761_4040074606809292547_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=7d201b&_nc_ohc=BNhIxZHsIZ8Q7kNvwFLiC9p&_nc_oc=Adm4ASkGB6m2iuYTNAuix-rZ7SOJqYcv6iNNa96qp0TJZ6X32ArnOdIV2gph7ytpGpk&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&edm=AL-3X8kEAAAA&oh=00_Afws8x2_NjHlxN5e3s5vScwSkZ4XpYdxofzTJHgcYQ_maA&oe=69B3718E" class="competitor-pic" alt="Racer Academia">
 <div class="competitor-info">
 <h4 class="competitor-name">Racer Academia</h4>
 <p class="competitor-bio">Você de bem com a vida 
@@ -288,8 +290,8 @@ WhatsApp (48)8845 0699</p>
 </div>
 </div>
 <div class="competitor-card">
-<div class="competitor-rank">5</div>
-<img src="https://scontent-dfw5-3.xx.fbcdn.net/v/t51.2885-15/453792449_1158364355394723_8142366806081357367_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=7d201b&_nc_ohc=57bUFLT0t7kQ7kNvwEeIWrz&_nc_oc=AdkNMMzrpJT6mIL8a2jaMA0dfPZLF1p5IcjTK_at2CWv_YsINrr7yEvMKxiFZ7SuoXI&_nc_zt=23&_nc_ht=scontent-dfw5-3.xx&edm=AL-3X8kEAAAA&oh=00_AfzFYHqXXCYSfn-oiUSlO6nlt1WDeeXrO4s5zUtl8EDf8A&oe=69B36D59" class="competitor-pic" alt="Moove Premium">
+<div class="competitor-rank" style="background:#E4405F">5</div>
+<img src="https://scontent-atl3-3.xx.fbcdn.net/v/t51.2885-15/453792449_1158364355394723_8142366806081357367_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=7d201b&_nc_ohc=57bUFLT0t7kQ7kNvwFb_wS3&_nc_oc=AdksKiQtC9Kq7wPujlmAWjMUB23ZjeiXf_jFHxpWTEeaxjS9wnvI-TE5D3JNZGMYeXs&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&edm=AL-3X8kEAAAA&oh=00_Afw3ohlAl0aNo5rBNfsb1L4C72_EdRBDhwBMUSowOegCTQ&oe=69B36D59" class="competitor-pic" alt="Moove Premium">
 <div class="competitor-info">
 <h4 class="competitor-name">Moove Premium</h4>
 <p class="competitor-bio">Você em movimento, sua vida em equilíbrio! 
@@ -314,38 +316,51 @@ WhatsApp (48)8845 0699</p>
 <div class="conclusao">
 <h4>O Que Aconteceu (Fatos e Numeros)</h4>
 
-<p>Durante fevereiro, suas campanhas de engajamento e tráfego para o perfil geraram resultados consistentes, movimentando o Run Fitness Club no ambiente Meta Ads com um investimento total de R$ 926,97.</p>
+<p>Fevereiro foi um mês de aprendizado importante para o Run Fitness Club. Trabalhamos com duas campanhas permanentes bem definidas: uma focada em <strong>gerar leads via WhatsApp</strong> e outra em <strong>crescer o perfil do Instagram</strong> com novos seguidores.</p>
 
+<p><strong>Campanha de Engajamento (Leads via WhatsApp):</strong></p>
 <ul>
-<li><strong>Campanha de Engajamento (Leads via WhatsApp):</strong> 47 leads capturados com investimento de R$ 647,53, resultando em um custo por lead de R$ 13,78. O CTR de 0,69% reflete um bom nível de interesse da audiência no seu chamado à ação.</li>
-<li><strong>Campanha de Tráfego para Perfil:</strong> 1.441 cliques direcionados para seu perfil do Instagram com investimento de R$ 279,44. Você conquistou 40 novos seguidores ao longo do mês, fortalecendo sua comunidade.</li>
-<li><strong>Alcance Total:</strong> 46.670 pessoas foram impactadas por seus anúncios, demonstrando uma boa penetração no seu público-alvo.</li>
+<li>Alcançamos <strong>47 leads</strong> com investimento de R$ 647,53</li>
+<li>Custo real por lead: <strong>R$ 13,78</strong></li>
+<li>Taxa de clique (CTR) de 0,69% em 17.862 impressões</li>
+<li>Observamos uma queda de 14,5% no volume de mensagens em relação ao mês anterior</li>
 </ul>
 
-<p>Observamos variações em algumas métricas em relação ao mês anterior: houve uma redução de 14,5% nas mensagens de engajamento e uma queda de 29,5% no alcance. É importante ressaltar que os dados gerais podem ter sofrido influência de campanhas temporárias veiculadas neste período, mas estamos atentos a estas flutuações e prontos para otimizações quando necessário.</p>
+<p><strong>Campanha de Tráfego para Perfil (Seguidores):</strong></p>
+<ul>
+<li>Geramos <strong>40 novos seguidores</strong> com investimento de R$ 279,44</li>
+<li>Alcançamos 32.084 pessoas, com 1.441 cliques no perfil</li>
+<li>Esta campanha cresceu 27,6% em cliques comparado ao período anterior</li>
+</ul>
+
+<p><strong>Importante:</strong> As métricas gerais podem ter sido influenciadas por campanhas temporárias veiculadas em fevereiro, o que pode alterar comparações com períodos anteriores.</p>
 
 <h4>Analise de Eficiencia do Investimento</h4>
 
-<p><strong>Desempenho por Faixa Etária:</strong></p>
+<p><strong>Onde está o melhor retorno:</strong></p>
 
+<p>A <strong>faixa etária 25-34 anos</strong> é nosso público mais responsivo e eficiente. Nela encontramos 649 cliques e 28 leads com custo por lead de apenas <strong>R$ 8,40</strong> - praticamente 40% mais barato que a média geral. Este público também representa a maior parte de nossas conversões em WhatsApp (59,6% do total).</p>
+
+<p>A sequência de eficiência segue assim: 35-44 anos (custo R$ 9,36 por lead), depois 45-54 anos (R$ 13,50) e públicos mais velhos com custo crescente.</p>
+
+<p><strong>Análise dos conjuntos de anúncios:</strong></p>
 <ul>
-<li>A faixa <strong>25-34 anos</strong> é sua audiência mais responsiva e eficiente, gerando 649 cliques e 28 leads com custo por lead de R$ 8,40 — a melhor relação custo-benefício do mês.</li>
-<li>A faixa <strong>35-44 anos</strong> vem logo em seguida com 622 cliques e 30 leads, demonstrando forte interesse por seus serviços, com custo por lead de R$ 9,36.</li>
-<li>A faixa <strong>18-24 anos</strong>, embora com volume menor (38 cliques), apresentou o menor custo por lead (R$ 7,79), sugerindo grande potencial de crescimento com investimento direcionado.</li>
-<li>Faixas acima de 45 anos apresentam custos por lead progressivamente maiores (de R$ 13,50 a R$ 17,59), o que é natural dado o menor volume de buscas por serviços de fitness nessas idades.</li>
+<li>O conjunto <strong>[WHATS] - IG - LOL LISTA DE CLIENTES</strong> é nosso campeão absoluto: 46 leads de um total de 47, com custo por lead de apenas R$ 12,13. Este é claramente nosso ativo mais valioso</li>
+<li>O conjunto <strong>[PERFIL IG]</strong> está funcionando bem para tráfego e seguidores (1.427 cliques), mas sem gerar leads diretos - o que é esperado, já que seu objetivo é crescimento de audiência</li>
+<li>O conjunto de raio geográfico aberto precisará de ajustes, pois apresenta custo extremamente elevado (R$ 89,51 por lead)</li>
 </ul>
 
-<p><strong>Desempenho por Conjunto de Anúncio:</strong></p>
+<p><strong>Impacto das otimizações:</strong></p>
 
+<p>A exclusão geográfica realizada em 05 de fevereiro (remoção do norte da ilha) refletiu em queda de 29,5% no alcance da campanha de leads. Embora isso pareça negativo à primeira vista, essa redução representa um ajuste de qualidade: estamos cortando tráfego de baixa relevância geográfica e concentrando budget em quem realmente pode frequentar a academia. O aumento de 6,3% no custo por mensagem também é natural após essa filtragem, pois o público restante é mais segmentado.</p>
+
+<p><strong>Resumo de eficiência:</strong></p>
 <ul>
-<li>O conjunto <strong>[WHATS] - IG - LOL LISTA DE CLIENTES</strong> foi seu melhor conversor, gerando 46 dos 47 leads totais com custo de R$ 12,13 por lead. Este é claramente seu ativo mais valioso.</li>
-<li>O conjunto <strong>[PERFIL IG] - R2KM</strong> concentrou a maioria dos cliques para tráfego de perfil (1.427), validando a estratégia de expansão de seguidores em seu público amplo com interesses em fitness.</li>
-<li>O conjunto <strong>[WHATS] - IG - RAIO 1KM</strong> apresentou custo elevado por lead (R$ 89,51), sugerindo uma audiência muito segmentada com menor disposição a interagir.</li>
+<li>Campanha de leads: R$ 13,78 por lead (custo real e consolidado)</li>
+<li>Campanha de seguidores: R$ 6,99 por novo seguidor (R$ 279,44 ÷ 40)</li>
+<li>Volume total de leads: 47 em fevereiro</li>
+<li>Investimento total: R$ 927 aproximadamente</li>
 </ul>
-
-<p><strong>Retorno Geral do Investimento:</strong></p>
-
-<p>Com R$ 926,97 investidos, você conquistou 47 leads qualificados para sua academia com custo médio de <strong>R$ 13,78 por lead</strong> e expandiu sua base de seguidores em 40 novos usuários. Considerando que sua campanha de leads está concentrada em faixas etárias de alto interesse (25-44 anos representam 76% dos leads), o investimento está bem alocado e gerando resultados mensuráveis para o crescimento do Run Fitness Club.</p>
 </div>
 </div>
 </section>
@@ -353,19 +368,20 @@ WhatsApp (48)8845 0699</p>
 <footer class="footer">
 <div class="footer-inner">
 <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
-<div class="footer-meta">Relatório gerado automaticamente em 08/03/2026 12:21</div>
+<div class="footer-meta">Relatório gerado automaticamente em 08/03/2026 12:39</div>
 </div>
 </footer>
 <script>
 function toggleSection(el){var b=el.nextElementSibling;var c=el.querySelector(".section-chevron");b.style.display=b.style.display==="none"?"block":"none";c.style.transform=b.style.display==="none"?"rotate(-90deg)":"";}
+function downloadPDF(){var el=document.body;var btn=document.querySelector(".btn-download");btn.textContent="Gerando PDF...";btn.disabled=true;document.querySelectorAll(".section-body").forEach(function(s){s.style.display="block";});document.querySelectorAll("canvas").forEach(function(c){var img=document.createElement("img");img.src=c.toDataURL("image/png");img.style.width="100%";img.className="chart-img-pdf";c.parentNode.insertBefore(img,c);c.style.display="none";});var opt={margin:[5,5,5,5],filename:"Run-Fitness-Club-Fevereiro-2026-MetaAds.pdf",image:{type:"jpeg",quality:0.95},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}};html2pdf().set(opt).from(el).save().then(function(){document.querySelectorAll(".chart-img-pdf").forEach(function(img){img.previousElementSibling&&(img.previousElementSibling.style.display="");img.remove();});btn.textContent="Download PDF";btn.disabled=false;});}
 window.addEventListener("beforeprint",function(){document.querySelectorAll("canvas").forEach(function(c){var i=document.createElement("img");i.src=c.toDataURL("image/png");i.style.width="100%";c.parentNode.insertBefore(i,c);c.style.display="none";});});
 window.addEventListener("afterprint",function(){document.querySelectorAll("canvas").forEach(function(c){c.style.display="";var i=c.previousElementSibling;if(i&&i.tagName==="IMG")i.remove();});});
 var isMobile=window.innerWidth<640;
 var lineOpts={responsive:true,aspectRatio:isMobile?1.5:2.2,plugins:{legend:{display:false}},scales:{x:{ticks:{maxRotation:isMobile?45:0,font:{size:isMobile?9:11}}},y:{beginAtZero:false}}};
 new Chart(document.getElementById("chartCliques"),{type:"line",data:{labels:["01/02","02/02","03/02","04/02","05/02","06/02","07/02","08/02","09/02","10/02","11/02","12/02","13/02","14/02","15/02","16/02","17/02","18/02","19/02","20/02","21/02","22/02","23/02","24/02","25/02","26/02","27/02","28/02"],datasets:[{data:[51,51,52,49,51,42,34,48,56,38,27,42,42,42,53,49,62,39,40,49,47,45,84,109,104,70,78,111],borderColor:"#1877F2",backgroundColor:"rgba(24,119,242,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:lineOpts});
 new Chart(document.getElementById("chartAlcance"),{type:"line",data:{labels:["01/02","02/02","03/02","04/02","05/02","06/02","07/02","08/02","09/02","10/02","11/02","12/02","13/02","14/02","15/02","16/02","17/02","18/02","19/02","20/02","21/02","22/02","23/02","24/02","25/02","26/02","27/02","28/02"],datasets:[{data:[2012,1863,1866,1576,1471,1558,1729,1790,2022,1509,1010,1444,1188,1444,1616,1877,1785,1607,1494,1320,1416,1624,1922,2380,2027,1513,1668,1939],borderColor:"#60A5FA",backgroundColor:"rgba(96,165,250,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:lineOpts});
-new Chart(document.getElementById("chartIdade"),{type:"pie",data:{labels:["18-24","25-34","35-44","45-54","55-64","65+","Unknown"],datasets:[{data:[38,649,622,490,413,188,0],backgroundColor:["#1877F2","#E4405F","#FCAF45","#833AB4","#00C853","#FF6D00"]}]},options:{responsive:true,plugins:{legend:{position:"bottom"}}}});
-new Chart(document.getElementById("chartGenero"),{type:"pie",data:{labels:["mulher","homem","desconhecido"],datasets:[{data:[1283,1108,9],backgroundColor:["#1877F2","#E4405F","#9CA3AF"]}]},options:{responsive:true,plugins:{legend:{position:"bottom"}}}});
+new Chart(document.getElementById("chartIdade"),{type:"pie",data:{labels:["18-24","25-34","35-44","45-54","55-64","65+","Unknown"],datasets:[{data:[38,649,622,490,413,188,0],backgroundColor:["#1877F2","#E4405F","#FCAF45","#833AB4","#00C853","#FF6D00"]}]},plugins:[ChartDataLabels],options:{responsive:true,plugins:{legend:{position:"bottom"},datalabels:{color:"#fff",font:{weight:"bold",size:11},formatter:function(v,ctx){var sum=ctx.dataset.data.reduce(function(a,b){return a+b},0);var pct=(v/sum*100).toFixed(1)+"%";return v+"\n"+pct;},textAlign:"center"}}}});
+new Chart(document.getElementById("chartGenero"),{type:"pie",data:{labels:["mulher","homem","desconhecido"],datasets:[{data:[1283,1108,9],backgroundColor:["#1877F2","#E4405F","#9CA3AF"]}]},plugins:[ChartDataLabels],options:{responsive:true,plugins:{legend:{position:"bottom"},datalabels:{color:"#fff",font:{weight:"bold",size:12},formatter:function(v,ctx){var sum=ctx.dataset.data.reduce(function(a,b){return a+b},0);var pct=(v/sum*100).toFixed(1)+"%";return v+"\n"+pct;},textAlign:"center"}}}});
 </script>
 </body>
 </html>
