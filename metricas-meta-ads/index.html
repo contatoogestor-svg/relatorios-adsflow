@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entenda suas Métricas — Meta Ads | ADS FLOW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #1877F2;
+  --blue-light: #60A5FA;
+  --blue-muted: rgba(24,119,242,0.12);
+  --blue-border: rgba(24,119,242,0.28);
+  --pink: #E4405F;
+  --pink-muted: rgba(228,64,95,0.1);
+  --bg: #080808;
+  --surface: #0f0f0f;
+  --surface-2: #161616;
+  --surface-3: #1e1e1e;
+  --border: rgba(255,255,255,0.07);
+  --text: #FFFFFF;
+  --text-2: #A8A8A8;
+  --text-3: #5a5a5a;
+  --green: #22C55E;
+  --radius: 12px;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  padding: 60px 20px 48px;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(228,64,95,0.15) 0%, rgba(24,119,242,0.10) 60%, transparent 80%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--blue-muted);
+  border: 1px solid var(--blue-border);
+  color: var(--blue-light);
+  font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 99px; margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(26px, 5vw, 42px); font-weight: 800; line-height: 1.15;
+  letter-spacing: -0.5px; margin-bottom: 16px;
+}
+.hero h1 span { color: var(--blue-light); }
+.hero p {
+  font-size: 16px; color: var(--text-2); max-width: 540px;
+  margin: 0 auto 32px; line-height: 1.7;
+}
+.hero-icon {
+  font-size: 56px; margin-bottom: 20px; display: block;
+}
+
+/* ── CONTAINER ── */
+.container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+/* ── INTRO ── */
+.intro { padding: 48px 0 32px; text-align: center; }
+.intro p { font-size: 15px; color: var(--text-2); line-height: 1.8; }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase;
+  color: var(--blue-light); margin-bottom: 12px; display: block;
+}
+
+/* ── METRIC CARDS ── */
+.metrics-section { padding: 16px 0 48px; }
+.metrics-section h2 {
+  font-size: 22px; font-weight: 700; margin-bottom: 6px;
+}
+.metrics-section .subtitle {
+  font-size: 14px; color: var(--text-2); margin-bottom: 32px;
+}
+
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+.metric-card:hover { border-color: var(--blue-border); }
+
+.metric-card-header {
+  display: flex; align-items: flex-start; gap: 16px; margin-bottom: 12px;
+}
+.metric-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: var(--blue-muted); border: 1px solid var(--blue-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.metric-icon.pink {
+  background: var(--pink-muted); border-color: rgba(228,64,95,0.25);
+}
+.metric-name {
+  font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 2px;
+}
+.metric-technical {
+  font-size: 11px; color: var(--text-3); font-weight: 500; letter-spacing: 0.5px;
+}
+.metric-desc {
+  font-size: 14px; color: var(--text-2); line-height: 1.75;
+}
+.metric-example {
+  margin-top: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--surface-3);
+  border-left: 3px solid var(--blue);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.metric-example.pink-line { border-left-color: var(--pink); }
+.metric-example-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue-light); margin-bottom: 6px;
+}
+.metric-example p {
+  font-size: 13px; color: var(--text-2); line-height: 1.65;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px; background: var(--border); margin: 32px 0;
+}
+
+/* ── TIP BOX ── */
+.tip-box {
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 32px 0;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.tip-box .tip-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.tip-box p { font-size: 14px; color: var(--text-2); line-height: 1.7; }
+.tip-box strong { color: var(--green); }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 20px;
+  text-align: center;
+}
+.footer p { font-size: 13px; color: var(--text-3); }
+.footer strong { color: var(--text-2); }
+
+@media (max-width: 600px) {
+  .hero { padding: 48px 20px 40px; }
+  .metric-card { padding: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <span class="hero-icon">📱</span>
+    <div class="hero-badge">Meta Ads · Glossário</div>
+    <h1>Entenda suas<br><span>Métricas do Meta Ads</span></h1>
+    <p>Explicamos, em linguagem simples, o que significa cada número que aparece no seu relatório semanal.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- INTRO -->
+  <div class="intro">
+    <span class="section-label">Por que isso importa?</span>
+    <p>Os anúncios no Facebook e Instagram geram vários números por semana. Aqui você entende o que cada um representa para o seu negócio — sem complicação.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MÉTRICAS -->
+  <div class="metrics-section">
+    <span class="section-label">As métricas</span>
+    <h2>O que cada número significa</h2>
+    <p class="subtitle">Veja abaixo a explicação de cada item que aparece no seu relatório.</p>
+
+    <!-- Alcance -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">👥</div>
+        <div>
+          <div class="metric-name">Pessoas Alcançadas</div>
+          <div class="metric-technical">Técnico: Reach</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quantas pessoas únicas viram o seu anúncio. Diferente de impressões, aqui cada pessoa é contada só uma vez — não importa quantas vezes ela viu.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>Alcance de 5.000 significa que 5.000 pessoas diferentes viram seu anúncio no Facebook ou Instagram essa semana.</p>
+      </div>
+    </div>
+
+    <!-- Impressões -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">👀</div>
+        <div>
+          <div class="metric-name">Impressões</div>
+          <div class="metric-technical">Técnico: Impressions</div>
+        </div>
+      </div>
+      <p class="metric-desc">É o total de vezes que o seu anúncio foi exibido, incluindo quando a mesma pessoa viu mais de uma vez. Sempre será maior ou igual ao alcance.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>7.500 impressões com 5.000 pessoas alcançadas = cada pessoa viu o anúncio, em média, 1,5 vez.</p>
+      </div>
+    </div>
+
+    <!-- Cliques -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">🔘</div>
+        <div>
+          <div class="metric-name">Cliques no Anúncio</div>
+          <div class="metric-technical">Técnico: Link Clicks</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quantas vezes as pessoas clicaram no link do seu anúncio para ir até o seu site, WhatsApp ou página de destino. Clique = interesse real em saber mais.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>De 5.000 pessoas que viram, 200 clicaram. Essas 200 demonstraram interesse e foram ver mais sobre o seu serviço.</p>
+      </div>
+    </div>
+
+    <!-- Leads -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">💬</div>
+        <div>
+          <div class="metric-name">Leads Gerados</div>
+          <div class="metric-technical">Técnico: Conversions / Results</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quantas pessoas realizaram a ação esperada — como enviar mensagem no WhatsApp, preencher um formulário ou clicar para ligar. São seus contatos potenciais clientes.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>Das 200 pessoas que clicaram, 15 enviaram mensagem. Esses 15 leads são pessoas com interesse real no seu serviço.</p>
+      </div>
+    </div>
+
+    <!-- CPL -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">📉</div>
+        <div>
+          <div class="metric-name">Custo por Lead (CPL)</div>
+          <div class="metric-technical">Técnico: Cost per Result</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quanto você pagou, em média, para conseguir cada lead. Calculamos dividindo o valor total investido pelo número de leads. Quanto menor, mais eficiente está a campanha.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>R$450 investidos e 15 leads = CPL de R$30. Cada novo contato custou R$30.</p>
+      </div>
+    </div>
+
+    <!-- CPM -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon pink">💵</div>
+        <div>
+          <div class="metric-name">Custo por 1.000 Pessoas</div>
+          <div class="metric-technical">Técnico: CPM — Cost per Mille</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quanto você está pagando para alcançar mil pessoas com o anúncio. Serve para entender o custo de visibilidade — quanto custa se fazer ver por mais gente.</p>
+      <div class="metric-example pink-line">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>CPM de R$18 significa que a cada R$18 investidos, 1.000 pessoas diferentes veem o seu anúncio.</p>
+      </div>
+    </div>
+
+    <!-- CTR -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">🎯</div>
+        <div>
+          <div class="metric-name">Taxa de Cliques</div>
+          <div class="metric-technical">Técnico: CTR — Click-Through Rate</div>
+        </div>
+      </div>
+      <p class="metric-desc">É a porcentagem de pessoas que viram o anúncio e clicaram. Mostra o quanto o seu anúncio está chamando atenção e despertando interesse no público certo.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>7.500 impressões e 200 cliques = CTR de 2,7%. A cada 100 exibições, quase 3 pessoas clicaram.</p>
+      </div>
+    </div>
+
+    <!-- Frequência -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon pink">🔄</div>
+        <div>
+          <div class="metric-name">Frequência</div>
+          <div class="metric-technical">Técnico: Frequency</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quantas vezes, em média, cada pessoa viu o seu anúncio. Uma frequência muito alta pode significar que o mesmo público está sendo saturado com o mesmo anúncio.</p>
+      <div class="metric-example pink-line">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>Frequência de 1,5 está ótima. Frequência acima de 4 pode indicar que chegou a hora de renovar o criativo do anúncio.</p>
+      </div>
+    </div>
+
+    <!-- Custo Total -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">💰</div>
+        <div>
+          <div class="metric-name">Valor Investido</div>
+          <div class="metric-technical">Técnico: Amount Spent</div>
+        </div>
+      </div>
+      <p class="metric-desc">É o total que foi gasto nos anúncios durante o período. Esse valor foi utilizado pelo Meta (Facebook/Instagram) para exibir seus anúncios e gerar os resultados da semana.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>Investimento de R$450 na semana = esse foi o valor que gerou os alcances, cliques e leads do período.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tip-box">
+    <span class="tip-icon">💡</span>
+    <p><strong>Dica:</strong> No Meta Ads, o criativo (imagem ou vídeo) faz grande diferença nos resultados. Acompanhamos a frequência e a taxa de cliques para saber quando é hora de renovar o anúncio e manter a performance alta.</p>
+  </div>
+
+  <div class="divider"></div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p><strong>ADS FLOW</strong> — Gestão de Tráfego Pago</p>
+  <p style="margin-top:6px;">Dúvidas? Fale com a nossa equipe.</p>
+</footer>
+
+</body>
+</html>

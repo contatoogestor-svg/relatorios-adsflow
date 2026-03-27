@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entenda suas Métricas — Google Ads | ADS FLOW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #4285F4;
+  --blue-light: #6ea6f7;
+  --blue-muted: rgba(66,133,244,0.12);
+  --blue-border: rgba(66,133,244,0.28);
+  --bg: #080808;
+  --surface: #0f0f0f;
+  --surface-2: #161616;
+  --surface-3: #1e1e1e;
+  --border: rgba(255,255,255,0.07);
+  --text: #FFFFFF;
+  --text-2: #A8A8A8;
+  --text-3: #5a5a5a;
+  --green: #22C55E;
+  --yellow: #F59E0B;
+  --radius: 12px;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  padding: 60px 20px 48px;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(66,133,244,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--blue-muted);
+  border: 1px solid var(--blue-border);
+  color: var(--blue-light);
+  font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 99px; margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(26px, 5vw, 42px); font-weight: 800; line-height: 1.15;
+  letter-spacing: -0.5px; margin-bottom: 16px;
+}
+.hero h1 span { color: var(--blue-light); }
+.hero p {
+  font-size: 16px; color: var(--text-2); max-width: 540px;
+  margin: 0 auto 32px; line-height: 1.7;
+}
+.hero-icon {
+  font-size: 56px; margin-bottom: 20px; display: block;
+}
+
+/* ── CONTAINER ── */
+.container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+/* ── INTRO ── */
+.intro { padding: 48px 0 32px; text-align: center; }
+.intro p { font-size: 15px; color: var(--text-2); line-height: 1.8; }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase;
+  color: var(--blue-light); margin-bottom: 12px; display: block;
+}
+
+/* ── METRIC CARDS ── */
+.metrics-section { padding: 16px 0 48px; }
+.metrics-section h2 {
+  font-size: 22px; font-weight: 700; margin-bottom: 6px;
+}
+.metrics-section .subtitle {
+  font-size: 14px; color: var(--text-2); margin-bottom: 32px;
+}
+
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+.metric-card:hover { border-color: var(--blue-border); }
+
+.metric-card-header {
+  display: flex; align-items: flex-start; gap: 16px; margin-bottom: 12px;
+}
+.metric-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: var(--blue-muted); border: 1px solid var(--blue-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.metric-name {
+  font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 2px;
+}
+.metric-technical {
+  font-size: 11px; color: var(--text-3); font-weight: 500; letter-spacing: 0.5px;
+}
+.metric-desc {
+  font-size: 14px; color: var(--text-2); line-height: 1.75;
+}
+.metric-example {
+  margin-top: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--surface-3);
+  border-left: 3px solid var(--blue);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.metric-example-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue-light); margin-bottom: 6px;
+}
+.metric-example p {
+  font-size: 13px; color: var(--text-2); line-height: 1.65;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px; background: var(--border); margin: 32px 0;
+}
+
+/* ── TIP BOX ── */
+.tip-box {
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 32px 0;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.tip-box .tip-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.tip-box p { font-size: 14px; color: var(--text-2); line-height: 1.7; }
+.tip-box strong { color: var(--green); }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 20px;
+  text-align: center;
+}
+.footer p { font-size: 13px; color: var(--text-3); }
+.footer strong { color: var(--text-2); }
+
+@media (max-width: 600px) {
+  .hero { padding: 48px 20px 40px; }
+  .metric-card { padding: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <span class="hero-icon">🔍</span>
+    <div class="hero-badge">Google Ads · Glossário</div>
+    <h1>Entenda suas<br><span>Métricas do Google Ads</span></h1>
+    <p>Explicamos, em linguagem simples, o que significa cada número que aparece no seu relatório semanal.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- INTRO -->
+  <div class="intro">
+    <span class="section-label">Por que isso importa?</span>
+    <p>Acompanhar os resultados dos seus anúncios não precisa ser complicado. Aqui você vai entender, de forma clara e direta, o que cada métrica representa para o seu negócio.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MÉTRICAS -->
+  <div class="metrics-section">
+    <span class="section-label">As métricas</span>
+    <h2>O que cada número significa</h2>
+    <p class="subtitle">Veja abaixo a explicação de cada item que aparece no seu relatório.</p>
+
+    <!-- Impressões -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">👀</div>
+        <div>
+          <div class="metric-name">Impressões</div>
+          <div class="metric-technical">Técnico: Impressions</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quantas vezes o seu anúncio apareceu na tela de alguém. Cada vez que uma pessoa pesquisou no Google e o seu anúncio foi exibido, conta como uma impressão.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>Se seu anúncio teve 3.000 impressões, significa que 3.000 vezes ele apareceu para alguém que estava pesquisando por algo relacionado ao seu serviço.</p>
+      </div>
+    </div>
+
+    <!-- Cliques -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">🔘</div>
+        <div>
+          <div class="metric-name">Cliques</div>
+          <div class="metric-technical">Técnico: Clicks</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quantas vezes as pessoas clicaram no seu anúncio e foram direcionadas para o seu site ou página. Clique = interesse real.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>De 3.000 pessoas que viram o anúncio, 150 clicaram. Essas 150 pessoas foram até a sua página para saber mais.</p>
+      </div>
+    </div>
+
+    <!-- Leads Gerados -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">💬</div>
+        <div>
+          <div class="metric-name">Leads Gerados</div>
+          <div class="metric-technical">Técnico: Conversions</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quantas pessoas realizaram uma ação de contato a partir do seu anúncio — como preencher um formulário, clicar no WhatsApp ou ligar para o seu número. São seus potenciais clientes.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>Das 150 pessoas que clicaram, 12 enviaram mensagem ou preencheram o formulário. Esses são os 12 leads da semana.</p>
+      </div>
+    </div>
+
+    <!-- CPL -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">📉</div>
+        <div>
+          <div class="metric-name">Custo por Lead (CPL)</div>
+          <div class="metric-technical">Técnico: Cost per Conversion</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quanto você pagou, em média, para conseguir cada lead. Calculamos dividindo o valor total investido pelo número de leads recebidos. Quanto menor, melhor!</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>Se você investiu R$360 e gerou 12 leads, o CPL foi de R$30. Ou seja, cada contato novo custou R$30.</p>
+      </div>
+    </div>
+
+    <!-- Taxa de Conversão -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">💰</div>
+        <div>
+          <div class="metric-name">Taxa de Conversão</div>
+          <div class="metric-technical">Técnico: Conversion Rate</div>
+        </div>
+      </div>
+      <p class="metric-desc">É a porcentagem de pessoas que clicaram no anúncio e se tornaram leads. Mostra o quanto a sua página está convencendo as pessoas a entrar em contato.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>150 cliques e 12 leads = taxa de conversão de 8%. A cada 100 pessoas que acessaram sua página, 8 entraram em contato.</p>
+      </div>
+    </div>
+
+    <!-- CTR -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">🎯</div>
+        <div>
+          <div class="metric-name">Taxa de Cliques</div>
+          <div class="metric-technical">Técnico: CTR — Click-Through Rate</div>
+        </div>
+      </div>
+      <p class="metric-desc">É a porcentagem de pessoas que viram o anúncio e clicaram nele. Um CTR alto significa que o seu anúncio está atraente e relevante para quem pesquisa.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>3.000 impressões e 150 cliques = CTR de 5%. A cada 100 pessoas que viram o anúncio, 5 clicaram.</p>
+      </div>
+    </div>
+
+    <!-- Parcela de Impressões -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">👓</div>
+        <div>
+          <div class="metric-name">Parcela de Impressões</div>
+          <div class="metric-technical">Técnico: Search Impression Share</div>
+        </div>
+      </div>
+      <p class="metric-desc">Mostra a porcentagem de vezes que seu anúncio apareceu em relação ao total de vezes que ele poderia ter aparecido. Em outras palavras: qual fatia do mercado você está alcançando.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>Parcela de 40% significa que, a cada 10 pesquisas do seu público, seu anúncio apareceu em 4. Há espaço para crescer.</p>
+      </div>
+    </div>
+
+    <!-- Impressões Parte Superior -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">🔝</div>
+        <div>
+          <div class="metric-name">Impressões na Parte Superior</div>
+          <div class="metric-technical">Técnico: Search Top Impression Share</div>
+        </div>
+      </div>
+      <p class="metric-desc">Indica com que frequência seu anúncio aparece na parte de cima da página de resultados do Google — os primeiros resultados que todo mundo vê antes de rolar a tela.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>80% significa que em 8 de cada 10 aparições, seu anúncio estava no topo da página. Ótima visibilidade!</p>
+      </div>
+    </div>
+
+    <!-- 1ª Posição -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">🥇</div>
+        <div>
+          <div class="metric-name">Impressões na 1ª Posição</div>
+          <div class="metric-technical">Técnico: Search Absolute Top Impression Share</div>
+        </div>
+      </div>
+      <p class="metric-desc">É a porcentagem de vezes que seu anúncio ficou no primeiro resultado de toda a página — aquele que aparece antes de qualquer outro. A posição mais privilegiada.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>50% na 1ª posição significa que metade das aparições do seu anúncio foram no lugar mais visível de todos.</p>
+      </div>
+    </div>
+
+    <!-- CPC -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">💵</div>
+        <div>
+          <div class="metric-name">Custo Médio por Clique</div>
+          <div class="metric-technical">Técnico: CPC — Cost per Click</div>
+        </div>
+      </div>
+      <p class="metric-desc">É quanto você pagou, em média, por cada clique recebido. O Google cobra apenas quando alguém clica no seu anúncio — não quando ele aparece.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>CPC de R$2,40 significa que cada visita ao seu site via anúncio custou R$2,40. Quanto menor, mais eficiente.</p>
+      </div>
+    </div>
+
+    <!-- Custo Total -->
+    <div class="metric-card">
+      <div class="metric-card-header">
+        <div class="metric-icon">💰</div>
+        <div>
+          <div class="metric-name">Custo Total</div>
+          <div class="metric-technical">Técnico: Cost / Spend</div>
+        </div>
+      </div>
+      <p class="metric-desc">É o valor total investido nos anúncios durante o período. Esse é o orçamento que foi efetivamente utilizado para gerar as visitas e leads da semana.</p>
+      <div class="metric-example">
+        <div class="metric-example-label">Exemplo prático</div>
+        <p>Custo de R$360 na semana = R$360 foram usados para trazer visitas e contatos para o seu negócio.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tip-box">
+    <span class="tip-icon">💡</span>
+    <p><strong>Dica:</strong> Nenhuma métrica deve ser analisada sozinha. O que mais importa é a combinação entre custo, leads e qualidade dos contatos recebidos. Acompanhamos tudo isso para você semana a semana.</p>
+  </div>
+
+  <div class="divider"></div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p><strong>ADS FLOW</strong> — Gestão de Tráfego Pago</p>
+  <p style="margin-top:6px;">Dúvidas? Fale com a nossa equipe.</p>
+</footer>
+
+</body>
+</html>
