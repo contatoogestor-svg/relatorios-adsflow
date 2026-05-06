@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Fisiocárdio - Abril/2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;color:#0f172a;background:#f1f5f9;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%)}
+.hero-bg{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23334155' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:0.5}
+.hero-content{position:relative;max-width:900px;margin:0 auto;padding:32px 20px 24px;text-align:center}
+.hero-logos{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.logo-af{height:28px;filter:brightness(0) invert(1);opacity:0.9}
+.logo-af-text{font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.5px}
+.logo-divider{width:1px;height:28px;background:rgba(255,255,255,0.3)}
+.logo-cl{height:32px;filter:brightness(0) invert(1)}
+.logo-cl-pill{filter:none;background:rgba(255,255,255,0.92);border-radius:6px;padding:3px 10px;object-fit:contain}
+.hero-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.3px;margin-bottom:4px}
+.hero-subtitle{font-size:14px;color:rgba(255,255,255,0.7);font-weight:400}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:12px}
+.hero-badge{background:rgba(59,130,246,0.2);color:#60a5fa;padding:4px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(59,130,246,0.4)}
+.hero-period{color:rgba(255,255,255,0.5);font-size:13px}
+.btn-download{margin-top:24px;display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:"Inter",sans-serif;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(37,99,235,0.3)}
+.btn-download:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,0.4)}
+.main{max-width:900px;margin:0 auto;padding:0 20px 40px}
+section.sec{background:#fff;border-radius:16px;margin-top:24px;box-shadow:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.06);border:1px solid #e2e8f0;overflow:hidden}
+.sec-head{display:flex;align-items:center;gap:12px;padding:20px 28px;border-bottom:1px solid #f1f5f9}
+.sec-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.sec-icon.blue{background:linear-gradient(135deg,#3b82f6,#2563eb)}
+.sec-icon.purple{background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
+.sec-icon.sky{background:linear-gradient(135deg,#0ea5e9,#0284c7)}
+.sec-icon.green{background:linear-gradient(135deg,#10b981,#059669)}
+.sec-icon.amber{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.sec-icon.rose{background:linear-gradient(135deg,#f43f5e,#e11d48)}
+.sec-icon.slate{background:linear-gradient(135deg,#64748b,#475569)}
+.sec-title{font-size:16px;font-weight:700;color:#0f172a;letter-spacing:-0.3px}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#f1f5f9;padding:1px}
+.kpi{background:#fff;padding:24px 24px 20px}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.kpi-name{font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px}
+.kpi-dot{width:8px;height:8px;border-radius:50%}
+.kpi-num{font-size:30px;font-weight:800;color:#0f172a;letter-spacing:-1px;line-height:1}
+.kpi-bottom{display:flex;align-items:center;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700}
+.badge-up{background:#dcfce7;color:#16a34a}
+.badge-down{background:#fee2e2;color:#dc2626}
+.badge-neutral{background:#f1f5f9;color:#64748b}
+.badge svg{width:10px;height:10px}
+.funnel{padding:32px 40px;display:flex;flex-direction:column;align-items:center}
+.funnel-level{width:100%;text-align:center;color:#fff;position:relative;display:flex;align-items:center;justify-content:center;padding:22px 0}
+.fl-inner{display:flex;align-items:baseline;gap:16px;position:relative;z-index:1}
+.fl-label{font-size:13px;font-weight:500;opacity:0.9;text-transform:uppercase;letter-spacing:0.5px}
+.fl-value{font-size:28px;font-weight:800;letter-spacing:-0.5px}
+.fl-1{width:100%;background:linear-gradient(135deg,#1e40af,#3b82f6);clip-path:polygon(0 0,100% 0,94% 100%,6% 100%);border-radius:12px 12px 0 0}
+.fl-2{width:82%;background:linear-gradient(135deg,#0369a1,#0ea5e9);clip-path:polygon(4% 0,96% 0,90% 100%,10% 100%)}
+.fl-3{width:60%;background:linear-gradient(135deg,#047857,#10b981);clip-path:polygon(6% 0,94% 0,82% 100%,18% 100%);border-radius:0 0 12px 12px}
+.funnel-arrow{display:flex;align-items:center;justify-content:center;height:28px;position:relative;z-index:2}
+.funnel-rate{font-size:12px;font-weight:700;color:#64748b;background:#f8fafc;padding:2px 14px;border-radius:20px;border:1px solid #e2e8f0}
+.split-layout{display:grid;grid-template-columns:280px 1fr;gap:0;border-top:1px solid #f1f5f9}
+.split-chart{padding:24px;display:flex;align-items:center;justify-content:center;border-right:1px solid #f1f5f9}
+.split-table{overflow-x:auto}
+.chart-wrap{padding:24px 28px;position:relative;width:100%}
+.table-wrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;text-align:left;padding:12px 16px;border-bottom:2px solid #e2e8f0;background:#f8fafc;white-space:nowrap}
+.tbl td{font-size:13px;padding:11px 16px;border-bottom:1px solid #f1f5f9;color:#334155;white-space:nowrap}
+.tbl tbody tr:hover td{background:#f8fafc}
+.tbl .td-label{font-weight:600;color:#0f172a}
+.match-badge{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:600;background:#f1f5f9;color:#64748b}
+.card-info{padding:24px 28px}
+.card-info p{font-size:14px;color:#475569;line-height:1.7;margin-bottom:12px}
+.link-ext{color:#3b82f6;font-weight:600;font-size:14px;text-decoration:none;transition:color 0.2s}
+.link-ext:hover{color:#2563eb;text-decoration:underline}
+.resultados-wrap{padding:28px}
+.res-bloco{margin-bottom:24px}
+.res-bloco:last-child{margin-bottom:0}
+.res-header{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #e2e8f0;letter-spacing:-0.2px}
+.res-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.res-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;text-align:center;transition:transform 0.15s,box-shadow 0.15s}
+.res-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.res-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.res-label{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.res-value{font-size:22px;font-weight:800;letter-spacing:-0.5px;line-height:1}
+.conclusao{padding:28px 28px 32px}
+.conclusao h4{font-size:16px;font-weight:700;color:#0f172a;margin:28px 0 10px;padding-bottom:8px;border-bottom:2px solid #3b82f6;display:inline-block}
+.conclusao h4:first-child{margin-top:0}
+.conclusao p{font-size:14px;line-height:1.85;color:#334155;margin-bottom:10px}
+.conclusao ul{margin:10px 0 14px 24px}
+.conclusao li{font-size:14px;color:#334155;padding:3px 0;line-height:1.8}
+.conclusao strong{color:#0f172a;font-weight:700}
+.footer{max-width:900px;margin:0 auto;padding:0 20px 40px}
+.footer-inner{text-align:center;padding:24px 0;border-top:1px solid #e2e8f0}
+.footer-brand{font-size:13px;font-weight:800;color:#0f172a;letter-spacing:-0.2px}
+.footer-meta{font-size:11px;color:#94a3b8;margin-top:4px}
+@media print{
+  body{background:#fff}
+  .hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .main{padding:0;max-width:100%}
+  section.sec{box-shadow:none;border:1px solid #e2e8f0;margin-top:16px;page-break-inside:avoid}
+  .btn-download{display:none}
+  canvas{display:none !important}
+  .print-img{display:block !important;width:100%}
+  .funnel-level{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sec-icon{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .badge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .kpi-dot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media(max-width:768px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .split-layout{grid-template-columns:1fr}
+  .hero-content{padding:32px 24px}
+  .hero-title{font-size:22px}
+  .fl-value{font-size:20px}
+  .fl-label{font-size:11px;letter-spacing:0}
+  .fl-inner{gap:8px}
+  .funnel{padding:24px 16px}
+  .funnel-level{padding:16px 0}
+  .fl-3{width:75%}
+  .res-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-logos">
+      <img src="data:image/svg+xml;base64,PHN2ZyBkYXRhLXYtNDIzYmY5YWU9IiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTAxIDkwIiBjbGFzcz0iaWNvbkxlZnQiPjwhLS0tLT48IS0tLS0+PCEtLS0tPjxnIGRhdGEtdi00MjNiZjlhZT0iIiBpZD0iYjkwYjVlNWItYjk4Ny00ZTNjLWE0MGEtOGUyNDlmYTcxNmVmIiBmaWxsPSJibGFjayIgdHJhbnNmb3JtPSJtYXRyaXgoNS43MDM0MjE4MDUwNTUxOTksMCwwLDUuNzAzNDIxODA1MDU1MTk5LDExMS4xNDA2NzIyOTM1MjM5NSwtMy4wMjI4MTUwNjI0MzMxMDM2KSI+PHBhdGggZD0iTTguMzIgMTMuNTVMNy41NSAxMS42NUwzLjQwIDExLjY1TDIuNjMgMTMuNTVMLTAuMjAgMTMuNTVMNC4xMyAzLjc1TDYuODYgMy43NUwxMS4yMCAxMy41NUw4LjMyIDEzLjU1Wk00LjIxIDkuNjBMNi43MyA5LjYwTDUuNDcgNi40N0w0LjIxIDkuNjBaTTE3LjE5IDMuMTZMMTkuODUgMy4xNkwxOS44NSAxMy41NUwxNy4zMiAxMy41NUwxNy4zMiAxMi44MFExNi41OCAxMy42OCAxNS4wOSAxMy42OEwxNS4wOSAxMy42OFExNC4wNiAxMy42OCAxMy4yMCAxMy4yMFExMi4zNSAxMi43MSAxMS44NSAxMS44MlExMS4zNSAxMC45MiAxMS4zNSA5Ljc0TDExLjM1IDkuNzRRMTEuMzUgOC41NyAxMS44NSA3LjY4UTEyLjM1IDYuNzkgMTMuMjAgNi4zMVExNC4wNiA1Ljg0IDE1LjA5IDUuODRMMTUuMDkgNS44NFExNi40NSA1Ljg0IDE3LjE5IDYuNjJMMTcuMTkgNi42MkwxNy4xOSAzLjE2Wk0xNS42NSAxMS41NlExNi4zNCAxMS41NiAxNi43OSAxMS4wOFExNy4yMyAxMC42MCAxNy4yMyA5Ljc0TDE3LjIzIDkuNzRRMTcuMjMgOC45MCAxNi43OSA4LjQzUTE2LjM1IDcuOTUgMTUuNjUgNy45NUwxNS42NSA3Ljk1UTE0Ljk1IDcuOTUgMTQuNTAgOC40M1ExNC4wNiA4LjkwIDE0LjA2IDkuNzRMMTQuMDYgOS43NFExNC4wNiAxMC42MCAxNC41MCAxMS4wOFExNC45NSAxMS41NiAxNS42NSAxMS41NkwxNS42NSAxMS41NlpNMjQuMzIgMTMuNjhRMjMuMzcgMTMuNjggMjIuNDQgMTMuNDZRMjEuNTIgMTMuMjQgMjAuOTYgMTIuODlMMjAuOTYgMTIuODlMMjEuNzYgMTEuMDdRMjIuMjcgMTEuNDAgMjIuOTkgMTEuNThRMjMuNzAgMTEuNzcgMjQuNDAgMTEuNzdMMjQuNDAgMTEuNzdRMjUuMDUgMTEuNzcgMjUuMzIgMTEuNjRRMjUuNTkgMTEuNTEgMjUuNTkgMTEuMjZMMjUuNTkgMTEuMjZRMjUuNTkgMTEuMDAgMjUuMjYgMTAuOTBRMjQuOTMgMTAuNzkgMjQuMjIgMTAuNzBMMjQuMjIgMTAuNzBRMjMuMzEgMTAuNTggMjIuNjcgMTAuNDBRMjIuMDQgMTAuMjIgMjEuNTcgOS43M1EyMS4xMSA5LjI0IDIxLjExIDguMzZMMjEuMTEgOC4zNlEyMS4xMSA3LjYzIDIxLjU1IDcuMDZRMjEuOTggNi41MCAyMi44MSA2LjE3UTIzLjY1IDUuODQgMjQuODEgNS44NEwyNC44MSA1Ljg0UTI1LjYzIDUuODQgMjYuNDUgNi4wMVEyNy4yNiA2LjE3IDI3LjgwIDYuNDhMMjcuODAgNi40OEwyNy4wMSA4LjI5UTI2LjAwIDcuNzMgMjQuODIgNy43M0wyNC44MiA3LjczUTI0LjE5IDcuNzMgMjMuOTAgNy44N1EyMy42MCA4LjAyIDIzLjYwIDguMjZMMjMuNjAgOC4yNlEyMy42MCA4LjUzIDIzLjkzIDguNjNRMjQuMjUgOC43NCAyNC45OSA4Ljg1TDI0Ljk5IDguODVRMjUuOTMgOC45OSAyNi41NCA5LjE3UTI3LjE2IDkuMzUgMjcuNjEgOS44M1EyOC4wNyAxMC4zMiAyOC4wNyAxMS4xOUwyOC4wNyAxMS4xOVEyOC4wNyAxMS45MCAyNy42NCAxMi40N1EyNy4yMCAxMy4wMyAyNi4zNiAxMy4zNlEyNS41MSAxMy42OCAyNC4zMiAxMy42OEwyNC4zMiAxMy42OFpNNDEuMTAgNS44OUwzNi4xOSA1Ljg5TDM2LjE5IDguMDVMNDAuNTIgOC4wNUw0MC41MiAxMC4xOUwzNi4xOSAxMC4xOUwzNi4xOSAxMy41NUwzMy40MiAxMy41NUwzMy40MiAzLjc1TDQxLjEwIDMuNzVMNDEuMTAgNS44OVpNNDIuMjggMTMuNTVMNDIuMjggMy4xNkw0NC45NCAzLjE2TDQ0Ljk0IDEzLjU1TDQyLjI4IDEzLjU1Wk01MC40NyAxMy42OFE0OS4yNSAxMy42OCA0OC4yNyAxMy4xN1E0Ny4yOSAxMi42NyA0Ni43NCAxMS43N1E0Ni4xOSAxMC44OCA0Ni4xOSA5Ljc0TDQ2LjE5IDkuNzRRNDYuMTkgOC42MiA0Ni43NCA3LjczUTQ3LjI5IDYuODMgNDguMjcgNi4zM1E0OS4yNCA1Ljg0IDUwLjQ3IDUuODRMNTAuNDcgNS44NFE1MS43MCA1Ljg0IDUyLjY4IDYuMzNRNTMuNjYgNi44MyA1NC4yMSA3LjcyUTU0Ljc1IDguNjEgNTQuNzUgOS43NEw1NC43NSA5Ljc0UTU0Ljc1IDEwLjg4IDU0LjIxIDExLjc3UTUzLjY2IDEyLjY3IDUyLjY4IDEzLjE3UTUxLjcwIDEzLjY4IDUwLjQ3IDEzLjY4TDUwLjQ3IDEzLjY4Wk01MC40NyAxMS41NlE1MS4xNyAxMS41NiA1MS42MiAxMS4wOFE1Mi4wNyAxMC42MCA1Mi4wNyA5Ljc0TDUyLjA3IDkuNzRRNTIuMDcgOC45MCA1MS42MiA4LjQzUTUxLjE3IDcuOTUgNTAuNDcgNy45NUw1MC40NyA3Ljk1UTQ5Ljc3IDcuOTUgNDkuMzIgOC40M1E0OC44NyA4LjkwIDQ4Ljg3IDkuNzRMNDguODcgOS43NFE0OC44NyAxMC42MCA0OS4zMiAxMS4wOFE0OS43NyAxMS41NiA1MC40NyAxMS41Nkw1MC40NyAxMS41NlpNNjYuMDEgNS45Nkw2OC4zNSA1Ljk2TDY1LjY1IDEzLjU1TDYzLjA3IDEzLjU1TDYxLjY0IDkuNDJMNjAuMTYgMTMuNTVMNTcuNTggMTMuNTVMNTQuODggNS45Nkw1Ny40MCA1Ljk2TDU4Ljk1IDEwLjU2TDYwLjU2IDUuOTZMNjIuODMgNS45Nkw2NC40MCAxMC42MEw2Ni4wMSA1Ljk2WiI+PC9wYXRoPjwvZz48IS0tLS0+PGcgZGF0YS12LTQyM2JmOWFlPSIiIGlkPSJlNzhkM2M0ZC00NDkwLTQ5NzMtYjIwNy1kYTk3ZDI3NDExYTgiIHRyYW5zZm9ybT0ibWF0cml4KDIuODEyNSwwLDAsMi44MTI1LDAsMCkiIHN0cm9rZT0ibm9uZSIgZmlsbD0iYmxhY2siPjxwYXRoIGQ9Ik0wIDMyaDMyVjBIMHYzMnpNMiAyaDIuOTgxTDE2LjAxIDIxLjEwMyAyNy4wNCAySDMwdjI4SDJWMnoiPjwvcGF0aD48L2c+PCEtLS0tPjwvc3ZnPg==" alt="ADS FLOW" class="logo-af">
+      <span class="logo-divider"></span>
+      <img src="data:image/png;base64,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" alt="Fisiocárdio" class="logo-cl logo-cl-pill">
+    </div>
+    <h1 class="hero-title">Relatório Mensal</h1>
+    <p class="hero-subtitle">Fisiocárdio — Google Ads</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Abril/2026</span>
+      <span class="hero-period">01/04/2026 a 30/04/2026</span>
+    </div>
+    <button class="btn-download" onclick="window.print()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download PDF
+    </button>
+  </div>
+</header>
+<main class="main">
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+  <h2 class="sec-title">Visão Geral</h2>
+</div>
+<div class="kpi-grid">
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Cliques</span><span class="kpi-dot" style="background:#3b82f6"></span></div>
+  <div class="kpi-num">70</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>38,1%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Impressões</span><span class="kpi-dot" style="background:#8b5cf6"></span></div>
+  <div class="kpi-num">1.334</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>29,3%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">CPC Médio</span><span class="kpi-dot" style="background:#f59e0b"></span></div>
+  <div class="kpi-num">R$ 4,38</div>
+  <div class="kpi-bottom"><span class="badge badge-up"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>13,0%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">CTR</span><span class="kpi-dot" style="background:#0ea5e9"></span></div>
+  <div class="kpi-num">5,25%</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>12,4%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Custo Total</span><span class="kpi-dot" style="background:#ef4444"></span></div>
+  <div class="kpi-num">R$ 306,65</div>
+  <div class="kpi-bottom"><span class="badge badge-up"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>46,1%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Conversões</span><span class="kpi-dot" style="background:#10b981"></span></div>
+  <div class="kpi-num">3</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>76,9%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon purple"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></div>
+  <h2 class="sec-title">Funil de Leads — Google Ads</h2>
+</div>
+<div class="funnel">
+  <div class="funnel-level fl-1">
+    <div class="fl-inner"><span class="fl-label">Impressões</span><span class="fl-value">1.334</span></div>
+  </div>
+  <div class="funnel-arrow"><span class="funnel-rate">5.2% CTR</span></div>
+  <div class="funnel-level fl-2">
+    <div class="fl-inner"><span class="fl-label">Cliques</span><span class="fl-value">70</span></div>
+  </div>
+  <div class="funnel-arrow"><span class="funnel-rate">4.3% Conv.</span></div>
+  <div class="funnel-level fl-3">
+    <div class="fl-inner"><span class="fl-label">Conversões (Leads)</span><span class="fl-value">3</span></div>
+  </div>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon sky"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg></div>
+  <h2 class="sec-title">Tipo de Dispositivo</h2>
+</div>
+<div class="split-layout">
+<div class="split-chart"><canvas id="chartDevice" height="260"></canvas></div>
+<div class="split-table">
+<table class="tbl"><thead><tr><th>Dispositivo</th><th>Cliques</th><th>CPC</th><th>Conv.</th><th>Custo</th></tr></thead><tbody>
+<tr><td class="td-label">Computadores</td><td>15</td><td>R$ 5,40</td><td>1</td><td>R$ 80,97</td></tr>
+<tr><td class="td-label">Celulares</td><td>55</td><td>R$ 4,10</td><td>2</td><td>R$ 225,67</td></tr>
+</tbody></table>
+</div>
+</div>
+<script>
+new Chart(document.getElementById("chartDevice"),{type:"doughnut",data:{labels:["Computadores","Celulares"],datasets:[{data:[15,55],backgroundColor:["#3b82f6","#8b5cf6","#f59e0b","#10b981","#ef4444"],borderWidth:0,borderRadius:4,hoverOffset:8}]},options:{responsive:true,cutout:"65%",plugins:{legend:{position:"bottom",labels:{padding:16,usePointStyle:true,pointStyle:"circle",font:{size:12,family:"Inter"}}}}}});
+</script>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon amber"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+  <h2 class="sec-title">Desempenho por Dia da Semana</h2>
+</div>
+<div class="chart-wrap"><canvas id="chartSemana"></canvas></div>
+<script>
+new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segunda","Terca","Quarta","Quinta","Sexta","Sabado","Domingo"],datasets:[{label:"Cliques",data:[16,11,28,12,3,0,0],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[1,0,1,0,1,0,0],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:window.innerWidth<=768?1.2:2.2,interaction:{intersect:false,mode:"index"},plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}},y:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}}}}});
+</script>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon rose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+  <h2 class="sec-title">Desempenho por Cidade</h2>
+</div>
+<div class="chart-wrap"><canvas id="chartCidades"></canvas></div>
+<script>
+new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Florianopolis","Sao Jose"],datasets:[{label:"Cliques",data:[54,16],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[2,1],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.8,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
+</script>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Cidade</th><th>Impressões</th><th>Cliques</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">Florianopolis</td><td>1.076</td><td>54</td><td>R$ 4,51</td><td>R$ 243,43</td><td>2</td></tr>
+<tr><td class="td-label">Sao Jose</td><td>258</td><td>16</td><td>R$ 3,95</td><td>R$ 63,22</td><td>1</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon slate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+  <h2 class="sec-title">Grupos de Anúncio</h2>
+</div>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Grupo</th><th>Impr.</th><th>Cliques</th><th>% Impr.</th><th>% Topo</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">Grupo de anúncios 1</td><td>1.334</td><td>70</td><td>27,75%</td><td>23,14%</td><td>R$ 4,38</td><td>R$ 306,65</td><td>3</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+  <h2 class="sec-title">Principais Palavras-Chave</h2>
+</div>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Palavra-Chave</th><th>Tipo</th><th>Impr.</th><th>Cliques</th><th>CPC</th><th>% Impr.</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">fisioterapia domiciliar</td><td><span class="match-badge">Ampla</span></td><td>1.124</td><td>59</td><td>R$ 4,49</td><td>30,72%</td><td>R$ 264,64</td><td>3</td></tr>
+<tr><td class="td-label">fisioterapia domiciliar florianopolis</td><td><span class="match-badge">Ampla</span></td><td>102</td><td>8</td><td>R$ 2,66</td><td>40,34%</td><td>R$ 21,31</td><td>0</td></tr>
+<tr><td class="td-label">fisioterapia respiratória</td><td><span class="match-badge">Ampla</span></td><td>56</td><td>2</td><td>R$ 9,84</td><td>23,58%</td><td>R$ 19,67</td><td>0</td></tr>
+<tr><td class="td-label">fisioterapia neurológica</td><td><span class="match-badge">Ampla</span></td><td>52</td><td>1</td><td>R$ 1,02</td><td>9,99%</td><td>R$ 1,02</td><td>0</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+  <h2 class="sec-title">Conclusão e Análise Estratégica</h2>
+</div>
+<div class="conclusao">
+<h4>O Que Aconteceu (Fatos e Números)</h4>
+
+<p>Durante abril, gerenciamos a campanha de Google Ads da Fisiocárdio com foco em gerar leads qualificados para o serviço de fisioterapia domiciliar. Realizamos 7 otimizações ao longo do mês, ajustando nossa estratégia conforme os dados indicavam oportunidades de melhoria.</p>
+
+<p>Os números do período mostram:</p>
+
+<ul>
+<li>70 pessoas clicaram nos anúncios</li>
+<li>3 leads foram gerados</li>
+<li>Custo por lead: R$ 102,22</li>
+<li>Custo total investido: R$ 306,65</li>
+<li>Taxa de conversão: 4,29%</li>
+</ul>
+
+<p>A palavra-chave <strong>"fisioterapia domiciliar"</strong> foi responsável por praticamente toda a performance, gerando 59 cliques e os 3 leads do mês. As demais palavras-chave testadas não converteram leads, indicando baixa relevância para o público que buscava.</p>
+
+<p>Quanto aos dispositivos, celular foi o canal principal com 55 cliques e 2 leads, enquanto computadores geraram 15 cliques e 1 lead.</p>
+
+<h4>Análise Estratégica</h4>
+
+<p>A campanha apresenta uma situação bem definida: existe um termo de pesquisa que funciona muito bem e outros que não geram resultado. Isso é uma oportunidade clara de concentração de investimento.</p>
+
+<p><strong>O que funcionou:</strong></p>
+
+<ul>
+<li>A palavra-chave "fisioterapia domiciliar" continua sendo o motor da campanha, demonstrando que pessoas buscando exatamente este serviço têm alta propensão a entrar em contato</li>
+<li>O público mobile respondeu melhor, sugerindo que a maioria dos interessados busca este serviço via telefone</li>
+<li>A taxa de conversão de 4,29% está dentro de um padrão aceitável para campanhas de geração de leads em saúde</li>
+</ul>
+
+<p><strong>Pontos de atenção:</strong></p>
+
+<ul>
+<li>Palavras-chave mais específicas como "fisioterapia respiratória" e "fisioterapia neurológica" não converteram, sugerindo baixa demanda ou público-alvo insuficiente para essas especialidades</li>
+<li>Variações geográficas como "fisioterapia domiciliar florianopolis" geraram cliques mas sem leads, indicando que a localização geográfica pode estar incluída na busca mas não influencia a decisão de contato</li>
+<li>A exclusão da faixa etária 65+ em abril trouxe eficiência ao orçamento, evitando gastos em público com custo-benefício desfavorável</li>
+</ul>
+
+<p>As 7 otimizações realizadas durante o mês refletem uma gestão ativa da campanha, com foco em eliminar termos que não geravam resultados. O ajuste do orçamento máximo por lead em diferentes momentos nos permitiu equilibrar entre alcance e qualidade dos contatos.</p>
+
+<p>A recomendação é manter o foco no termo de pesquisa que comprova resultado e considerar aumentar a visibilidade neste canal específico, já que concentra praticamente toda a geração de leads da Fisiocárdio.</p>
+</div>
+</section>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
+    <div class="footer-meta">Relatório gerado automaticamente em 06/05/2026 15:38</div>
+  </div>
+</footer>
+<script>
+window.addEventListener("beforeprint",function(){document.querySelectorAll("canvas").forEach(function(c){var i=new Image();i.src=c.toDataURL("image/png");i.style.width="100%";i.className="print-img";c.parentNode.insertBefore(i,c);c.style.display="none"})});
+window.addEventListener("afterprint",function(){document.querySelectorAll(".print-img").forEach(function(i){i.remove()});document.querySelectorAll("canvas").forEach(function(c){c.style.display=""})});
+</script>
+</body>
+</html>

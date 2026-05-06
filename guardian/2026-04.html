@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Guardian Monitoramento - Abril/2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;color:#0f172a;background:#f1f5f9;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%)}
+.hero-bg{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23334155' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:0.5}
+.hero-content{position:relative;max-width:900px;margin:0 auto;padding:32px 20px 24px;text-align:center}
+.hero-logos{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.logo-af{height:28px;filter:brightness(0) invert(1);opacity:0.9}
+.logo-af-text{font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.5px}
+.logo-divider{width:1px;height:28px;background:rgba(255,255,255,0.3)}
+.logo-cl{height:32px;filter:brightness(0) invert(1)}
+.logo-cl-pill{filter:none;background:rgba(255,255,255,0.92);border-radius:6px;padding:3px 10px;object-fit:contain}
+.hero-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.3px;margin-bottom:4px}
+.hero-subtitle{font-size:14px;color:rgba(255,255,255,0.7);font-weight:400}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:12px}
+.hero-badge{background:rgba(59,130,246,0.2);color:#60a5fa;padding:4px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(59,130,246,0.4)}
+.hero-period{color:rgba(255,255,255,0.5);font-size:13px}
+.btn-download{margin-top:24px;display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:"Inter",sans-serif;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(37,99,235,0.3)}
+.btn-download:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,0.4)}
+.main{max-width:900px;margin:0 auto;padding:0 20px 40px}
+section.sec{background:#fff;border-radius:16px;margin-top:24px;box-shadow:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.06);border:1px solid #e2e8f0;overflow:hidden}
+.sec-head{display:flex;align-items:center;gap:12px;padding:20px 28px;border-bottom:1px solid #f1f5f9}
+.sec-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.sec-icon.blue{background:linear-gradient(135deg,#3b82f6,#2563eb)}
+.sec-icon.purple{background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
+.sec-icon.sky{background:linear-gradient(135deg,#0ea5e9,#0284c7)}
+.sec-icon.green{background:linear-gradient(135deg,#10b981,#059669)}
+.sec-icon.amber{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.sec-icon.rose{background:linear-gradient(135deg,#f43f5e,#e11d48)}
+.sec-icon.slate{background:linear-gradient(135deg,#64748b,#475569)}
+.sec-title{font-size:16px;font-weight:700;color:#0f172a;letter-spacing:-0.3px}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#f1f5f9;padding:1px}
+.kpi{background:#fff;padding:24px 24px 20px}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.kpi-name{font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px}
+.kpi-dot{width:8px;height:8px;border-radius:50%}
+.kpi-num{font-size:30px;font-weight:800;color:#0f172a;letter-spacing:-1px;line-height:1}
+.kpi-bottom{display:flex;align-items:center;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700}
+.badge-up{background:#dcfce7;color:#16a34a}
+.badge-down{background:#fee2e2;color:#dc2626}
+.badge-neutral{background:#f1f5f9;color:#64748b}
+.badge svg{width:10px;height:10px}
+.funnel{padding:32px 40px;display:flex;flex-direction:column;align-items:center}
+.funnel-level{width:100%;text-align:center;color:#fff;position:relative;display:flex;align-items:center;justify-content:center;padding:22px 0}
+.fl-inner{display:flex;align-items:baseline;gap:16px;position:relative;z-index:1}
+.fl-label{font-size:13px;font-weight:500;opacity:0.9;text-transform:uppercase;letter-spacing:0.5px}
+.fl-value{font-size:28px;font-weight:800;letter-spacing:-0.5px}
+.fl-1{width:100%;background:linear-gradient(135deg,#1e40af,#3b82f6);clip-path:polygon(0 0,100% 0,94% 100%,6% 100%);border-radius:12px 12px 0 0}
+.fl-2{width:82%;background:linear-gradient(135deg,#0369a1,#0ea5e9);clip-path:polygon(4% 0,96% 0,90% 100%,10% 100%)}
+.fl-3{width:60%;background:linear-gradient(135deg,#047857,#10b981);clip-path:polygon(6% 0,94% 0,82% 100%,18% 100%);border-radius:0 0 12px 12px}
+.funnel-arrow{display:flex;align-items:center;justify-content:center;height:28px;position:relative;z-index:2}
+.funnel-rate{font-size:12px;font-weight:700;color:#64748b;background:#f8fafc;padding:2px 14px;border-radius:20px;border:1px solid #e2e8f0}
+.split-layout{display:grid;grid-template-columns:280px 1fr;gap:0;border-top:1px solid #f1f5f9}
+.split-chart{padding:24px;display:flex;align-items:center;justify-content:center;border-right:1px solid #f1f5f9}
+.split-table{overflow-x:auto}
+.chart-wrap{padding:24px 28px;position:relative;width:100%}
+.table-wrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;text-align:left;padding:12px 16px;border-bottom:2px solid #e2e8f0;background:#f8fafc;white-space:nowrap}
+.tbl td{font-size:13px;padding:11px 16px;border-bottom:1px solid #f1f5f9;color:#334155;white-space:nowrap}
+.tbl tbody tr:hover td{background:#f8fafc}
+.tbl .td-label{font-weight:600;color:#0f172a}
+.match-badge{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:600;background:#f1f5f9;color:#64748b}
+.card-info{padding:24px 28px}
+.card-info p{font-size:14px;color:#475569;line-height:1.7;margin-bottom:12px}
+.link-ext{color:#3b82f6;font-weight:600;font-size:14px;text-decoration:none;transition:color 0.2s}
+.link-ext:hover{color:#2563eb;text-decoration:underline}
+.resultados-wrap{padding:28px}
+.res-bloco{margin-bottom:24px}
+.res-bloco:last-child{margin-bottom:0}
+.res-header{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #e2e8f0;letter-spacing:-0.2px}
+.res-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.res-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;text-align:center;transition:transform 0.15s,box-shadow 0.15s}
+.res-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.res-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.res-label{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.res-value{font-size:22px;font-weight:800;letter-spacing:-0.5px;line-height:1}
+.conclusao{padding:28px 28px 32px}
+.conclusao h4{font-size:16px;font-weight:700;color:#0f172a;margin:28px 0 10px;padding-bottom:8px;border-bottom:2px solid #3b82f6;display:inline-block}
+.conclusao h4:first-child{margin-top:0}
+.conclusao p{font-size:14px;line-height:1.85;color:#334155;margin-bottom:10px}
+.conclusao ul{margin:10px 0 14px 24px}
+.conclusao li{font-size:14px;color:#334155;padding:3px 0;line-height:1.8}
+.conclusao strong{color:#0f172a;font-weight:700}
+.footer{max-width:900px;margin:0 auto;padding:0 20px 40px}
+.footer-inner{text-align:center;padding:24px 0;border-top:1px solid #e2e8f0}
+.footer-brand{font-size:13px;font-weight:800;color:#0f172a;letter-spacing:-0.2px}
+.footer-meta{font-size:11px;color:#94a3b8;margin-top:4px}
+@media print{
+  body{background:#fff}
+  .hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .main{padding:0;max-width:100%}
+  section.sec{box-shadow:none;border:1px solid #e2e8f0;margin-top:16px;page-break-inside:avoid}
+  .btn-download{display:none}
+  canvas{display:none !important}
+  .print-img{display:block !important;width:100%}
+  .funnel-level{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sec-icon{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .badge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .kpi-dot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media(max-width:768px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .split-layout{grid-template-columns:1fr}
+  .hero-content{padding:32px 24px}
+  .hero-title{font-size:22px}
+  .fl-value{font-size:20px}
+  .fl-label{font-size:11px;letter-spacing:0}
+  .fl-inner{gap:8px}
+  .funnel{padding:24px 16px}
+  .funnel-level{padding:16px 0}
+  .fl-3{width:75%}
+  .res-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-logos">
+      <img src="data:image/svg+xml;base64,PHN2ZyBkYXRhLXYtNDIzYmY5YWU9IiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTAxIDkwIiBjbGFzcz0iaWNvbkxlZnQiPjwhLS0tLT48IS0tLS0+PCEtLS0tPjxnIGRhdGEtdi00MjNiZjlhZT0iIiBpZD0iYjkwYjVlNWItYjk4Ny00ZTNjLWE0MGEtOGUyNDlmYTcxNmVmIiBmaWxsPSJibGFjayIgdHJhbnNmb3JtPSJtYXRyaXgoNS43MDM0MjE4MDUwNTUxOTksMCwwLDUuNzAzNDIxODA1MDU1MTk5LDExMS4xNDA2NzIyOTM1MjM5NSwtMy4wMjI4MTUwNjI0MzMxMDM2KSI+PHBhdGggZD0iTTguMzIgMTMuNTVMNy41NSAxMS42NUwzLjQwIDExLjY1TDIuNjMgMTMuNTVMLTAuMjAgMTMuNTVMNC4xMyAzLjc1TDYuODYgMy43NUwxMS4yMCAxMy41NUw4LjMyIDEzLjU1Wk00LjIxIDkuNjBMNi43MyA5LjYwTDUuNDcgNi40N0w0LjIxIDkuNjBaTTE3LjE5IDMuMTZMMTkuODUgMy4xNkwxOS44NSAxMy41NUwxNy4zMiAxMy41NUwxNy4zMiAxMi44MFExNi41OCAxMy42OCAxNS4wOSAxMy42OEwxNS4wOSAxMy42OFExNC4wNiAxMy42OCAxMy4yMCAxMy4yMFExMi4zNSAxMi43MSAxMS44NSAxMS44MlExMS4zNSAxMC45MiAxMS4zNSA5Ljc0TDExLjM1IDkuNzRRMTEuMzUgOC41NyAxMS44NSA3LjY4UTEyLjM1IDYuNzkgMTMuMjAgNi4zMVExNC4wNiA1Ljg0IDE1LjA5IDUuODRMMTUuMDkgNS44NFExNi40NSA1Ljg0IDE3LjE5IDYuNjJMMTcuMTkgNi42MkwxNy4xOSAzLjE2Wk0xNS42NSAxMS41NlExNi4zNCAxMS41NiAxNi43OSAxMS4wOFExNy4yMyAxMC42MCAxNy4yMyA5Ljc0TDE3LjIzIDkuNzRRMTcuMjMgOC45MCAxNi43OSA4LjQzUTE2LjM1IDcuOTUgMTUuNjUgNy45NUwxNS42NSA3Ljk1UTE0Ljk1IDcuOTUgMTQuNTAgOC40M1ExNC4wNiA4LjkwIDE0LjA2IDkuNzRMMTQuMDYgOS43NFExNC4wNiAxMC42MCAxNC41MCAxMS4wOFExNC45NSAxMS41NiAxNS42NSAxMS41NkwxNS42NSAxMS41NlpNMjQuMzIgMTMuNjhRMjMuMzcgMTMuNjggMjIuNDQgMTMuNDZRMjEuNTIgMTMuMjQgMjAuOTYgMTIuODlMMjAuOTYgMTIuODlMMjEuNzYgMTEuMDdRMjIuMjcgMTEuNDAgMjIuOTkgMTEuNThRMjMuNzAgMTEuNzcgMjQuNDAgMTEuNzdMMjQuNDAgMTEuNzdRMjUuMDUgMTEuNzcgMjUuMzIgMTEuNjRRMjUuNTkgMTEuNTEgMjUuNTkgMTEuMjZMMjUuNTkgMTEuMjZRMjUuNTkgMTEuMDAgMjUuMjYgMTAuOTBRMjQuOTMgMTAuNzkgMjQuMjIgMTAuNzBMMjQuMjIgMTAuNzBRMjMuMzEgMTAuNTggMjIuNjcgMTAuNDBRMjIuMDQgMTAuMjIgMjEuNTcgOS43M1EyMS4xMSA5LjI0IDIxLjExIDguMzZMMjEuMTEgOC4zNlEyMS4xMSA3LjYzIDIxLjU1IDcuMDZRMjEuOTggNi41MCAyMi44MSA2LjE3UTIzLjY1IDUuODQgMjQuODEgNS44NEwyNC44MSA1Ljg0UTI1LjYzIDUuODQgMjYuNDUgNi4wMVEyNy4yNiA2LjE3IDI3LjgwIDYuNDhMMjcuODAgNi40OEwyNy4wMSA4LjI5UTI2LjAwIDcuNzMgMjQuODIgNy43M0wyNC44MiA3LjczUTI0LjE5IDcuNzMgMjMuOTAgNy44N1EyMy42MCA4LjAyIDIzLjYwIDguMjZMMjMuNjAgOC4yNlEyMy42MCA4LjUzIDIzLjkzIDguNjNRMjQuMjUgOC43NCAyNC45OSA4Ljg1TDI0Ljk5IDguODVRMjUuOTMgOC45OSAyNi41NCA5LjE3UTI3LjE2IDkuMzUgMjcuNjEgOS44M1EyOC4wNyAxMC4zMiAyOC4wNyAxMS4xOUwyOC4wNyAxMS4xOVEyOC4wNyAxMS45MCAyNy42NCAxMi40N1EyNy4yMCAxMy4wMyAyNi4zNiAxMy4zNlEyNS41MSAxMy42OCAyNC4zMiAxMy42OEwyNC4zMiAxMy42OFpNNDEuMTAgNS44OUwzNi4xOSA1Ljg5TDM2LjE5IDguMDVMNDAuNTIgOC4wNUw0MC41MiAxMC4xOUwzNi4xOSAxMC4xOUwzNi4xOSAxMy41NUwzMy40MiAxMy41NUwzMy40MiAzLjc1TDQxLjEwIDMuNzVMNDEuMTAgNS44OVpNNDIuMjggMTMuNTVMNDIuMjggMy4xNkw0NC45NCAzLjE2TDQ0Ljk0IDEzLjU1TDQyLjI4IDEzLjU1Wk01MC40NyAxMy42OFE0OS4yNSAxMy42OCA0OC4yNyAxMy4xN1E0Ny4yOSAxMi42NyA0Ni43NCAxMS43N1E0Ni4xOSAxMC44OCA0Ni4xOSA5Ljc0TDQ2LjE5IDkuNzRRNDYuMTkgOC42MiA0Ni43NCA3LjczUTQ3LjI5IDYuODMgNDguMjcgNi4zM1E0OS4yNCA1Ljg0IDUwLjQ3IDUuODRMNTAuNDcgNS44NFE1MS43MCA1Ljg0IDUyLjY4IDYuMzNRNTMuNjYgNi44MyA1NC4yMSA3LjcyUTU0Ljc1IDguNjEgNTQuNzUgOS43NEw1NC43NSA5Ljc0UTU0Ljc1IDEwLjg4IDU0LjIxIDExLjc3UTUzLjY2IDEyLjY3IDUyLjY4IDEzLjE3UTUxLjcwIDEzLjY4IDUwLjQ3IDEzLjY4TDUwLjQ3IDEzLjY4Wk01MC40NyAxMS41NlE1MS4xNyAxMS41NiA1MS42MiAxMS4wOFE1Mi4wNyAxMC42MCA1Mi4wNyA5Ljc0TDUyLjA3IDkuNzRRNTIuMDcgOC45MCA1MS42MiA4LjQzUTUxLjE3IDcuOTUgNTAuNDcgNy45NUw1MC40NyA3Ljk1UTQ5Ljc3IDcuOTUgNDkuMzIgOC40M1E0OC44NyA4LjkwIDQ4Ljg3IDkuNzRMNDguODcgOS43NFE0OC44NyAxMC42MCA0OS4zMiAxMS4wOFE0OS43NyAxMS41NiA1MC40NyAxMS41Nkw1MC40NyAxMS41NlpNNjYuMDEgNS45Nkw2OC4zNSA1Ljk2TDY1LjY1IDEzLjU1TDYzLjA3IDEzLjU1TDYxLjY0IDkuNDJMNjAuMTYgMTMuNTVMNTcuNTggMTMuNTVMNTQuODggNS45Nkw1Ny40MCA1Ljk2TDU4Ljk1IDEwLjU2TDYwLjU2IDUuOTZMNjIuODMgNS45Nkw2NC40MCAxMC42MEw2Ni4wMSA1Ljk2WiI+PC9wYXRoPjwvZz48IS0tLS0+PGcgZGF0YS12LTQyM2JmOWFlPSIiIGlkPSJlNzhkM2M0ZC00NDkwLTQ5NzMtYjIwNy1kYTk3ZDI3NDExYTgiIHRyYW5zZm9ybT0ibWF0cml4KDIuODEyNSwwLDAsMi44MTI1LDAsMCkiIHN0cm9rZT0ibm9uZSIgZmlsbD0iYmxhY2siPjxwYXRoIGQ9Ik0wIDMyaDMyVjBIMHYzMnpNMiAyaDIuOTgxTDE2LjAxIDIxLjEwMyAyNy4wNCAySDMwdjI4SDJWMnoiPjwvcGF0aD48L2c+PCEtLS0tPjwvc3ZnPg==" alt="ADS FLOW" class="logo-af">
+      <span class="logo-divider"></span>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAAAyCAYAAAAKhtQVAAAWjElEQVR42uyaT2hcRRzHxyUsOZRQwtJDDhLUiyEUslklB5GiUmqQUmrz3qMGlWKzu2BDmn1bJDeRIpJDKUWK5iAhSAgl2YMEkdJDKSJFQggiPUiRUEoQESmLhBLC+tnHb515s/u6jaRtWuYLH34zs7/Mzobfb96bP2qnGjl9tsMvhO/DBViAa7AKv8Ed2Igohnext2ENrvuF8iL2MkzBKJ8PeYVSxsuH6bdHx5WT054XgdsNy0GxXMPWsEKoLRhtyfD32C36WYfv4TwchR4+Syknp70kAvN5YDYneM0EEOtLm6+D3GgHqds+uo1+IlvelKfGRRj286Uu5eT0JCWz8i1sDQtl00oiQFEnhd2ONSDQIe4L5t+B+P0NFTgJLhmcHq/8Qqk7esePz/IQ6jpYZWjZLlYSILJCU7nc5AP/wAIcqa8dlJPTo5SXL3USbFej1xQhiFsIpRxqH6sus72VOPiZ/Vl9SUJoHwtZYE9Bj+dNKienXZVXLKcIrhmoAZTBKosV7kEAIczBGlQD7Ss8aNa3kYTA0k+Sf1XG2aecnHbxvX8MtvR7vA7koGlh2yD8RG+XllLU98MQjMMC3AEJ6Hi/YhPK4gdNC3Dtfx/moV85Oe1CAqRG8pNp7AECrx/7BgQwAdMwB9fgFtyTAPzDY82gWsjzPHXi9EQKn5dgDBbhL18WxRb2AttaKCdTT1oZW+9gPq+cnB65Rj6KZvsM9Pk6AdrKGws7JbEuwbr5VLB3g0CX2/noBfPnHk8h5eS010WwpuEQzMCf9pMAayaAYPmAL2Vf2rHrELybn3CHa05PhwjYLjgFNyXw25wst/XZpq/vgqJ7Gjg9RRrJR69Wr0EFtlrvIJXNc4PEnSp5GhxWTk7t9M2LL6vFbK5zKZvLQD8chlGYgM/gAnwFs/AtzMGstE3DFIzBO3AQuhcHch3qf2r4vTOK4D0IC3Bfz+zt8c0yC/idnYOcTfn56P5TFl6XMewnMZXTMySCM02QBhLcV2AFNmCrks3VlqAyCM1lqQsJZXw24TYsw6dwZGkgl/n6uUG1Ex3/4GNFAL4KV5n1W548B7qMlTpl4cuHevIUSml8R+EGbAbxE+wq/ADH2CVLKUMBJ9T4/NoAnznVQiRVD5+tQMPvJnS39C1wHsO4xa/B+VzCDlf97hSf/9zwx2p0H6vyG76AHChT8j/+xe7DGu9s0vUUOaAU/8QxnHrAK3ABTP9FTv47W2+kRDuL84b/GuXhhH7fio9B4oGAPLo0+EqtAmJB1yXIsVFdAjzuR5v4i6/Zlq2jy5IUVbgBIfTubGaOXo2Ow+8EvxX0UhdoN69tLD/MvSe4bvTbfO4hdbnFmjGCdZK64ROuJwR11rdO19mteiFhPP34b+sxAEkJvQn+vfJ7DWJjin2vvFpe9IulDqOPk9KH+IPRB5j93YUP38yfMSaCckX8TOzvvZQw/n34bATN/sdUC50olDr+O1+KjymjLPEbxq2xr6or2awiAOeBoBXssli7DJIUuow1qcJPMAPnIIBD0MdTp2dpINtFonRSTytRwqx2gMEOjfBKogzJQdtl2NYX7MwLdbTFy6ttEmsfPis6iO0tV2i+yfqjz+zUnAB1m5QAYdYen1coJyXANDRdN6ftnPq3vesPjeLK49tlCSFICRKkBAk2bVNPcnGTTcQTESsSJOflvHR3XXJeiDHGmMulMa7lkCJ3iEgpIp5I/pBSvaKcjWsopYgUkXKUQ4p/SClFiogcRUSkiEgosnCf9/YzO9/5zszumkYbuH3wYWfevHnzZuZ9f3/fbDBxrWB7t63a18mLZB7H0kOTRQIQjgWCbXmumnAGRxxJgrazon/+qncSTgB9ZC46KXI2uTfra4+6GMZvCEC0tZhO7mZ7lzAneO8A58Olgq7/wOXu+NUSIGxb1XHCXwYmgHgunohFFqAguGYezAzF1rvA8s6REfnQtgFPvOsN/NuGU2zbtSv0OuxbT/A54HMS2mdUgXSbMYcAWFdWArCdkgCaIKdihpuxrY6G38Rz8T1fHF+RURFzxkQeC/wkjstIeosmAE52proQPF+NK4/6LTz/JNs9CXgHj3nsXb86M2XO/TTg/aF/O76GQALAe0U7RTB2rck69X4nZDuHANZYfZ3gROa+fxtwVaCCRMiTyw8BDc/RNfoKcIz6533gHNDx9p59zvFxd4J4uLC84Qep3ZOxMCKjbiwn2aOAh9gM3KK0sTA2SVEC8Hpc21BaAlC9CCMAM6EA37oJnpvHfmcQAaBeE8A63F+9CQqaX+ybNifYr7SVspIAJHFA+i5Jje5bAqJcwrUhhzAxdarMFfssd01GU7bd/g2KAMyYW82xvqF9IeqnZGSed0FG4y1vgwkYCeAlmGxxguOei9oF6iZ4vx4CGC9ye6HXU2e3E52/GmbifwFsuNjR8cKCTOm9U87KtHWMFbQK4++e4pSaU/8ID05dWOoHHswTxWVPhLQd0pxESQC+sDIEwGuFqUDGuFPjuaWueyJUAkjgGfm57f4YjWXZ31lJAOLYnD4/s+eAaTetxvMABFYnUuk7vVICRLtX3afi0Irgbymb6novjX+tAmX89o4gao45RAKcpqFLfV6DhCH26dHZmlvduaiiq7ihOHBfPDAAv2JxTTqEANAmSrEpEv6yw0FtDVdBmza06chAncFLXy5sgEoJgG38EoAE3UAJ5LSbY9pIXpx7D+fVhkkAwX0VASgCY2Td7HskgFMvCEDr6/a4gaveLJUEoBIeMXbepz8tJmIIUnBvgz7gB5EJ/BRo9RrBtAFsGy35ilJ8hY8ARl0CuDqrdf8wvR9cn/7+X3xlVmpvNrpt5zgJ0OfCe6w9NnxBD6FnBhrcaAsJAALgOXxIQ5WPiARQ1gYgAZTxAhniU/bEFbqBb7DOqe/VBKCln540nJxNZBbyGkclAYh+5kLudyuPS/2+QUsA0VceCPV2qb4epkayNdYF7K0/GiwBsvK95VVfn6aRnYw2QgK4RvA3l1wXpoKoQ0wAmLq4uj16Jh43gbJ67K8FXpgU4EOvoW68NeU3AoU9INcslzGCSQDAU3IaHwGg7jj6vKlBv/MpJQGIsipQoBeor+Db/lLq6FYa0VAXdQa5QAnANlICoL6FmbiHaVxzIhTdoWu0DcA2gQSA/ssSgCJGqEDh3i5F2KdZDzvCE9O5DdT6CYDRfkoyx1Bnfd5KKxLAdqUC3SHXF+gkuF8wdI8CaeAY8BXwyBJPPPHcCYDBoyV8eVeAvt492RLuTJtl+kCKO06IG7qtJgCls0oCuMF+gvCtQwCC4MrbAByblgCcqGYs0ovzStEIhy4txPgc0BBmA0gCwHmnWKdhJ00SbmatAvE3hAAqkACaAIK8XaNTNdqT46StmMkO3JEqGfY3h3mBeHwcmJbvy/QBvBdkA9x1VR5yfRIA6x0PUZ72gNsOLs8XoNe30Bd+D/gID3VZJecJDip1+tmSBEAbIEgCZEAAYQt3JAF467OV2wCUADz+d3Wty6nUFI/ZIOB1NYbREC+QlgDTOoWc7a6JiK5yg2bLqEBsU44AaAMAod4utqFts79WHD+hYgJntQRQkn6Ma9nveer3uiqfjAN8FxT8mlVBr9ng7bPPkeO/bINM4Hb0/2+s3D6wHorbepml1h/9NgAT7lxICXAObR5uB8h1ZWKehwAEQglAtbMSgMdiwPdq2edXuDYmQdbCCdYJ/Ce1+x0PASi0koinVf0ckMVkqVHj61ftQiWAaucjAHU8jAAuqHa3i/eLX8Zh5PP4EajXgTCBMXkfoSABfCndnNgu5/6UrtKTkedQ3h6edJZTfkZ98GsgxwDLJBPTlpTg/uuDvQLZZFkVSEY5IUpD+j+pOPQ3JIBJ5ba7T5tDn7+OkkmOjQSAe6tgmSggx0nvCFUg9R0mIQEOyfM4oXZwWIoApEoR6gUaU+N5BNRLAlBemTz6U8a+6+3yB80sivXq2Q4U4gBUgXjPggAwj6aiNm/Mr+55VKCzACc2fqny6AAYJ7+3PtF5fOFUHevHTwNnnWWW1pqncSPTHLh/HzgOSbHM606zn268ZtrxXLlUsrHUElDgYcY74b7IjE5F1TjrOD45Kf/NPoYBqYvmrWEpiiEI1B1RYfufgEb28aFe3ab6DFsBd4TnrxDtCSdWkm3gZHHqDYxEa9IEINMltBHMNssZl5Dv5FZ691Q0RAUCVByAz0yOVaUqAPI9eq51FVITBOBVgXhsTPS/CngS2D8JYMqTvdmhszpDsSASAIOos8aJcMnJSa9zV3ReDhOhOnUwRfbDvm68tXNn6DhM3ojRtc05MppL8byea5k32TZ+Dn2Y147r/BeuSNuBMbQwTnFEeijYx/f4CkfMSDXFDf25POGS4TZiBzAmA1MhWsXz6UUbPcYraWa2KhtAMo/3BT4GHqqlqZIINwEHaXNoI/gYj61Ng7kY5iHaaKmtwWsVx9QkbQCOx0MA6aEJa1PJcWo36Fpv4luX/jUQer+7DXz88wNX5KaE2FZ1wfXEA6CJE3WOx3TbdysYT7dIrNPXYZ2YfLy24N5RGpRy3Kp9YN+TPH+HbENi2Ar0BKBf3iuxyRCAXkoqA2GpQgT3o4AxjWsb4BlxC6jn+Vf1cX09uipXqoVOeapVPSG4A0gOfjBJFUjbACpwSakdYAMgK7MWk/9+cDp0eICMBHJtprV1vpO/E4D4VUlPHjGluaBu49bzof9XnqtchY3lk+6m6IGhm1FBj4UTdLPsg5LirpZeYl/rtTlw35pUKhWRHyHjsXMIfgWPNW3Hek2N5yywIsBGaA34yPFdjkXey0qHAPiclQRWENK1mJ5NAvAGwNjO048lgMPimVCFCo7tsN+jPN+5r++SkHp870oChDA37QbleoAPheqjEuMMAhbAFOrvArH5fWUa1EyRLg1Wr84oxRXA9kpVkttsQ7BPuk8rGpuJGNIWuSWDYnKbnOqy+hiX0o/F6rVRfz+UHAdNYM89B7aAaMPsSl10TpL2jrQEqFArA87tyRQyLGW7yzyWVkmBQYboU078MaBO9X1FMysNJjPeUkzsUJn7bc3I+AhtLOCOYgQj+tytfxyLkEHI+/raIYAN4Oj5cinQ/JXxgjwkyPJ5EMCxwAfDunlBJ8B5OVvzPL9SsQk4THH9KR9gFliVLvMJdxjjjjQYB07z/BxwHEgjWFevr4eJ3I0xO+J+A1eclXIcxIwEYnsA23ts3UannwzugWNVXq99XGZ6AG3QttC+g8ZyHc7fgnNRbwjFtDG/AMcGNKb37o+GRIibt4tztwf046isbpsD3SSkUmvEbapL8d6AdOEDCnHTD+u2GIdKyPOqNZLAua8iY8AkjpqUZro2C0hIY5eeIeUdYt2OZ3JxjuyrcbwtpUEp8DNhJuwfdu6LVEu1hBZKgR4gz8ivXM6IfZUi7V0EM/ss17FcR+Z5E4qDq+OyPcVcUB9qv5A2Uf2KdLVUUHLI6beL1kUgDBCeH24L+4DH57DAvfEZCGCT93MmFtIQkvX+NtJm0O25T9y2+TPVUi3PIAWagUceL5CUAAm1TeCcD57J+0MdXRm0XjtAGCvCqK1U73+wGD+Sa1zOC9jXCmTkLgiBM/2ic0HT1U1Mw5vgF3e2k7t4vcVY8GD7TfbnrEqL1kskGRuQa4FbKvweaB3910XvDrd1wEd7HmR7va1jAmvMx3jnW062tETOrCzYR5+89FLkX2++GdjuXMuvQ/u48MYbkZnXO/SzXSr38Qz79XkzryXYb+ky25Goy3UkanV9juP2jWcV51/Yp1dolMvSgyBST8+EWlie7Q+07fon9Of1G+WHyLA9WCQOm6LgvV5PL661m32o0ofvQqX6JwOP/XZwMhIU4DTvf9vgO4Hn9AxOlHiwiYR5Ue9z4gtu7wfaSClwFaipkONccDl9+CcOVZuyoP89Pm81MGE/ENAH9APDQBwYAAaBdcWJG7fqYgYYYLvlYpKvArqBIWAMaBLHNovtVmAaXLxT1LUAw+x3Wy7eHpU2Gvts4v5KPP9GdXwHx5p06s+0t0eYxj5AbAkggJhMNqRnaQswCIwZzxLrG4BTQK9IPV/Kpak7TH3fwHhJApDXEETVhP1hcT3rxXkJzIdLXwd4vFmp0t08Z5xf5hDrttmfHCuS/ljXXwC9WLpcjLfHbGzAWRAjjWI/AdjjxAe51VwfXMafK6RAOc+PVJekd0eHxr9iTsu8C+6nzqR3XGpPRM//apWNj+TaC1zWTEwx2bYBzVZCtFliGL/UkYgWXcpoe+bVVyPg0DVm0onzBr0Socvu0xMXM/3MvFng4CS+TeLcUxhXvTh33SwIRh4HXnbGigCl7Gcdt5cBUz5uaRcZHehXX8ewHXACrnLdp76JPIwJW8vtXqCxEgLAOx0Ux0ZTI9mouPZSui3rnWS99PCUbadSXjrFfFojvqQxnt7L/sQKQNMXlsTWc7vTIHwyFF7eac+HscpEirlQ/q9/A+WWKpnd9maGTfqx5dxloLxBhCcT8gO5Nnb+EqDLEEDGbsct5xxyJSMnLyfYP197Tao2GRDPy1RrDAG0sD5aigDwvGSfyyV3Rv+a6PjyBQEkXAJQbQc+aW2Ncjudi5Nw/GMgF7er7CQBDAuffismfafImtUE8D7qMgVYTr2sPAFwX1+PRJQhATBt/KDTv/w4Fjl5lGNcge0NrK8Py/rlgpiMRUFilVbbZ1rtC3wPyLtxAF+2qN7OAyfKqUN4WJYiC6ud3LW7ekG7zsFRHqTrwNrkHjK1hSCARFfSThSoDnKyzIptqklNlJZWAuQgNQqE0rUeaCYxRGWcRPanJ20ubj9POQZvnFSRNuvrB0kAXncwhABWAt3cbgyUAHt8EmBQTHgSgBt9xjdTvSnRZD6/H/5LtDv5Jyf/pjQBKAmwfRScuxDoOigIYCkwiDHYdr/bORaV3DxDFYZrIDaI4OB4crSg/yeHszFrD3IMafad3DkVTQ1XkB1wvq3N0S9/0Fxf/mrwW0FtM+1dZeMCXPDhfNvfnwtOsD7P9QFJk8GYW92+YH5+fhB4o93GumfJkeU27jkmbIMRoFm0awMa2V8U6NZ9iP1eXk9O+hH2m4Y9Fg05l20Ty+VxuX0ehru8DvvMUKrpxUc2oixXaKmobot6X4NGPxeTdJR6+hAX1zj69mhyz5+jrs6+v01fQ9gWI+zjoPyTFUadh8jxN6jcHvZtpU1cqtiiv4whAKpdNaIev1CHKi3kHjlmg9I9yt+E3eavu82P4k4DzWVWcMWY9ZgrrOV1bQOxJvYmU2nX/OOtbsMt1wMjNgZRLSULVKAY3+HrwNbIIivb8Y0i6OzOPw2NLtrgZa6g02ZnmTd0yYUwkv3RYhLCLJCGYbi0gvUBLcB6Un8bPA0N59f8poGS6ARw06pm8NpEqqVsoco2UPgFMSyywrygAXL5lZHFXD5Ztdo80ENulih/hX2gcoU80oLEcJ2SYZzi2eizcaoAncAmuiIPAmeBmzzvKXAOeD1SLdXyS5Vc3LrsrlZoD4S30fvh9sRDuvlaItVSLYuhMGjziBNYcn31/wHYFm1YR9eqtiNc8A86LgAZ69+ulmpZbAUTc1IGxThpP2YEdAdVnGPA58C3heNdj4A5qjSPec53wBfk8iNAHG7Fuki1VMtiLhfbEzEat9PARqB2JiQIdnF1IlqIjHbVAUvA+ZegfR1Qg9SCRfWR3Wr5/yn/A6TI1rxGXCSjAAAAAElFTkSuQmCC" alt="Guardian Monitoramento" class="logo-cl">
+    </div>
+    <h1 class="hero-title">Relatório Mensal</h1>
+    <p class="hero-subtitle">Guardian Monitoramento — Google Ads</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Abril/2026</span>
+      <span class="hero-period">01/04/2026 a 30/04/2026</span>
+    </div>
+    <button class="btn-download" onclick="window.print()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download PDF
+    </button>
+  </div>
+</header>
+<main class="main">
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+  <h2 class="sec-title">Visão Geral</h2>
+</div>
+<div class="kpi-grid">
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Cliques</span><span class="kpi-dot" style="background:#3b82f6"></span></div>
+  <div class="kpi-num">107</div>
+  <div class="kpi-bottom"><span class="badge badge-up"><svg viewBox="0 0 12 12"><path d="M6 2l4 5H2z" fill="currentColor"/></svg>+189,2%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Impressões</span><span class="kpi-dot" style="background:#8b5cf6"></span></div>
+  <div class="kpi-num">1.784</div>
+  <div class="kpi-bottom"><span class="badge badge-up"><svg viewBox="0 0 12 12"><path d="M6 2l4 5H2z" fill="currentColor"/></svg>+186,8%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">CPC Médio</span><span class="kpi-dot" style="background:#f59e0b"></span></div>
+  <div class="kpi-num">R$ 5,67</div>
+  <div class="kpi-bottom"><span class="badge badge-neutral">0,2%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">CTR</span><span class="kpi-dot" style="background:#0ea5e9"></span></div>
+  <div class="kpi-num">6,00%</div>
+  <div class="kpi-bottom"><span class="badge badge-neutral">0,8%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Custo Total</span><span class="kpi-dot" style="background:#ef4444"></span></div>
+  <div class="kpi-num">R$ 606,62</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 2l4 5H2z" fill="currentColor"/></svg>+188,6%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Conversões</span><span class="kpi-dot" style="background:#10b981"></span></div>
+  <div class="kpi-num">16</div>
+  <div class="kpi-bottom"><span class="badge badge-up"><svg viewBox="0 0 12 12"><path d="M6 2l4 5H2z" fill="currentColor"/></svg>+1500,0%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon purple"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></div>
+  <h2 class="sec-title">Funil de Leads — Google Ads</h2>
+</div>
+<div class="funnel">
+  <div class="funnel-level fl-1">
+    <div class="fl-inner"><span class="fl-label">Impressões</span><span class="fl-value">1.784</span></div>
+  </div>
+  <div class="funnel-arrow"><span class="funnel-rate">6.0% CTR</span></div>
+  <div class="funnel-level fl-2">
+    <div class="fl-inner"><span class="fl-label">Cliques</span><span class="fl-value">107</span></div>
+  </div>
+  <div class="funnel-arrow"><span class="funnel-rate">15.0% Conv.</span></div>
+  <div class="funnel-level fl-3">
+    <div class="fl-inner"><span class="fl-label">Conversões (Leads)</span><span class="fl-value">16</span></div>
+  </div>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon sky"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg></div>
+  <h2 class="sec-title">Tipo de Dispositivo</h2>
+</div>
+<div class="split-layout">
+<div class="split-chart"><canvas id="chartDevice" height="260"></canvas></div>
+<div class="split-table">
+<table class="tbl"><thead><tr><th>Dispositivo</th><th>Cliques</th><th>CPC</th><th>Conv.</th><th>Custo</th></tr></thead><tbody>
+<tr><td class="td-label">Computadores</td><td>32</td><td>R$ 6,95</td><td>3</td><td>R$ 222,30</td></tr>
+<tr><td class="td-label">Celulares</td><td>75</td><td>R$ 5,12</td><td>13</td><td>R$ 384,33</td></tr>
+<tr><td class="td-label">Tablets</td><td>0</td><td>R$ 0,00</td><td>0</td><td>R$ 0,00</td></tr>
+</tbody></table>
+</div>
+</div>
+<script>
+new Chart(document.getElementById("chartDevice"),{type:"doughnut",data:{labels:["Computadores","Celulares","Tablets"],datasets:[{data:[32,75,0],backgroundColor:["#3b82f6","#8b5cf6","#f59e0b","#10b981","#ef4444"],borderWidth:0,borderRadius:4,hoverOffset:8}]},options:{responsive:true,cutout:"65%",plugins:{legend:{position:"bottom",labels:{padding:16,usePointStyle:true,pointStyle:"circle",font:{size:12,family:"Inter"}}}}}});
+</script>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon amber"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+  <h2 class="sec-title">Desempenho por Dia da Semana</h2>
+</div>
+<div class="chart-wrap"><canvas id="chartSemana"></canvas></div>
+<script>
+new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segunda","Terca","Quarta","Quinta","Sexta","Sabado","Domingo"],datasets:[{label:"Cliques",data:[21,15,19,19,11,13,9],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[4,2,1,2,2,2,3],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:window.innerWidth<=768?1.2:2.2,interaction:{intersect:false,mode:"index"},plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}},y:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}}}}});
+</script>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon rose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+  <h2 class="sec-title">Desempenho por Cidade</h2>
+</div>
+<div class="chart-wrap"><canvas id="chartCidades"></canvas></div>
+<script>
+new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Florianopolis","Palhoca","Sao Jose","Biguacu"],datasets:[{label:"Cliques",data:[54,27,21,5],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[8,3,4,1],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.8,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
+</script>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Cidade</th><th>Impressões</th><th>Cliques</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">Florianopolis</td><td>1.137</td><td>54</td><td>R$ 6,02</td><td>R$ 325,28</td><td>8</td></tr>
+<tr><td class="td-label">Palhoca</td><td>306</td><td>27</td><td>R$ 4,67</td><td>R$ 126,08</td><td>3</td></tr>
+<tr><td class="td-label">Sao Jose</td><td>297</td><td>21</td><td>R$ 6,01</td><td>R$ 126,14</td><td>4</td></tr>
+<tr><td class="td-label">Biguacu</td><td>44</td><td>5</td><td>R$ 5,82</td><td>R$ 29,12</td><td>1</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon slate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+  <h2 class="sec-title">Grupos de Anúncio</h2>
+</div>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Grupo</th><th>Impr.</th><th>Cliques</th><th>% Impr.</th><th>% Topo</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">Monitoramento de Alarme</td><td>1.443</td><td>85</td><td>26,04%</td><td>20,83%</td><td>R$ 5,76</td><td>R$ 489,74</td><td>14</td></tr>
+<tr><td class="td-label">Controle de Acesso</td><td>223</td><td>15</td><td>11,54%</td><td>9,99%</td><td>R$ 4,35</td><td>R$ 65,27</td><td>1</td></tr>
+<tr><td class="td-label">Portaria Autônoma</td><td>118</td><td>7</td><td>19,12%</td><td>13,73%</td><td>R$ 7,37</td><td>R$ 51,61</td><td>1</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+  <h2 class="sec-title">Principais Palavras-Chave</h2>
+</div>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Palavra-Chave</th><th>Tipo</th><th>Impr.</th><th>Cliques</th><th>CPC</th><th>% Impr.</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">Empresa de monitoramento</td><td><span class="match-badge">Ampla</span></td><td>1.435</td><td>85</td><td>R$ 5,76</td><td>26,19%</td><td>R$ 489,74</td><td>14</td></tr>
+<tr><td class="td-label">Controle de Acesso condominio</td><td><span class="match-badge">Ampla</span></td><td>223</td><td>15</td><td>R$ 4,35</td><td>11,54%</td><td>R$ 65,27</td><td>1</td></tr>
+<tr><td class="td-label">Portaria Autônoma</td><td><span class="match-badge">Ampla</span></td><td>118</td><td>7</td><td>R$ 7,37</td><td>19,12%</td><td>R$ 51,61</td><td>1</td></tr>
+<tr><td class="td-label">Monitoramento de alarme</td><td><span class="match-badge">Ampla</span></td><td>8</td><td>0</td><td>R$ 0,00</td><td>10,71%</td><td>R$ 0,00</td><td>0</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+  <h2 class="sec-title">Conclusão e Análise Estratégica</h2>
+</div>
+<div class="conclusao">
+<h4>O Que Aconteceu (Fatos e Números)</h4>
+
+<p>Abril foi um mês excepcional para a Guardian Monitoramento. As campanhas de Google Ads cresceram significativamente em escala e eficiência. Alcançamos 1.784 pessoas, geramos 107 cliques e, o mais importante, capturamos 16 contatos qualificados. Esse volume de leads representa um crescimento de 1.500% em relação ao mês anterior.</p>
+
+<p>O custo para gerar cada contato ficou em R$ 37,91, mantendo o investimento total em R$ 606,62. A taxa de conversão chegou a 14,95%, o que significa que praticamente 1 em cada 7 pessoas que clicaram no anúncio deixou seus dados para serem contatadas.</p>
+
+<p>Os celulares foram responsáveis por 75% dos cliques e geraram 81% dos contatos capturados. Essa prevalência do mobile é um indicativo claro de onde está a oportunidade principal de negócio para a Guardian.</p>
+
+<p>A palavra-chave "Empresa de monitoramento" foi nossa estrela, respondendo por 85 cliques e gerando 14 dos 16 contatos do mês. As demais palavras-chave testadas também contribuíram, mas em menor escala.</p>
+
+<h4>Análise Estratégica</h4>
+
+<p>O crescimento exponencial de leads em abril não foi acidental. Realizamos sete ajustes estratégicos ao longo do mês, todos focados em três frentes principais: refinamento do público-alvo através da eliminação de termos que não convertiam, otimização técnica das páginas de destino para melhorar a experiência no celular, e ajuste dos limites de investimento para explorar adequadamente as camadas de demanda do mercado.</p>
+
+<p>A otimização mais impactante foi a melhoria da velocidade de carregamento das páginas em dispositivos móveis. Identificamos que muitas pessoas estavam abandonando o site antes de qualquer interação, principalmente em celular. Reduzimos o tamanho das imagens, melhoramos o carregamento inteligente de elementos e corrigimos problemas técnicos que impediam otimizações automáticas. Esse trabalho técnico foi fundamental para converter visitantes em contatos qualificados.</p>
+
+<p>O ajuste do limite de investimento de R$ 20 para R$ 64 também merece destaque. Inicialmente, o sistema estava buscando apenas públicos com custos muito baixos, deixando demanda não aproveitada. Ao ampliar esse limite, conseguimos acessar outras camadas do leilão de anúncios e capturar mais contatos sem perder eficiência.</p>
+
+<p>A preferência clara pelo mobile (13 contatos contra 3 no computador) sugere que potenciais clientes da Guardian estão buscando soluções de monitoramento principalmente quando estão em movimento, usando seus telefones. Isso reforça a importância de manter as páginas rápidas e responsivas para esse dispositivo.</p>
+
+<p>O desempenho de "Empresa de monitoramento" como palavra-chave principal indica que estamos falando a língua dos seus clientes em potencial. Essa palavra concentra a maior parte dos leads, mostrando um alinhamento claro entre como as pessoas buscam e como nossa mensagem é apresentada.</p>
+</div>
+</section>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
+    <div class="footer-meta">Relatório gerado automaticamente em 06/05/2026 15:39</div>
+  </div>
+</footer>
+<script>
+window.addEventListener("beforeprint",function(){document.querySelectorAll("canvas").forEach(function(c){var i=new Image();i.src=c.toDataURL("image/png");i.style.width="100%";i.className="print-img";c.parentNode.insertBefore(i,c);c.style.display="none"})});
+window.addEventListener("afterprint",function(){document.querySelectorAll(".print-img").forEach(function(i){i.remove()});document.querySelectorAll("canvas").forEach(function(c){c.style.display=""})});
+</script>
+</body>
+</html>
