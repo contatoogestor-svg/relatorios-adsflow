@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Fisiocárdio - Junho/2026 - Meta Ads</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#1f2937; }
+.hero { position:relative; background:#0a0a0a; color:#fff; padding:32px 20px 24px; text-align:center; overflow:hidden; }
+.hero-bg { position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(135deg,rgba(24,119,242,0.15),rgba(228,64,95,0.1)); }
+.hero-content { position:relative; z-index:1; max-width:900px; margin:0 auto; }
+.hero-logos { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:16px; }
+.logo-af { height:28px; filter:brightness(0) invert(1); }
+.logo-cl { height:32px; filter:brightness(0) invert(1); }
+.logo-divider { width:1px; height:28px; background:rgba(255,255,255,0.3); }
+.hero-title { font-size:20px; font-weight:700; letter-spacing:-0.3px; margin-bottom:4px; }
+.hero-subtitle { font-size:14px; font-weight:400; color:rgba(255,255,255,0.7); margin-bottom:12px; }
+.hero-meta { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:16px; }
+.hero-badge { background:rgba(24,119,242,0.2); border:1px solid rgba(24,119,242,0.4); color:#60A5FA; padding:4px 16px; border-radius:20px; font-size:13px; font-weight:600; }
+.hero-period { color:rgba(255,255,255,0.5); font-size:13px; }
+.btn-download { background:#1877F2; color:#fff; border:none; padding:10px 24px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; transition:background 0.2s; }
+.btn-download:hover { background:#1565C0; }
+.main { max-width:900px; margin:24px auto; padding:0 16px; }
+.section { background:#fff; border-radius:12px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,0.08); overflow:hidden; }
+.section-header { display:flex; align-items:center; gap:10px; padding:16px 20px; cursor:pointer; border-bottom:1px solid #e5e7eb; user-select:none; }
+.section-header:hover { background:#f9fafb; }
+.section-icon { flex-shrink:0; }
+.section-title { font-size:16px; font-weight:700; color:#1f2937; flex:1; margin:0; }
+.section-chevron { color:#9ca3af; font-size:12px; transition:transform 0.2s; }
+.section-body { padding:20px; }
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media(max-width:700px) { .kpi-grid { grid-template-columns:repeat(2,1fr); } }
+.kpi-card { background:#f9fafb; border:1px solid #e5e7eb; border-left:3px solid #1877F2; border-radius:8px; padding:14px 16px; }
+.kpi-label { font-size:11px; color:#6b7280; font-weight:500; margin-bottom:6px; }
+.kpi-value { font-size:24px; font-weight:700; color:#111827; margin-bottom:4px; }
+.kpi-var { font-size:12px; font-weight:600; }
+.kpi-var.up { color:#16a34a; }
+.kpi-var.down { color:#dc2626; }
+.kpi-var.neutral { color:#9ca3af; }
+.charts-row { display:flex; gap:16px; flex-wrap:wrap; }
+.chart-box { flex:1; min-width:280px; padding:0 8px 8px; }
+.chart-title { font-size:14px; font-weight:600; color:#374151; margin-bottom:12px; }
+.chart-center { display:flex; justify-content:center; margin-bottom:20px; }
+.tbl-wrapper { overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:16px; }
+.tbl { width:100%; border-collapse:collapse; min-width:600px; }
+.tbl th { font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:#6b7280; font-weight:600; text-align:center; padding:10px 8px; border-bottom:2px solid #e5e7eb; background:#e8f0fe; }
+.tbl th:first-child { text-align:left; }
+.tbl td { font-size:12px; padding:8px; border-bottom:1px solid #f3f4f6; color:#1f2937; text-align:center; }
+.tbl td:first-child { text-align:left; font-weight:600; }
+.tbl tr:nth-child(even) td { background:#f8f9fa; }
+.no-data { color:#9ca3af; font-style:italic; padding:20px 0; text-align:center; }
+.competitors-grid { display:flex; flex-direction:column; gap:12px; }
+.competitor-card { display:flex; align-items:center; gap:16px; padding:16px; border:1px solid #e5e7eb; border-radius:10px; flex-wrap:wrap; }
+.competitor-rank { width:28px; height:28px; background:#E4405F; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+.competitor-pic { width:48px; height:48px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+.competitor-info { flex:1; min-width:120px; }
+.competitor-name { font-size:14px; font-weight:700; color:#111827; margin:0 0 2px; }
+.competitor-bio { font-size:11px; color:#6b7280; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%; }
+.competitor-stats { display:flex; gap:20px; flex-shrink:0; }
+.competitor-stats div { text-align:center; }
+.competitor-stats strong { display:block; font-size:14px; font-weight:700; color:#111827; }
+.competitor-stats span { font-size:10px; color:#9ca3af; }
+.conclusao { background:#f9fafb; border-left:3px solid #1877F2; padding:20px 24px; border-radius:0 8px 8px 0; }
+.conclusao h4 { font-size:14px; font-weight:700; color:#111827; margin:16px 0 8px; }
+.conclusao h4:first-child { margin-top:0; }
+.conclusao p { font-size:13px; line-height:1.7; color:#374151; margin-bottom:8px; }
+.conclusao ul { padding-left:20px; margin-bottom:8px; }
+.conclusao li { font-size:13px; line-height:1.7; color:#374151; margin-bottom:4px; }
+.footer { max-width:900px; margin:0 auto 40px; padding:24px 16px; text-align:center; }
+.footer-brand { font-size:13px; font-weight:700; letter-spacing:1px; color:#374151; }
+.footer-meta { font-size:11px; color:#9ca3af; margin-top:4px; }
+@media (max-width:640px) { .charts-row { flex-direction:column; } .chart-box { min-width:100%; } .kpi-grid { grid-template-columns:1fr 1fr !important; } .competitor-card { flex-direction:column; align-items:flex-start; gap:12px; } .competitor-stats { width:100%; justify-content:space-around; padding-top:8px; border-top:1px solid #f3f4f6; } .competitor-info { min-width:0; width:100%; } .competitor-bio { white-space:normal; } }
+@media print { body { background:#fff; } .main { margin:0; padding:0; max-width:100%; } .section { box-shadow:none; page-break-inside:avoid; } .hero { padding:30px 20px; } .btn-download { display:none; } .section-chevron { display:none; } }
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="hero-bg"></div>
+<div class="hero-content">
+<div class="hero-logos">
+<img src="data:image/svg+xml;base64,PHN2ZyBkYXRhLXYtNDIzYmY5YWU9IiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTAxIDkwIiBjbGFzcz0iaWNvbkxlZnQiPjwhLS0tLT48IS0tLS0+PCEtLS0tPjxnIGRhdGEtdi00MjNiZjlhZT0iIiBpZD0iYjkwYjVlNWItYjk4Ny00ZTNjLWE0MGEtOGUyNDlmYTcxNmVmIiBmaWxsPSJibGFjayIgdHJhbnNmb3JtPSJtYXRyaXgoNS43MDM0MjE4MDUwNTUxOTksMCwwLDUuNzAzNDIxODA1MDU1MTk5LDExMS4xNDA2NzIyOTM1MjM5NSwtMy4wMjI4MTUwNjI0MzMxMDM2KSI+PHBhdGggZD0iTTguMzIgMTMuNTVMNy41NSAxMS42NUwzLjQwIDExLjY1TDIuNjMgMTMuNTVMLTAuMjAgMTMuNTVMNC4xMyAzLjc1TDYuODYgMy43NUwxMS4yMCAxMy41NUw4LjMyIDEzLjU1Wk00LjIxIDkuNjBMNi43MyA5LjYwTDUuNDcgNi40N0w0LjIxIDkuNjBaTTE3LjE5IDMuMTZMMTkuODUgMy4xNkwxOS44NSAxMy41NUwxNy4zMiAxMy41NUwxNy4zMiAxMi44MFExNi41OCAxMy42OCAxNS4wOSAxMy42OEwxNS4wOSAxMy42OFExNC4wNiAxMy42OCAxMy4yMCAxMy4yMFExMi4zNSAxMi43MSAxMS44NSAxMS44MlExMS4zNSAxMC45MiAxMS4zNSA5Ljc0TDExLjM1IDkuNzRRMTEuMzUgOC41NyAxMS44NSA3LjY4UTEyLjM1IDYuNzkgMTMuMjAgNi4zMVExNC4wNiA1Ljg0IDE1LjA5IDUuODRMMTUuMDkgNS44NFExNi40NSA1Ljg0IDE3LjE5IDYuNjJMMTcuMTkgNi42MkwxNy4xOSAzLjE2Wk0xNS42NSAxMS41NlExNi4zNCAxMS41NiAxNi43OSAxMS4wOFExNy4yMyAxMC42MCAxNy4yMyA5Ljc0TDE3LjIzIDkuNzRRMTcuMjMgOC45MCAxNi43OSA4LjQzUTE2LjM1IDcuOTUgMTUuNjUgNy45NUwxNS42NSA3Ljk1UTE0Ljk1IDcuOTUgMTQuNTAgOC40M1ExNC4wNiA4LjkwIDE0LjA2IDkuNzRMMTQuMDYgOS43NFExNC4wNiAxMC42MCAxNC41MCAxMS4wOFExNC45NSAxMS41NiAxNS42NSAxMS41NkwxNS42NSAxMS41NlpNMjQuMzIgMTMuNjhRMjMuMzcgMTMuNjggMjIuNDQgMTMuNDZRMjEuNTIgMTMuMjQgMjAuOTYgMTIuODlMMjAuOTYgMTIuODlMMjEuNzYgMTEuMDdRMjIuMjcgMTEuNDAgMjIuOTkgMTEuNThRMjMuNzAgMTEuNzcgMjQuNDAgMTEuNzdMMjQuNDAgMTEuNzdRMjUuMDUgMTEuNzcgMjUuMzIgMTEuNjRRMjUuNTkgMTEuNTEgMjUuNTkgMTEuMjZMMjUuNTkgMTEuMjZRMjUuNTkgMTEuMDAgMjUuMjYgMTAuOTBRMjQuOTMgMTAuNzkgMjQuMjIgMTAuNzBMMjQuMjIgMTAuNzBRMjMuMzEgMTAuNTggMjIuNjcgMTAuNDBRMjIuMDQgMTAuMjIgMjEuNTcgOS43M1EyMS4xMSA5LjI0IDIxLjExIDguMzZMMjEuMTEgOC4zNlEyMS4xMSA3LjYzIDIxLjU1IDcuMDZRMjEuOTggNi41MCAyMi44MSA2LjE3UTIzLjY1IDUuODQgMjQuODEgNS44NEwyNC44MSA1Ljg0UTI1LjYzIDUuODQgMjYuNDUgNi4wMVEyNy4yNiA2LjE3IDI3LjgwIDYuNDhMMjcuODAgNi40OEwyNy4wMSA4LjI5UTI2LjAwIDcuNzMgMjQuODIgNy43M0wyNC44MiA3LjczUTI0LjE5IDcuNzMgMjMuOTAgNy44N1EyMy42MCA4LjAyIDIzLjYwIDguMjZMMjMuNjAgOC4yNlEyMy42MCA4LjUzIDIzLjkzIDguNjNRMjQuMjUgOC43NCAyNC45OSA4Ljg1TDI0Ljk5IDguODVRMjUuOTMgOC45OSAyNi41NCA5LjE3UTI3LjE2IDkuMzUgMjcuNjEgOS44M1EyOC4wNyAxMC4zMiAyOC4wNyAxMS4xOUwyOC4wNyAxMS4xOVEyOC4wNyAxMS45MCAyNy42NCAxMi40N1EyNy4yMCAxMy4wMyAyNi4zNiAxMy4zNlEyNS41MSAxMy42OCAyNC4zMiAxMy42OEwyNC4zMiAxMy42OFpNNDEuMTAgNS44OUwzNi4xOSA1Ljg5TDM2LjE5IDguMDVMNDAuNTIgOC4wNUw0MC41MiAxMC4xOUwzNi4xOSAxMC4xOUwzNi4xOSAxMy41NUwzMy40MiAxMy41NUwzMy40MiAzLjc1TDQxLjEwIDMuNzVMNDEuMTAgNS44OVpNNDIuMjggMTMuNTVMNDIuMjggMy4xNkw0NC45NCAzLjE2TDQ0Ljk0IDEzLjU1TDQyLjI4IDEzLjU1Wk01MC40NyAxMy42OFE0OS4yNSAxMy42OCA0OC4yNyAxMy4xN1E0Ny4yOSAxMi42NyA0Ni43NCAxMS43N1E0Ni4xOSAxMC44OCA0Ni4xOSA5Ljc0TDQ2LjE5IDkuNzRRNDYuMTkgOC42MiA0Ni43NCA3LjczUTQ3LjI5IDYuODMgNDguMjcgNi4zM1E0OS4yNCA1Ljg0IDUwLjQ3IDUuODRMNTAuNDcgNS44NFE1MS43MCA1Ljg0IDUyLjY4IDYuMzNRNTMuNjYgNi44MyA1NC4yMSA3LjcyUTU0Ljc1IDguNjEgNTQuNzUgOS43NEw1NC43NSA5Ljc0UTU0Ljc1IDEwLjg4IDU0LjIxIDExLjc3UTUzLjY2IDEyLjY3IDUyLjY4IDEzLjE3UTUxLjcwIDEzLjY4IDUwLjQ3IDEzLjY4TDUwLjQ3IDEzLjY4Wk01MC40NyAxMS41NlE1MS4xNyAxMS41NiA1MS42MiAxMS4wOFE1Mi4wNyAxMC42MCA1Mi4wNyA5Ljc0TDUyLjA3IDkuNzRRNTIuMDcgOC45MCA1MS42MiA4LjQzUTUxLjE3IDcuOTUgNTAuNDcgNy45NUw1MC40NyA3Ljk1UTQ5Ljc3IDcuOTUgNDkuMzIgOC40M1E0OC44NyA4LjkwIDQ4Ljg3IDkuNzRMNDguODcgOS43NFE0OC44NyAxMC42MCA0OS4zMiAxMS4wOFE0OS43NyAxMS41NiA1MC40NyAxMS41Nkw1MC40NyAxMS41NlpNNjYuMDEgNS45Nkw2OC4zNSA1Ljk2TDY1LjY1IDEzLjU1TDYzLjA3IDEzLjU1TDYxLjY0IDkuNDJMNjAuMTYgMTMuNTVMNTcuNTggMTMuNTVMNTQuODggNS45Nkw1Ny40MCA1Ljk2TDU4Ljk1IDEwLjU2TDYwLjU2IDUuOTZMNjIuODMgNS45Nkw2NC40MCAxMC42MEw2Ni4wMSA1Ljk2WiI+PC9wYXRoPjwvZz48IS0tLS0+PGcgZGF0YS12LTQyM2JmOWFlPSIiIGlkPSJlNzhkM2M0ZC00NDkwLTQ5NzMtYjIwNy1kYTk3ZDI3NDExYTgiIHRyYW5zZm9ybT0ibWF0cml4KDIuODEyNSwwLDAsMi44MTI1LDAsMCkiIHN0cm9rZT0ibm9uZSIgZmlsbD0iYmxhY2siPjxwYXRoIGQ9Ik0wIDMyaDMyVjBIMHYzMnpNMiAyaDIuOTgxTDE2LjAxIDIxLjEwMyAyNy4wNCAySDMwdjI4SDJWMnoiPjwvcGF0aD48L2c+PCEtLS0tPjwvc3ZnPg==" alt="ADS FLOW" class="logo-af">
+<span class="logo-divider"></span>
+<img src="data:image/png;base64,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" alt="Fisiocárdio" class="logo-cl">
+</div>
+<h1 class="hero-title">Relatório Mensal</h1>
+<p class="hero-subtitle">Fisiocárdio — Meta Ads</p>
+<div class="hero-meta">
+<span class="hero-badge">Junho/2026</span>
+<span class="hero-period">01/06/2026 a 30/06/2026</span>
+</div>
+<button class="btn-download" onclick="downloadPDF()">Download PDF</button>
+</div>
+</header>
+<main class="main">
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="26" height="14" viewBox="0 0 52 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2C7.37 2 2 7.82 2 14s5.37 12 12 12c4.13 0 7.01-2.17 9.6-6.17.97-1.49 1.77-2.96 2.4-3.83.63.87 1.43 2.34 2.4 3.83C30.99 23.83 33.87 26 38 26c6.63 0 12-5.82 12-12S44.63 2 38 2c-4.13 0-7.01 2.17-9.6 6.17-.97 1.49-1.77 2.96-2.4 3.83-.63-.87-1.43-2.34-2.4-3.83C21.01 4.17 18.13 2 14 2z" fill="url(#mG)"/><defs><linearGradient id="mG" x1="2" y1="14" x2="50" y2="14" gradientUnits="userSpaceOnUse"><stop stop-color="#0081FB"/><stop offset="1" stop-color="#0064E0"/></linearGradient></defs></svg></div>
+<h2 class="section-title">Visão Geral - Todas as campanhas de anúncios</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-visao">
+<div class="kpi-grid">
+<div class="kpi-card" style="border-left-color:#1877F2;"><div class="kpi-label">Cliques (todos)</div><div class="kpi-value">802</div><div class="kpi-var down">&#9660; 41.80%</div></div>
+<div class="kpi-card" style="border-left-color:#00C853;"><div class="kpi-label">CTR (todos)</div><div class="kpi-value">1,26%</div><div class="kpi-var down">&#9660; 18.92%</div></div>
+<div class="kpi-card" style="border-left-color:#E4405F;"><div class="kpi-label">CPC (todos)</div><div class="kpi-value">R$ 1,18</div><div class="kpi-var down">&#9650; 77.24%</div></div>
+<div class="kpi-card" style="border-left-color:#833AB4;"><div class="kpi-label">Alcance</div><div class="kpi-value">33.217</div><div class="kpi-var down">&#9660; 28.64%</div></div>
+<div class="kpi-card" style="border-left-color:#FF6D00;"><div class="kpi-label">Frequência</div><div class="kpi-value">1,91</div><div class="kpi-var neutral">0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#1877F2;"><div class="kpi-label">Impressões</div><div class="kpi-value">63.521</div><div class="kpi-var down">&#9660; 28.22%</div></div>
+<div class="kpi-card" style="border-left-color:#E4405F;"><div class="kpi-label">Valor gasto</div><div class="kpi-value">R$ 942,76</div><div class="kpi-var down">&#9650; 3.15%</div></div>
+<div class="kpi-card" style="border-left-color:#00C853;"><div class="kpi-label">Conversas por mensagem iniciadas</div><div class="kpi-value">27</div><div class="kpi-var down">&#9660; 18.18%</div></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div>
+<h2 class="section-title">Visão Geral - Perfil do Instagram</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-ig">
+<div class="kpi-grid">
+<div class="kpi-card" style="border-left-color:#E4405F;"><div class="kpi-label">Começaram a Seguir</div><div class="kpi-value">26</div><div class="kpi-var down">&#9660; 42.22%</div></div>
+<div class="kpi-card" style="border-left-color:#833AB4;"><div class="kpi-label">Publicações</div><div class="kpi-value">4</div><div class="kpi-var neutral">—0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#FCAF45;"><div class="kpi-label">Curtidas</div><div class="kpi-value">23</div><div class="kpi-var up">&#9650; 21.05%</div></div>
+<div class="kpi-card" style="border-left-color:#1877F2;"><div class="kpi-label">Comentários</div><div class="kpi-value">0</div><div class="kpi-var down">&#9660; 100.00%</div></div>
+<div class="kpi-card" style="border-left-color:#00C853;"><div class="kpi-label">Média de curtidas por post</div><div class="kpi-value">5,75</div><div class="kpi-var up">&#9650; 21.05%</div></div>
+<div class="kpi-card" style="border-left-color:#FF6D00;"><div class="kpi-label">Salvo</div><div class="kpi-value">3</div><div class="kpi-var up">&#9650; 200.00%</div></div>
+<div class="kpi-card" style="border-left-color:#833AB4;"><div class="kpi-label">Compartilhamentos</div><div class="kpi-value">3</div><div class="kpi-var neutral">0.00%</div></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+<h2 class="section-title">Cliques em anúncios / Alcance</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-graficos">
+<div class="charts-row">
+<div class="chart-box"><h3 class="chart-title">Cliques em anúncios</h3><canvas id="chartCliques"></canvas></div>
+<div class="chart-box"><h3 class="chart-title">Alcance</h3><canvas id="chartAlcance"></canvas></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+<h2 class="section-title">Alcance demográfico (cliques)</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-idade">
+<div class="chart-center"><canvas id="chartIdade" style="max-width:400px;max-height:400px;"></canvas></div>
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Idade</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
+<tr><td>18-24</td><td>3</td><td>2</td><td>0</td><td>0</td><td>0,00</td><td>0,04</td></tr>
+<tr><td>25-34</td><td>3.469</td><td>1.414</td><td>31</td><td>4</td><td>13,31</td><td>53,25</td></tr>
+<tr><td>35-44</td><td>10.705</td><td>5.229</td><td>97</td><td>4</td><td>33,94</td><td>135,74</td></tr>
+<tr><td>45-54</td><td>17.035</td><td>8.448</td><td>191</td><td>8</td><td>31,70</td><td>253,63</td></tr>
+<tr><td>55-64</td><td>16.521</td><td>8.394</td><td>181</td><td>5</td><td>51,68</td><td>258,38</td></tr>
+<tr><td>65+</td><td>15.787</td><td>9.529</td><td>302</td><td>6</td><td>40,29</td><td>241,72</td></tr>
+<tr><td>Unknown</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0,00</td><td>0,00</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+<h2 class="section-title">Segmentação de gênero</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-genero">
+<div class="chart-center"><canvas id="chartGenero" style="max-width:400px;max-height:400px;"></canvas></div>
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Gênero</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
+<tr><td>mulher</td><td>63.314</td><td>33.171</td><td>799</td><td>27</td><td>34,71</td><td>937,04</td></tr>
+<tr><td>homem</td><td>206</td><td>86</td><td>3</td><td>0</td><td>0,00</td><td>5,71</td></tr>
+<tr><td>desconhecido</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0,00</td><td>0,01</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+<h2 class="section-title">Campanhas</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-campanhas">
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Campanhas</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>CPC (todos)</th><th>CPM médio</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
+<tr><td>[OGTP] [WHATS] - Fisiocárdio 01.12.24</td><td>35.326</td><td>14.250</td><td>325</td><td>2,49</td><td>22,94</td><td>26</td><td>31,16</td><td>810,24</td></tr>
+<tr><td>[OGTP] [TRÁFEGO] - Perfil IG 01.12.24</td><td>28.195</td><td>18.871</td><td>477</td><td>0,28</td><td>4,70</td><td>1</td><td>132,52</td><td>132,52</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+<h2 class="section-title">Principais Públicos</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-publicos">
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Conjuntos de anúncios</th><th>Cliques (todos)</th><th>CPC (todos)</th><th>Alcance</th><th>Frequência</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th></tr></thead><tbody>
+<tr><td>Advantage Plus | Exclusão de Público RMK Site + Engajamento</td><td>214</td><td>2,18</td><td>11.496</td><td>2,14</td><td>20</td><td>23,35</td></tr>
+<tr><td>RMK - Visitantes Site 30D + Engajamento IG 30D</td><td>84</td><td>3,01</td><td>1.944</td><td>3,39</td><td>5</td><td>50,59</td></tr>
+<tr><td>[PERFIL IG] - M | 40 A 65+ | LOL Todos Engajamentos 60D</td><td>477</td><td>0,28</td><td>18.871</td><td>1,49</td><td>1</td><td>132,52</td></tr>
+<tr><td>[WHATS] [IG] - Grande Floripa | M | 35 a 65+ | Interesses</td><td>27</td><td>3,34</td><td>3.366</td><td>1,23</td><td>1</td><td>90,23</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+<h2 class="section-title">Plataformas de exposição dos anúncios</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-plataformas">
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Plataforma</th><th>Cliques (todos)</th><th>Alcance</th><th>Impressões</th><th>Valor gasto</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th></tr></thead><tbody>
+<tr><td>Instagram</td><td>802</td><td>33.217</td><td>63.521</td><td>942,76</td><td>27</td><td>34,92</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div>
+<h2 class="section-title">Principais Concorrentes</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-concorrentes">
+<div class="competitors-grid">
+<div class="competitor-card">
+<div class="competitor-rank" style="background:#00C853">1</div>
+<img src="https://scontent-iad6-1.xx.fbcdn.net/v/t51.75761-15/494733371_18074641348859519_7822751641406161105_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=7d201b&_nc_ohc=BWFBvaNi584Q7kNvwE1SKZJ&_nc_oc=AdqiHMbI8VKCZZ8dLQs2M9LR8kShN-Iv9MEfXbftd247Rok0S7v25SPzvvaX-UMW_Rw&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AL-3X8kEAAAA&_nc_gid=J96ywok49-Ngvt29RUaoqQ&oh=00_AQAYfDG2UsFWvCmVJ_T-0k6MLjuZ40oRhf-nEw_RIpcJjw&oe=6A52C885" class="competitor-pic" alt="Fisioterapia Domiciliar SC">
+<div class="competitor-info">
+<h4 class="competitor-name">Fisioterapia Domiciliar SC</h4>
+<p class="competitor-bio">🧠 Neurofuncional 
+🩻 Osteopatia & Acupuntura
+💉 Ozônioterapia 🚨 Laserterapia
+👩‍⚕️ Fisioterapia Do</p>
+</div>
+<div class="competitor-stats">
+<div><strong>33</strong><span>posts</span></div>
+<div><strong>235</strong><span>following</span></div>
+<div><strong>1.665</strong><span>followers</span></div>
+</div>
+</div>
+<div class="competitor-card">
+<div class="competitor-rank" style="background:#00C853">2</div>
+<img src="https://scontent-iad6-1.xx.fbcdn.net/v/t51.2885-15/101122703_2897219333729184_5295272145675354112_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7d201b&_nc_ohc=Z3o-EDOiiW8Q7kNvwFfdGMB&_nc_oc=Adqm-Fu7Ipa1sKqIQ5NXC76y6YmG8c3sKq2UWwNQ0uUWjIh_XeUS99JYaEPO2RqjiL8&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AL-3X8kEAAAA&oh=00_AQDi0AkOl7JxNdRrV9b80MwAwIrP9KMgmTjN8gJCiNWdYA&oe=6A52C4BA" class="competitor-pic" alt="Fisiocárdio | Fisioterapia">
+<div class="competitor-info">
+<h4 class="competitor-name">Fisiocárdio | Fisioterapia</h4>
+<p class="competitor-bio">Mais que fisioterapia, criamos conexão que valoriza a sua história. Há 18 anos facilitando o process</p>
+</div>
+<div class="competitor-stats">
+<div><strong>209</strong><span>posts</span></div>
+<div><strong>380</strong><span>following</span></div>
+<div><strong>1.592</strong><span>followers</span></div>
+</div>
+</div>
+<div class="competitor-card">
+<div class="competitor-rank" style="background:#00C853">3</div>
+<img src="https://scontent-iad3-1.xx.fbcdn.net/v/t51.2885-15/365461073_761719855707453_7557246865189697634_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=7d201b&_nc_ohc=6JPJ3wm6IPEQ7kNvwEGELgp&_nc_oc=AdoOAN8sxStpPJA6qxDHwwB27RyiSYXheMUAxndQ9TJ3X3tToNM8H5g8mJ5ZM4N72Lg&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&edm=AL-3X8kEAAAA&oh=00_AQAOkFdHCjbP5xIS3xZDyH7W5BY2Fiu0iW2Or2pUydBnSA&oe=6A52D450" class="competitor-pic" alt="Movere Care">
+<div class="competitor-info">
+<h4 class="competitor-name">Movere Care</h4>
+<p class="competitor-bio">Tudo começa com o sonho de ver sorrisos em rostos cansados e a determinação de mudar vidas através d</p>
+</div>
+<div class="competitor-stats">
+<div><strong>3</strong><span>posts</span></div>
+<div><strong>84</strong><span>following</span></div>
+<div><strong>1.196</strong><span>followers</span></div>
+</div>
+</div>
+<div class="competitor-card">
+<div class="competitor-rank" style="background:#E4405F">4</div>
+<img src="https://scontent-iad6-1.xx.fbcdn.net/v/t51.2885-15/362730794_1135015724571470_2824285865646658502_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7d201b&_nc_ohc=HSc8MidfS-AQ7kNvwGE0yGx&_nc_oc=Adrqf2QYAFhWaqXxl_UzhINJpD07PZkhlPB7vZJns5Pu64MJq0uVEbPoXw6GQ0Tk_2s&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AL-3X8kEAAAA&oh=00_AQC4kuIUlNfadA95HG46oMsDySkukk1cnsQdSn2P8_JEgg&oe=6A52DC40" class="competitor-pic" alt="Fisioterapeuta Danrley Ferreira">
+<div class="competitor-info">
+<h4 class="competitor-name">Fisioterapeuta Danrley Ferreira</h4>
+<p class="competitor-bio">👨🏻‍⚕️ Fisioterapia Domiciliar 
+📍Atendimento ter/qui @naturalstudiopilates 
+📍 Florianópolis de No</p>
+</div>
+<div class="competitor-stats">
+<div><strong>27</strong><span>posts</span></div>
+<div><strong>646</strong><span>following</span></div>
+<div><strong>581</strong><span>followers</span></div>
+</div>
+</div>
+<div class="competitor-card">
+<div class="competitor-rank" style="background:#E4405F">5</div>
+<img src="https://scontent-iad6-1.xx.fbcdn.net/v/t51.82787-15/724516948_18136553368491646_967840501268102265_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=7d201b&_nc_ohc=5KU9Pzii8kMQ7kNvwF2U7mX&_nc_oc=Adqv2bzLhzFNGQREvNtGhGEMAaZ74tnioZX6LoCM6fGkfse9UmUdO-Y0sEMpJK8NG2s&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&edm=AL-3X8kEAAAA&_nc_gid=H6jRquhm5R5XSPsSJ6BFQA&oh=00_AQBzhiF5qFb7IuM22ZPMxxsaNlh4lWjA0D_HAFmela9y_Q&oe=6A52BE56" class="competitor-pic" alt="Ft. Liz Aparicio">
+<div class="competitor-info">
+<h4 class="competitor-name">Ft. Liz Aparicio</h4>
+<p class="competitor-bio">🧠 Terapia física y rehabilitación 
+📍 Terapia a Domicilio, Puebla
+🔵 Agenda tu cita | Atención pers</p>
+</div>
+<div class="competitor-stats">
+<div><strong>0</strong><span>posts</span></div>
+<div><strong>0</strong><span>following</span></div>
+<div><strong>2</strong><span>followers</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+<h2 class="section-title">Análise Estratégica – Junho/2026: Fisiocárdio - Meta Ads</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-conclusao">
+<div class="conclusao">
+<h4>O Que Aconteceu (Fatos e Numeros</h4>
+
+<p>Durante junho de 2026, a Fisiocárdio manteve duas campanhas permanentes ativas na Meta Ads com foco em engajamento para captação de leads e tráfego para crescimento do perfil Instagram.</p>
+
+<p>A <strong>Campanha de Engajamento</strong> (WhatsApp) alcançou 29.790 pessoas, gerando 213 cliques e 25 mensagens de contato. O investimento foi de R$ 810,16, resultando em um custo real de R$ 32,41 por lead capturado.</p>
+
+<p>A <strong>Campanha de Tráfego Perfil</strong> atingiu 25.259 pessoas com 490 cliques no perfil, investindo R$ 132,52. O foco desta campanha é crescimento de seguidores, com 26 novos seguidores capturados no mês (considerando tráfego orgânico e pago combinados).</p>
+
+<p>Observamos queda significativa no tráfego do perfil, com redução de 57% em cliques e 54% em alcance em relação ao período anterior. Este movimento ocorreu após realocação estratégica do orçamento para a campanha de engajamento, que mostrou melhor retorno na conversão para leads.</p>
+
+<p>A audiência de maior resposta foi o público 65+, gerando 302 cliques e 6 mensagens, seguido pela faixa 45-54 com 191 cliques e 8 mensagens. Públicos mais jovens (18-34) apresentaram performance menor, sinalizando que seu público-alvo principal é o adulto maduro acima de 45 anos.</p>
+
+<h4>Analise de Eficiencia do Investimento</h4>
+
+<p>O investimento total em ambas as campanhas foi de R$ 942,68, capturando 25 leads qualificados via WhatsApp com custo médio de R$ 32,41 por lead.</p>
+
+<p>A <strong>Campanha de Engajamento demonstra maior eficiência</strong>, operando com CTR de 0,60% e convertendo cliques em mensagens concretas. Ainda que o custo por lead seja elevado, a métrica reflete leads genuínos interessados em reabilitação cardíaca, não apenas visualizações.</p>
+
+<p>A <strong>Campanha de Tráfego Perfil apresenta desafio</strong>, com custo de R$ 132,52 para alcançar 26 seguidores (aproximadamente R$ 5,10 por seguidor). Apesar da queda em cliques, esta campanha constrói presença de marca e comunidade, sendo métrica de longo prazo.</p>
+
+<ul>
+<li>Custo por lead real (Engajamento): R$ 32,41</li>
+<li>ROI por impressão (Engajamento): 0,07% de conversão para lead</li>
+<li>Público 65+ gerou 24% de todos os cliques com melhor relação de custo, confirmando segmentação eficaz</li>
+<li>Conjunto Advantage Plus (Exclusão RMK + Engajamento) foi o melhor performer com custo de R$ 23,35 por mensagem</li>
+</ul>
+
+<p>O mês reflete estratégia acertada de priorizar captação de leads qualificados sobre crescimento de seguidores, movimento validado pela resposta do público-alvo. As otimizações realizadas ao longo de junho, especialmente a realocação orçamentária e inclusão de novos criativos, começam a mostrar resultado positivo em direção certa.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="footer-inner">
+<div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
+<div class="footer-meta">Relatório gerado automaticamente em 07/07/2026 10:11</div>
+</div>
+</footer>
+<script>
+function toggleSection(el){var b=el.nextElementSibling;var c=el.querySelector(".section-chevron");b.style.display=b.style.display==="none"?"block":"none";c.style.transform=b.style.display==="none"?"rotate(-90deg)":"";}
+function downloadPDF(){var el=document.body;var btn=document.querySelector(".btn-download");btn.textContent="Gerando PDF...";btn.disabled=true;document.querySelectorAll(".section-body").forEach(function(s){s.style.display="block";});document.querySelectorAll("canvas").forEach(function(c){var img=document.createElement("img");img.src=c.toDataURL("image/png");img.style.width="100%";img.className="chart-img-pdf";c.parentNode.insertBefore(img,c);c.style.display="none";});var opt={margin:[5,5,5,5],filename:"Fisioc-rdio-Junho-2026-MetaAds.pdf",image:{type:"jpeg",quality:0.95},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}};html2pdf().set(opt).from(el).save().then(function(){document.querySelectorAll(".chart-img-pdf").forEach(function(img){img.previousElementSibling&&(img.previousElementSibling.style.display="");img.remove();});btn.textContent="Download PDF";btn.disabled=false;});}
+window.addEventListener("beforeprint",function(){document.querySelectorAll("canvas").forEach(function(c){var i=document.createElement("img");i.src=c.toDataURL("image/png");i.style.width="100%";c.parentNode.insertBefore(i,c);c.style.display="none";});});
+window.addEventListener("afterprint",function(){document.querySelectorAll("canvas").forEach(function(c){c.style.display="";var i=c.previousElementSibling;if(i&&i.tagName==="IMG")i.remove();});});
+var isMobile=window.innerWidth<640;
+var lineOpts={responsive:true,aspectRatio:isMobile?1.5:2.2,plugins:{legend:{display:false}},scales:{x:{ticks:{maxRotation:isMobile?45:0,font:{size:isMobile?9:11}}},y:{beginAtZero:false}}};
+new Chart(document.getElementById("chartCliques"),{type:"line",data:{labels:["01/06","02/06","03/06","04/06","05/06","06/06","07/06","08/06","09/06","10/06","11/06","12/06","13/06","14/06","15/06","16/06","17/06","18/06","19/06","20/06","21/06","22/06","23/06","24/06","25/06","26/06","27/06","28/06","29/06","30/06"],datasets:[{data:[66,51,56,63,45,42,47,57,44,32,47,13,8,12,6,14,8,10,2,6,7,12,8,9,4,11,7,8,3,5],borderColor:"#1877F2",backgroundColor:"rgba(24,119,242,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:lineOpts});
+new Chart(document.getElementById("chartAlcance"),{type:"line",data:{labels:["01/06","02/06","03/06","04/06","05/06","06/06","07/06","08/06","09/06","10/06","11/06","12/06","13/06","14/06","15/06","16/06","17/06","18/06","19/06","20/06","21/06","22/06","23/06","24/06","25/06","26/06","27/06","28/06","29/06","30/06"],datasets:[{data:[3336,3132,3327,3227,2722,2954,3432,3529,3235,2733,2653,1154,1078,1185,1353,1842,1466,1088,689,651,920,1695,1091,861,881,992,672,697,1054,1400],borderColor:"#60A5FA",backgroundColor:"rgba(96,165,250,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:lineOpts});
+new Chart(document.getElementById("chartIdade"),{type:"pie",data:{labels:["18-24","25-34","35-44","45-54","55-64","65+","Unknown"],datasets:[{data:[0,31,97,191,181,302,0],backgroundColor:["#1877F2","#E4405F","#FCAF45","#833AB4","#00C853","#FF6D00"]}]},plugins:[ChartDataLabels],options:{responsive:true,plugins:{legend:{position:"bottom"},datalabels:{color:"#fff",font:{weight:"bold",size:11},formatter:function(v,ctx){var sum=ctx.dataset.data.reduce(function(a,b){return a+b},0);var pct=(v/sum*100).toFixed(1)+"%";return v+"\n"+pct;},textAlign:"center"}}}});
+new Chart(document.getElementById("chartGenero"),{type:"pie",data:{labels:["mulher","homem","desconhecido"],datasets:[{data:[799,3,0],backgroundColor:["#1877F2","#E4405F","#9CA3AF"]}]},plugins:[ChartDataLabels],options:{responsive:true,plugins:{legend:{position:"bottom"},datalabels:{color:"#fff",font:{weight:"bold",size:12},formatter:function(v,ctx){var sum=ctx.dataset.data.reduce(function(a,b){return a+b},0);var pct=(v/sum*100).toFixed(1)+"%";return v+"\n"+pct;},textAlign:"center"}}}});
+</script>
+</body>
+</html>
