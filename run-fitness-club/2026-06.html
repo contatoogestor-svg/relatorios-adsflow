@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Run Fitness Club - Junho/2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;color:#0f172a;background:#f1f5f9;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%)}
+.hero-bg{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23334155' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:0.5}
+.hero-content{position:relative;max-width:900px;margin:0 auto;padding:32px 20px 24px;text-align:center}
+.hero-logos{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.logo-af{height:28px;filter:brightness(0) invert(1);opacity:0.9}
+.logo-af-text{font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.5px}
+.logo-divider{width:1px;height:28px;background:rgba(255,255,255,0.3)}
+.logo-cl{height:32px;filter:brightness(0) invert(1)}
+.logo-cl-pill{filter:none;background:rgba(255,255,255,0.92);border-radius:6px;padding:3px 10px;object-fit:contain}
+.hero-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.3px;margin-bottom:4px}
+.hero-subtitle{font-size:14px;color:rgba(255,255,255,0.7);font-weight:400}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:12px}
+.hero-badge{background:rgba(59,130,246,0.2);color:#60a5fa;padding:4px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(59,130,246,0.4)}
+.hero-period{color:rgba(255,255,255,0.5);font-size:13px}
+.btn-download{margin-top:24px;display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:"Inter",sans-serif;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(37,99,235,0.3)}
+.btn-download:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,0.4)}
+.main{max-width:900px;margin:0 auto;padding:0 20px 40px}
+section.sec{background:#fff;border-radius:16px;margin-top:24px;box-shadow:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.06);border:1px solid #e2e8f0;overflow:hidden}
+.sec-head{display:flex;align-items:center;gap:12px;padding:20px 28px;border-bottom:1px solid #f1f5f9}
+.sec-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.sec-icon.blue{background:linear-gradient(135deg,#3b82f6,#2563eb)}
+.sec-icon.purple{background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
+.sec-icon.sky{background:linear-gradient(135deg,#0ea5e9,#0284c7)}
+.sec-icon.green{background:linear-gradient(135deg,#10b981,#059669)}
+.sec-icon.amber{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.sec-icon.rose{background:linear-gradient(135deg,#f43f5e,#e11d48)}
+.sec-icon.slate{background:linear-gradient(135deg,#64748b,#475569)}
+.sec-title{font-size:16px;font-weight:700;color:#0f172a;letter-spacing:-0.3px}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#f1f5f9;padding:1px}
+.kpi{background:#fff;padding:24px 24px 20px}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.kpi-name{font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px}
+.kpi-dot{width:8px;height:8px;border-radius:50%}
+.kpi-num{font-size:30px;font-weight:800;color:#0f172a;letter-spacing:-1px;line-height:1}
+.kpi-bottom{display:flex;align-items:center;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700}
+.badge-up{background:#dcfce7;color:#16a34a}
+.badge-down{background:#fee2e2;color:#dc2626}
+.badge-neutral{background:#f1f5f9;color:#64748b}
+.badge svg{width:10px;height:10px}
+.funnel{padding:32px 40px;display:flex;flex-direction:column;align-items:center}
+.funnel-level{width:100%;text-align:center;color:#fff;position:relative;display:flex;align-items:center;justify-content:center;padding:22px 0}
+.fl-inner{display:flex;align-items:baseline;gap:16px;position:relative;z-index:1}
+.fl-label{font-size:13px;font-weight:500;opacity:0.9;text-transform:uppercase;letter-spacing:0.5px}
+.fl-value{font-size:28px;font-weight:800;letter-spacing:-0.5px}
+.fl-1{width:100%;background:linear-gradient(135deg,#1e40af,#3b82f6);clip-path:polygon(0 0,100% 0,94% 100%,6% 100%);border-radius:12px 12px 0 0}
+.fl-2{width:82%;background:linear-gradient(135deg,#0369a1,#0ea5e9);clip-path:polygon(4% 0,96% 0,90% 100%,10% 100%)}
+.fl-3{width:60%;background:linear-gradient(135deg,#047857,#10b981);clip-path:polygon(6% 0,94% 0,82% 100%,18% 100%);border-radius:0 0 12px 12px}
+.funnel-arrow{display:flex;align-items:center;justify-content:center;height:28px;position:relative;z-index:2}
+.funnel-rate{font-size:12px;font-weight:700;color:#64748b;background:#f8fafc;padding:2px 14px;border-radius:20px;border:1px solid #e2e8f0}
+.split-layout{display:grid;grid-template-columns:280px 1fr;gap:0;border-top:1px solid #f1f5f9}
+.split-chart{padding:24px;display:flex;align-items:center;justify-content:center;border-right:1px solid #f1f5f9}
+.split-table{overflow-x:auto}
+.chart-wrap{padding:24px 28px;position:relative;width:100%}
+.table-wrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;text-align:left;padding:12px 16px;border-bottom:2px solid #e2e8f0;background:#f8fafc;white-space:nowrap}
+.tbl td{font-size:13px;padding:11px 16px;border-bottom:1px solid #f1f5f9;color:#334155;white-space:nowrap}
+.tbl tbody tr:hover td{background:#f8fafc}
+.tbl .td-label{font-weight:600;color:#0f172a}
+.match-badge{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:600;background:#f1f5f9;color:#64748b}
+.card-info{padding:24px 28px}
+.card-info p{font-size:14px;color:#475569;line-height:1.7;margin-bottom:12px}
+.link-ext{color:#3b82f6;font-weight:600;font-size:14px;text-decoration:none;transition:color 0.2s}
+.link-ext:hover{color:#2563eb;text-decoration:underline}
+.resultados-wrap{padding:28px}
+.res-bloco{margin-bottom:24px}
+.res-bloco:last-child{margin-bottom:0}
+.res-header{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #e2e8f0;letter-spacing:-0.2px}
+.res-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.res-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;text-align:center;transition:transform 0.15s,box-shadow 0.15s}
+.res-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.res-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.res-label{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.res-value{font-size:22px;font-weight:800;letter-spacing:-0.5px;line-height:1}
+.conclusao{padding:28px 28px 32px}
+.conclusao h4{font-size:16px;font-weight:700;color:#0f172a;margin:28px 0 10px;padding-bottom:8px;border-bottom:2px solid #3b82f6;display:inline-block}
+.conclusao h4:first-child{margin-top:0}
+.conclusao p{font-size:14px;line-height:1.85;color:#334155;margin-bottom:10px}
+.conclusao ul{margin:10px 0 14px 24px}
+.conclusao li{font-size:14px;color:#334155;padding:3px 0;line-height:1.8}
+.conclusao strong{color:#0f172a;font-weight:700}
+.footer{max-width:900px;margin:0 auto;padding:0 20px 40px}
+.footer-inner{text-align:center;padding:24px 0;border-top:1px solid #e2e8f0}
+.footer-brand{font-size:13px;font-weight:800;color:#0f172a;letter-spacing:-0.2px}
+.footer-meta{font-size:11px;color:#94a3b8;margin-top:4px}
+@media print{
+  body{background:#fff}
+  .hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .main{padding:0;max-width:100%}
+  section.sec{box-shadow:none;border:1px solid #e2e8f0;margin-top:16px;page-break-inside:avoid}
+  .btn-download{display:none}
+  canvas{display:none !important}
+  .print-img{display:block !important;width:100%}
+  .funnel-level{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sec-icon{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .badge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .kpi-dot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media(max-width:768px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .split-layout{grid-template-columns:1fr}
+  .hero-content{padding:32px 24px}
+  .hero-title{font-size:22px}
+  .fl-value{font-size:20px}
+  .fl-label{font-size:11px;letter-spacing:0}
+  .fl-inner{gap:8px}
+  .funnel{padding:24px 16px}
+  .funnel-level{padding:16px 0}
+  .fl-3{width:75%}
+  .res-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-logos">
+      <img src="data:image/svg+xml;base64,PHN2ZyBkYXRhLXYtNDIzYmY5YWU9IiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTAxIDkwIiBjbGFzcz0iaWNvbkxlZnQiPjwhLS0tLT48IS0tLS0+PCEtLS0tPjxnIGRhdGEtdi00MjNiZjlhZT0iIiBpZD0iYjkwYjVlNWItYjk4Ny00ZTNjLWE0MGEtOGUyNDlmYTcxNmVmIiBmaWxsPSJibGFjayIgdHJhbnNmb3JtPSJtYXRyaXgoNS43MDM0MjE4MDUwNTUxOTksMCwwLDUuNzAzNDIxODA1MDU1MTk5LDExMS4xNDA2NzIyOTM1MjM5NSwtMy4wMjI4MTUwNjI0MzMxMDM2KSI+PHBhdGggZD0iTTguMzIgMTMuNTVMNy41NSAxMS42NUwzLjQwIDExLjY1TDIuNjMgMTMuNTVMLTAuMjAgMTMuNTVMNC4xMyAzLjc1TDYuODYgMy43NUwxMS4yMCAxMy41NUw4LjMyIDEzLjU1Wk00LjIxIDkuNjBMNi43MyA5LjYwTDUuNDcgNi40N0w0LjIxIDkuNjBaTTE3LjE5IDMuMTZMMTkuODUgMy4xNkwxOS44NSAxMy41NUwxNy4zMiAxMy41NUwxNy4zMiAxMi44MFExNi41OCAxMy42OCAxNS4wOSAxMy42OEwxNS4wOSAxMy42OFExNC4wNiAxMy42OCAxMy4yMCAxMy4yMFExMi4zNSAxMi43MSAxMS44NSAxMS44MlExMS4zNSAxMC45MiAxMS4zNSA5Ljc0TDExLjM1IDkuNzRRMTEuMzUgOC41NyAxMS44NSA3LjY4UTEyLjM1IDYuNzkgMTMuMjAgNi4zMVExNC4wNiA1Ljg0IDE1LjA5IDUuODRMMTUuMDkgNS44NFExNi40NSA1Ljg0IDE3LjE5IDYuNjJMMTcuMTkgNi42MkwxNy4xOSAzLjE2Wk0xNS42NSAxMS41NlExNi4zNCAxMS41NiAxNi43OSAxMS4wOFExNy4yMyAxMC42MCAxNy4yMyA5Ljc0TDE3LjIzIDkuNzRRMTcuMjMgOC45MCAxNi43OSA4LjQzUTE2LjM1IDcuOTUgMTUuNjUgNy45NUwxNS42NSA3Ljk1UTE0Ljk1IDcuOTUgMTQuNTAgOC40M1ExNC4wNiA4LjkwIDE0LjA2IDkuNzRMMTQuMDYgOS43NFExNC4wNiAxMC42MCAxNC41MCAxMS4wOFExNC45NSAxMS41NiAxNS42NSAxMS41NkwxNS42NSAxMS41NlpNMjQuMzIgMTMuNjhRMjMuMzcgMTMuNjggMjIuNDQgMTMuNDZRMjEuNTIgMTMuMjQgMjAuOTYgMTIuODlMMjAuOTYgMTIuODlMMjEuNzYgMTEuMDdRMjIuMjcgMTEuNDAgMjIuOTkgMTEuNThRMjMuNzAgMTEuNzcgMjQuNDAgMTEuNzdMMjQuNDAgMTEuNzdRMjUuMDUgMTEuNzcgMjUuMzIgMTEuNjRRMjUuNTkgMTEuNTEgMjUuNTkgMTEuMjZMMjUuNTkgMTEuMjZRMjUuNTkgMTEuMDAgMjUuMjYgMTAuOTBRMjQuOTMgMTAuNzkgMjQuMjIgMTAuNzBMMjQuMjIgMTAuNzBRMjMuMzEgMTAuNTggMjIuNjcgMTAuNDBRMjIuMDQgMTAuMjIgMjEuNTcgOS43M1EyMS4xMSA5LjI0IDIxLjExIDguMzZMMjEuMTEgOC4zNlEyMS4xMSA3LjYzIDIxLjU1IDcuMDZRMjEuOTggNi41MCAyMi44MSA2LjE3UTIzLjY1IDUuODQgMjQuODEgNS44NEwyNC44MSA1Ljg0UTI1LjYzIDUuODQgMjYuNDUgNi4wMVEyNy4yNiA2LjE3IDI3LjgwIDYuNDhMMjcuODAgNi40OEwyNy4wMSA4LjI5UTI2LjAwIDcuNzMgMjQuODIgNy43M0wyNC44MiA3LjczUTI0LjE5IDcuNzMgMjMuOTAgNy44N1EyMy42MCA4LjAyIDIzLjYwIDguMjZMMjMuNjAgOC4yNlEyMy42MCA4LjUzIDIzLjkzIDguNjNRMjQuMjUgOC43NCAyNC45OSA4Ljg1TDI0Ljk5IDguODVRMjUuOTMgOC45OSAyNi41NCA5LjE3UTI3LjE2IDkuMzUgMjcuNjEgOS44M1EyOC4wNyAxMC4zMiAyOC4wNyAxMS4xOUwyOC4wNyAxMS4xOVEyOC4wNyAxMS45MCAyNy42NCAxMi40N1EyNy4yMCAxMy4wMyAyNi4zNiAxMy4zNlEyNS41MSAxMy42OCAyNC4zMiAxMy42OEwyNC4zMiAxMy42OFpNNDEuMTAgNS44OUwzNi4xOSA1Ljg5TDM2LjE5IDguMDVMNDAuNTIgOC4wNUw0MC41MiAxMC4xOUwzNi4xOSAxMC4xOUwzNi4xOSAxMy41NUwzMy40MiAxMy41NUwzMy40MiAzLjc1TDQxLjEwIDMuNzVMNDEuMTAgNS44OVpNNDIuMjggMTMuNTVMNDIuMjggMy4xNkw0NC45NCAzLjE2TDQ0Ljk0IDEzLjU1TDQyLjI4IDEzLjU1Wk01MC40NyAxMy42OFE0OS4yNSAxMy42OCA0OC4yNyAxMy4xN1E0Ny4yOSAxMi42NyA0Ni43NCAxMS43N1E0Ni4xOSAxMC44OCA0Ni4xOSA5Ljc0TDQ2LjE5IDkuNzRRNDYuMTkgOC42MiA0Ni43NCA3LjczUTQ3LjI5IDYuODMgNDguMjcgNi4zM1E0OS4yNCA1Ljg0IDUwLjQ3IDUuODRMNTAuNDcgNS44NFE1MS43MCA1Ljg0IDUyLjY4IDYuMzNRNTMuNjYgNi44MyA1NC4yMSA3LjcyUTU0Ljc1IDguNjEgNTQuNzUgOS43NEw1NC43NSA5Ljc0UTU0Ljc1IDEwLjg4IDU0LjIxIDExLjc3UTUzLjY2IDEyLjY3IDUyLjY4IDEzLjE3UTUxLjcwIDEzLjY4IDUwLjQ3IDEzLjY4TDUwLjQ3IDEzLjY4Wk01MC40NyAxMS41NlE1MS4xNyAxMS41NiA1MS42MiAxMS4wOFE1Mi4wNyAxMC42MCA1Mi4wNyA5Ljc0TDUyLjA3IDkuNzRRNTIuMDcgOC45MCA1MS42MiA4LjQzUTUxLjE3IDcuOTUgNTAuNDcgNy45NUw1MC40NyA3Ljk1UTQ5Ljc3IDcuOTUgNDkuMzIgOC40M1E0OC44NyA4LjkwIDQ4Ljg3IDkuNzRMNDguODcgOS43NFE0OC44NyAxMC42MCA0OS4zMiAxMS4wOFE0OS43NyAxMS41NiA1MC40NyAxMS41Nkw1MC40NyAxMS41NlpNNjYuMDEgNS45Nkw2OC4zNSA1Ljk2TDY1LjY1IDEzLjU1TDYzLjA3IDEzLjU1TDYxLjY0IDkuNDJMNjAuMTYgMTMuNTVMNTcuNTggMTMuNTVMNTQuODggNS45Nkw1Ny40MCA1Ljk2TDU4Ljk1IDEwLjU2TDYwLjU2IDUuOTZMNjIuODMgNS45Nkw2NC40MCAxMC42MEw2Ni4wMSA1Ljk2WiI+PC9wYXRoPjwvZz48IS0tLS0+PGcgZGF0YS12LTQyM2JmOWFlPSIiIGlkPSJlNzhkM2M0ZC00NDkwLTQ5NzMtYjIwNy1kYTk3ZDI3NDExYTgiIHRyYW5zZm9ybT0ibWF0cml4KDIuODEyNSwwLDAsMi44MTI1LDAsMCkiIHN0cm9rZT0ibm9uZSIgZmlsbD0iYmxhY2siPjxwYXRoIGQ9Ik0wIDMyaDMyVjBIMHYzMnpNMiAyaDIuOTgxTDE2LjAxIDIxLjEwMyAyNy4wNCAySDMwdjI4SDJWMnoiPjwvcGF0aD48L2c+PCEtLS0tPjwvc3ZnPg==" alt="ADS FLOW" class="logo-af">
+      <span class="logo-divider"></span>
+      <img src="data:image/png;base64,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" alt="Run Fitness Club" class="logo-cl">
+    </div>
+    <h1 class="hero-title">Relatório Mensal</h1>
+    <p class="hero-subtitle">Run Fitness Club — Google Ads</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Junho/2026</span>
+      <span class="hero-period">01/06/2026 a 30/06/2026</span>
+    </div>
+    <button class="btn-download" onclick="window.print()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download PDF
+    </button>
+  </div>
+</header>
+<main class="main">
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+  <h2 class="sec-title">Visão Geral</h2>
+</div>
+<div class="kpi-grid">
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Cliques</span><span class="kpi-dot" style="background:#3b82f6"></span></div>
+  <div class="kpi-num">129</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>10,4%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Impressões</span><span class="kpi-dot" style="background:#8b5cf6"></span></div>
+  <div class="kpi-num">2.166</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>11,2%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">CPC Médio</span><span class="kpi-dot" style="background:#f59e0b"></span></div>
+  <div class="kpi-num">R$ 3,59</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 2l4 5H2z" fill="currentColor"/></svg>+4,6%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">CTR</span><span class="kpi-dot" style="background:#0ea5e9"></span></div>
+  <div class="kpi-num">5,96%</div>
+  <div class="kpi-bottom"><span class="badge badge-neutral">0,8%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Custo Total</span><span class="kpi-dot" style="background:#ef4444"></span></div>
+  <div class="kpi-num">R$ 463,22</div>
+  <div class="kpi-bottom"><span class="badge badge-up"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>6,3%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Conversões</span><span class="kpi-dot" style="background:#10b981"></span></div>
+  <div class="kpi-num">14</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>6,7%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon purple"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></div>
+  <h2 class="sec-title">Funil de Leads — Google Ads</h2>
+</div>
+<div class="funnel">
+  <div class="funnel-level fl-1">
+    <div class="fl-inner"><span class="fl-label">Impressões</span><span class="fl-value">2.166</span></div>
+  </div>
+  <div class="funnel-arrow"><span class="funnel-rate">6.0% CTR</span></div>
+  <div class="funnel-level fl-2">
+    <div class="fl-inner"><span class="fl-label">Cliques</span><span class="fl-value">129</span></div>
+  </div>
+  <div class="funnel-arrow"><span class="funnel-rate">10.9% Conv.</span></div>
+  <div class="funnel-level fl-3">
+    <div class="fl-inner"><span class="fl-label">Conversões (Leads)</span><span class="fl-value">14</span></div>
+  </div>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon sky"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg></div>
+  <h2 class="sec-title">Tipo de Dispositivo</h2>
+</div>
+<div class="split-layout">
+<div class="split-chart"><canvas id="chartDevice" height="260"></canvas></div>
+<div class="split-table">
+<table class="tbl"><thead><tr><th>Dispositivo</th><th>Cliques</th><th>CPC</th><th>Conv.</th><th>Custo</th></tr></thead><tbody>
+<tr><td class="td-label">Computadores</td><td>24</td><td>R$ 3,68</td><td>3</td><td>R$ 88,24</td></tr>
+<tr><td class="td-label">Celulares</td><td>104</td><td>R$ 3,59</td><td>11</td><td>R$ 373,24</td></tr>
+<tr><td class="td-label">Tablets</td><td>1</td><td>R$ 1,74</td><td>0</td><td>R$ 1,74</td></tr>
+</tbody></table>
+</div>
+</div>
+<script>
+new Chart(document.getElementById("chartDevice"),{type:"doughnut",data:{labels:["Computadores","Celulares","Tablets"],datasets:[{data:[24,104,1],backgroundColor:["#3b82f6","#8b5cf6","#f59e0b","#10b981","#ef4444"],borderWidth:0,borderRadius:4,hoverOffset:8}]},options:{responsive:true,cutout:"65%",plugins:{legend:{position:"bottom",labels:{padding:16,usePointStyle:true,pointStyle:"circle",font:{size:12,family:"Inter"}}}}}});
+</script>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon amber"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+  <h2 class="sec-title">Desempenho por Dia da Semana</h2>
+</div>
+<div class="chart-wrap"><canvas id="chartSemana"></canvas></div>
+<script>
+new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segunda","Terca","Quarta","Quinta","Sexta","Sabado","Domingo"],datasets:[{label:"Cliques",data:[32,37,11,22,19,8,0],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[6,2,3,1,1,1,0],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:window.innerWidth<=768?1.2:2.2,interaction:{intersect:false,mode:"index"},plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}},y:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}}}}});
+</script>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon rose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+  <h2 class="sec-title">Desempenho por Cidade</h2>
+</div>
+<div class="chart-wrap"><canvas id="chartCidades"></canvas></div>
+<script>
+new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Florianopolis"],datasets:[{label:"Cliques",data:[129],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[14],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.8,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
+</script>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Cidade</th><th>Impressões</th><th>Cliques</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">Florianopolis</td><td>2.166</td><td>129</td><td>R$ 3,59</td><td>R$ 463,22</td><td>14</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon slate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+  <h2 class="sec-title">Grupos de Anúncio</h2>
+</div>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Grupo</th><th>Impr.</th><th>Cliques</th><th>% Impr.</th><th>% Topo</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">Academia</td><td>2.166</td><td>129</td><td>46,57%</td><td>34,19%</td><td>R$ 3,59</td><td>R$ 463,22</td><td>14</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+  <h2 class="sec-title">Principais Palavras-Chave</h2>
+</div>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Palavra-Chave</th><th>Tipo</th><th>Impr.</th><th>Cliques</th><th>CPC</th><th>% Impr.</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">academia</td><td><span class="match-badge">Ampla</span></td><td>1.341</td><td>76</td><td>R$ 3,12</td><td>51,24%</td><td>R$ 237,13</td><td>11</td></tr>
+<tr><td class="td-label">academia perto de mim</td><td><span class="match-badge">Ampla</span></td><td>622</td><td>44</td><td>R$ 4,51</td><td>40,76%</td><td>R$ 198,66</td><td>3</td></tr>
+<tr><td class="td-label">academia near me</td><td><span class="match-badge">Ampla</span></td><td>117</td><td>4</td><td>R$ 3,28</td><td>28,07%</td><td>R$ 13,13</td><td>0</td></tr>
+<tr><td class="td-label">academia trindade</td><td><span class="match-badge">Ampla</span></td><td>66</td><td>3</td><td>R$ 2,41</td><td>90,91%</td><td>R$ 7,23</td><td>0</td></tr>
+<tr><td class="td-label">academias perto de mim</td><td><span class="match-badge">Frase</span></td><td>8</td><td>1</td><td>R$ 5,91</td><td>75,00%</td><td>R$ 5,91</td><td>0</td></tr>
+<tr><td class="td-label">academia trindade florianópolis</td><td><span class="match-badge">Frase</span></td><td>6</td><td>1</td><td>R$ 1,17</td><td>100,00%</td><td>R$ 1,17</td><td>0</td></tr>
+<tr><td class="td-label">academia florianopolis</td><td><span class="match-badge">Frase</span></td><td>5</td><td>0</td><td>R$ 0,00</td><td>25,00%</td><td>R$ 0,00</td><td>0</td></tr>
+<tr><td class="td-label">academia premium</td><td><span class="match-badge">Ampla</span></td><td>1</td><td>0</td><td>R$ 0,00</td><td>33,33%</td><td>R$ 0,00</td><td>0</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+  <h2 class="sec-title">Conclusão e Análise Estratégica</h2>
+</div>
+<div class="conclusao">
+<h4>O Que Aconteceu (Fatos e Números)</h4>
+
+<p>Durante junho, nós gerenciamos a campanha de Google Ads da Run Fitness Club e processamos 2.166 pessoas alcançadas, resultando em 129 cliques. Desses cliques, geramos 14 leads qualificados com custo de R$ 33,09 por lead. O investimento total foi de R$ 463,22.</p>
+
+<p>A taxa de conversão alcançou 10,85%, o que significa que a cada 100 pessoas que clicaram no anúncio, aproximadamente 11 deixaram seus dados de contato para a academia.</p>
+
+<p>Comparado a maio, observamos uma redução de 11,2% no alcance total, porém o custo por clique subiu 4,6%. Apesar disso, mantivemos a receita controlada com redução de 6,3% no gasto geral.</p>
+
+<p>A análise por dispositivo revelou que celular é o grande motor da campanha, com 104 cliques e 11 leads gerados. Computadores trouxeram 24 cliques com 3 leads, enquanto tablets tiveram participação mínima.</p>
+
+<ul>
+<li>Palavra-chave "academia" lidera com 76 cliques e 11 leads</li>
+<li>Buscas locais como "academia perto de mim" geraram 44 cliques com 3 leads</li>
+<li>Termos em inglês e muito específicos mostram baixo desempenho</li>
+</ul>
+
+<h4>Análise Estratégica</h4>
+
+<p>Realizamos 4 ciclos de otimização durante o mês, sempre com foco em eliminar termos que não geravam leads de qualidade e refinar o público-alvo. A estratégia concentrou-se em palavras-chave que realmente funcionam para a Run Fitness Club.</p>
+
+<p>A performance do celular demonstra que seu público busca por academia principalmente pelo smartphone, muitas vezes em movimento ou pesquisando algo próximo. Isso é um ponto forte que evidencia a relevância da sua presença em buscas móveis.</p>
+
+<p>A palavra-chave "academia" continua sendo o principal motor de leads, respondendo por quase 80% de todos os contatos gerados. Essa simplicidade na busca indica que pessoas em seu público buscam direto pelo serviço, sem muitos filtros adicionais.</p>
+
+<p>Nossos ajustes de público ao final do mês, focando em usuários de 18 a 24 anos com renda entre 21 a 30%, abriram espaço para uma audiência mais segmentada. Essa mudança estratégica posiciona melhor seus anúncios para pessoas com maior probabilidade de interesse em sua academia.</p>
+
+<p>O custo por lead de R$ 33,09 mantém-se eficiente considerando o segmento de fitness. Cada real investido está trazendo pessoas genuinamente interessadas em conhecer a Run Fitness Club.</p>
+</div>
+</section>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
+    <div class="footer-meta">Relatório gerado automaticamente em 07/07/2026 09:27</div>
+  </div>
+</footer>
+<script>
+window.addEventListener("beforeprint",function(){document.querySelectorAll("canvas").forEach(function(c){var i=new Image();i.src=c.toDataURL("image/png");i.style.width="100%";i.className="print-img";c.parentNode.insertBefore(i,c);c.style.display="none"})});
+window.addEventListener("afterprint",function(){document.querySelectorAll(".print-img").forEach(function(i){i.remove()});document.querySelectorAll("canvas").forEach(function(c){c.style.display=""})});
+</script>
+</body>
+</html>
