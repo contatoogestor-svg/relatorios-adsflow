@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Clínica Nutrigene - Julho/2026 - Meta Ads</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#1f2937; }
+.hero { position:relative; background:#0a0a0a; color:#fff; padding:32px 20px 24px; text-align:center; overflow:hidden; }
+.hero-bg { position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(135deg,rgba(24,119,242,0.15),rgba(228,64,95,0.1)); }
+.hero-content { position:relative; z-index:1; max-width:900px; margin:0 auto; }
+.hero-logos { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:16px; }
+.logo-af { height:28px; filter:brightness(0) invert(1); }
+.logo-cl { height:32px; filter:brightness(0) invert(1); }
+.logo-divider { width:1px; height:28px; background:rgba(255,255,255,0.3); }
+.hero-title { font-size:20px; font-weight:700; letter-spacing:-0.3px; margin-bottom:4px; }
+.hero-subtitle { font-size:14px; font-weight:400; color:rgba(255,255,255,0.7); margin-bottom:12px; }
+.hero-meta { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:16px; }
+.hero-badge { background:rgba(24,119,242,0.2); border:1px solid rgba(24,119,242,0.4); color:#60A5FA; padding:4px 16px; border-radius:20px; font-size:13px; font-weight:600; }
+.hero-period { color:rgba(255,255,255,0.5); font-size:13px; }
+.btn-download { background:#1877F2; color:#fff; border:none; padding:10px 24px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; transition:background 0.2s; }
+.btn-download:hover { background:#1565C0; }
+.main { max-width:900px; margin:24px auto; padding:0 16px; }
+.section { background:#fff; border-radius:12px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,0.08); overflow:hidden; }
+.section-header { display:flex; align-items:center; gap:10px; padding:16px 20px; cursor:pointer; border-bottom:1px solid #e5e7eb; user-select:none; }
+.section-header:hover { background:#f9fafb; }
+.section-icon { flex-shrink:0; }
+.section-title { font-size:16px; font-weight:700; color:#1f2937; flex:1; margin:0; }
+.section-chevron { color:#9ca3af; font-size:12px; transition:transform 0.2s; }
+.section-body { padding:20px; }
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media(max-width:700px) { .kpi-grid { grid-template-columns:repeat(2,1fr); } }
+.kpi-card { background:#f9fafb; border:1px solid #e5e7eb; border-left:3px solid #1877F2; border-radius:8px; padding:14px 16px; }
+.kpi-label { font-size:11px; color:#6b7280; font-weight:500; margin-bottom:6px; }
+.kpi-value { font-size:24px; font-weight:700; color:#111827; margin-bottom:4px; }
+.kpi-var { font-size:12px; font-weight:600; }
+.kpi-var.up { color:#16a34a; }
+.kpi-var.down { color:#dc2626; }
+.kpi-var.neutral { color:#9ca3af; }
+.charts-row { display:flex; gap:16px; flex-wrap:wrap; }
+.chart-box { flex:1; min-width:280px; padding:0 8px 8px; }
+.chart-title { font-size:14px; font-weight:600; color:#374151; margin-bottom:12px; }
+.chart-center { display:flex; justify-content:center; margin-bottom:20px; }
+.tbl-wrapper { overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:16px; }
+.tbl { width:100%; border-collapse:collapse; min-width:600px; }
+.tbl th { font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:#6b7280; font-weight:600; text-align:center; padding:10px 8px; border-bottom:2px solid #e5e7eb; background:#e8f0fe; }
+.tbl th:first-child { text-align:left; }
+.tbl td { font-size:12px; padding:8px; border-bottom:1px solid #f3f4f6; color:#1f2937; text-align:center; }
+.tbl td:first-child { text-align:left; font-weight:600; }
+.tbl tr:nth-child(even) td { background:#f8f9fa; }
+.no-data { color:#9ca3af; font-style:italic; padding:20px 0; text-align:center; }
+.competitors-grid { display:flex; flex-direction:column; gap:12px; }
+.competitor-card { display:flex; align-items:center; gap:16px; padding:16px; border:1px solid #e5e7eb; border-radius:10px; flex-wrap:wrap; }
+.competitor-rank { width:28px; height:28px; background:#E4405F; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+.competitor-pic { width:48px; height:48px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+.competitor-info { flex:1; min-width:120px; }
+.competitor-name { font-size:14px; font-weight:700; color:#111827; margin:0 0 2px; }
+.competitor-bio { font-size:11px; color:#6b7280; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%; }
+.competitor-stats { display:flex; gap:20px; flex-shrink:0; }
+.competitor-stats div { text-align:center; }
+.competitor-stats strong { display:block; font-size:14px; font-weight:700; color:#111827; }
+.competitor-stats span { font-size:10px; color:#9ca3af; }
+.conclusao { background:#f9fafb; border-left:3px solid #1877F2; padding:20px 24px; border-radius:0 8px 8px 0; }
+.conclusao h4 { font-size:14px; font-weight:700; color:#111827; margin:16px 0 8px; }
+.conclusao h4:first-child { margin-top:0; }
+.conclusao p { font-size:13px; line-height:1.7; color:#374151; margin-bottom:8px; }
+.conclusao ul { padding-left:20px; margin-bottom:8px; }
+.conclusao li { font-size:13px; line-height:1.7; color:#374151; margin-bottom:4px; }
+.footer { max-width:900px; margin:0 auto 40px; padding:24px 16px; text-align:center; }
+.footer-brand { font-size:13px; font-weight:700; letter-spacing:1px; color:#374151; }
+.footer-meta { font-size:11px; color:#9ca3af; margin-top:4px; }
+@media (max-width:640px) { .charts-row { flex-direction:column; } .chart-box { min-width:100%; } .kpi-grid { grid-template-columns:1fr 1fr !important; } .competitor-card { flex-direction:column; align-items:flex-start; gap:12px; } .competitor-stats { width:100%; justify-content:space-around; padding-top:8px; border-top:1px solid #f3f4f6; } .competitor-info { min-width:0; width:100%; } .competitor-bio { white-space:normal; } }
+@media print { body { background:#fff; } .main { margin:0; padding:0; max-width:100%; } .section { box-shadow:none; page-break-inside:avoid; } .hero { padding:30px 20px; } .btn-download { display:none; } .section-chevron { display:none; } }
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="hero-bg"></div>
+<div class="hero-content">
+<div class="hero-logos">
+<img src="data:image/svg+xml;base64,PHN2ZyBkYXRhLXYtNDIzYmY5YWU9IiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTAxIDkwIiBjbGFzcz0iaWNvbkxlZnQiPjwhLS0tLT48IS0tLS0+PCEtLS0tPjxnIGRhdGEtdi00MjNiZjlhZT0iIiBpZD0iYjkwYjVlNWItYjk4Ny00ZTNjLWE0MGEtOGUyNDlmYTcxNmVmIiBmaWxsPSJibGFjayIgdHJhbnNmb3JtPSJtYXRyaXgoNS43MDM0MjE4MDUwNTUxOTksMCwwLDUuNzAzNDIxODA1MDU1MTk5LDExMS4xNDA2NzIyOTM1MjM5NSwtMy4wMjI4MTUwNjI0MzMxMDM2KSI+PHBhdGggZD0iTTguMzIgMTMuNTVMNy41NSAxMS42NUwzLjQwIDExLjY1TDIuNjMgMTMuNTVMLTAuMjAgMTMuNTVMNC4xMyAzLjc1TDYuODYgMy43NUwxMS4yMCAxMy41NUw4LjMyIDEzLjU1Wk00LjIxIDkuNjBMNi43MyA5LjYwTDUuNDcgNi40N0w0LjIxIDkuNjBaTTE3LjE5IDMuMTZMMTkuODUgMy4xNkwxOS44NSAxMy41NUwxNy4zMiAxMy41NUwxNy4zMiAxMi44MFExNi41OCAxMy42OCAxNS4wOSAxMy42OEwxNS4wOSAxMy42OFExNC4wNiAxMy42OCAxMy4yMCAxMy4yMFExMi4zNSAxMi43MSAxMS44NSAxMS44MlExMS4zNSAxMC45MiAxMS4zNSA5Ljc0TDExLjM1IDkuNzRRMTEuMzUgOC41NyAxMS44NSA3LjY4UTEyLjM1IDYuNzkgMTMuMjAgNi4zMVExNC4wNiA1Ljg0IDE1LjA5IDUuODRMMTUuMDkgNS44NFExNi40NSA1Ljg0IDE3LjE5IDYuNjJMMTcuMTkgNi42MkwxNy4xOSAzLjE2Wk0xNS42NSAxMS41NlExNi4zNCAxMS41NiAxNi43OSAxMS4wOFExNy4yMyAxMC42MCAxNy4yMyA5Ljc0TDE3LjIzIDkuNzRRMTcuMjMgOC45MCAxNi43OSA4LjQzUTE2LjM1IDcuOTUgMTUuNjUgNy45NUwxNS42NSA3Ljk1UTE0Ljk1IDcuOTUgMTQuNTAgOC40M1ExNC4wNiA4LjkwIDE0LjA2IDkuNzRMMTQuMDYgOS43NFExNC4wNiAxMC42MCAxNC41MCAxMS4wOFExNC45NSAxMS41NiAxNS42NSAxMS41NkwxNS42NSAxMS41NlpNMjQuMzIgMTMuNjhRMjMuMzcgMTMuNjggMjIuNDQgMTMuNDZRMjEuNTIgMTMuMjQgMjAuOTYgMTIuODlMMjAuOTYgMTIuODlMMjEuNzYgMTEuMDdRMjIuMjcgMTEuNDAgMjIuOTkgMTEuNThRMjMuNzAgMTEuNzcgMjQuNDAgMTEuNzdMMjQuNDAgMTEuNzdRMjUuMDUgMTEuNzcgMjUuMzIgMTEuNjRRMjUuNTkgMTEuNTEgMjUuNTkgMTEuMjZMMjUuNTkgMTEuMjZRMjUuNTkgMTEuMDAgMjUuMjYgMTAuOTBRMjQuOTMgMTAuNzkgMjQuMjIgMTAuNzBMMjQuMjIgMTAuNzBRMjMuMzEgMTAuNTggMjIuNjcgMTAuNDBRMjIuMDQgMTAuMjIgMjEuNTcgOS43M1EyMS4xMSA5LjI0IDIxLjExIDguMzZMMjEuMTEgOC4zNlEyMS4xMSA3LjYzIDIxLjU1IDcuMDZRMjEuOTggNi41MCAyMi44MSA2LjE3UTIzLjY1IDUuODQgMjQuODEgNS44NEwyNC44MSA1Ljg0UTI1LjYzIDUuODQgMjYuNDUgNi4wMVEyNy4yNiA2LjE3IDI3LjgwIDYuNDhMMjcuODAgNi40OEwyNy4wMSA4LjI5UTI2LjAwIDcuNzMgMjQuODIgNy43M0wyNC44MiA3LjczUTI0LjE5IDcuNzMgMjMuOTAgNy44N1EyMy42MCA4LjAyIDIzLjYwIDguMjZMMjMuNjAgOC4yNlEyMy42MCA4LjUzIDIzLjkzIDguNjNRMjQuMjUgOC43NCAyNC45OSA4Ljg1TDI0Ljk5IDguODVRMjUuOTMgOC45OSAyNi41NCA5LjE3UTI3LjE2IDkuMzUgMjcuNjEgOS44M1EyOC4wNyAxMC4zMiAyOC4wNyAxMS4xOUwyOC4wNyAxMS4xOVEyOC4wNyAxMS45MCAyNy42NCAxMi40N1EyNy4yMCAxMy4wMyAyNi4zNiAxMy4zNlEyNS41MSAxMy42OCAyNC4zMiAxMy42OEwyNC4zMiAxMy42OFpNNDEuMTAgNS44OUwzNi4xOSA1Ljg5TDM2LjE5IDguMDVMNDAuNTIgOC4wNUw0MC41MiAxMC4xOUwzNi4xOSAxMC4xOUwzNi4xOSAxMy41NUwzMy40MiAxMy41NUwzMy40MiAzLjc1TDQxLjEwIDMuNzVMNDEuMTAgNS44OVpNNDIuMjggMTMuNTVMNDIuMjggMy4xNkw0NC45NCAzLjE2TDQ0Ljk0IDEzLjU1TDQyLjI4IDEzLjU1Wk01MC40NyAxMy42OFE0OS4yNSAxMy42OCA0OC4yNyAxMy4xN1E0Ny4yOSAxMi42NyA0Ni43NCAxMS43N1E0Ni4xOSAxMC44OCA0Ni4xOSA5Ljc0TDQ2LjE5IDkuNzRRNDYuMTkgOC42MiA0Ni43NCA3LjczUTQ3LjI5IDYuODMgNDguMjcgNi4zM1E0OS4yNCA1Ljg0IDUwLjQ3IDUuODRMNTAuNDcgNS44NFE1MS43MCA1Ljg0IDUyLjY4IDYuMzNRNTMuNjYgNi44MyA1NC4yMSA3LjcyUTU0Ljc1IDguNjEgNTQuNzUgOS43NEw1NC43NSA5Ljc0UTU0Ljc1IDEwLjg4IDU0LjIxIDExLjc3UTUzLjY2IDEyLjY3IDUyLjY4IDEzLjE3UTUxLjcwIDEzLjY4IDUwLjQ3IDEzLjY4TDUwLjQ3IDEzLjY4Wk01MC40NyAxMS41NlE1MS4xNyAxMS41NiA1MS42MiAxMS4wOFE1Mi4wNyAxMC42MCA1Mi4wNyA5Ljc0TDUyLjA3IDkuNzRRNTIuMDcgOC45MCA1MS42MiA4LjQzUTUxLjE3IDcuOTUgNTAuNDcgNy45NUw1MC40NyA3Ljk1UTQ5Ljc3IDcuOTUgNDkuMzIgOC40M1E0OC44NyA4LjkwIDQ4Ljg3IDkuNzRMNDguODcgOS43NFE0OC44NyAxMC42MCA0OS4zMiAxMS4wOFE0OS43NyAxMS41NiA1MC40NyAxMS41Nkw1MC40NyAxMS41NlpNNjYuMDEgNS45Nkw2OC4zNSA1Ljk2TDY1LjY1IDEzLjU1TDYzLjA3IDEzLjU1TDYxLjY0IDkuNDJMNjAuMTYgMTMuNTVMNTcuNTggMTMuNTVMNTQuODggNS45Nkw1Ny40MCA1Ljk2TDU4Ljk1IDEwLjU2TDYwLjU2IDUuOTZMNjIuODMgNS45Nkw2NC40MCAxMC42MEw2Ni4wMSA1Ljk2WiI+PC9wYXRoPjwvZz48IS0tLS0+PGcgZGF0YS12LTQyM2JmOWFlPSIiIGlkPSJlNzhkM2M0ZC00NDkwLTQ5NzMtYjIwNy1kYTk3ZDI3NDExYTgiIHRyYW5zZm9ybT0ibWF0cml4KDIuODEyNSwwLDAsMi44MTI1LDAsMCkiIHN0cm9rZT0ibm9uZSIgZmlsbD0iYmxhY2siPjxwYXRoIGQ9Ik0wIDMyaDMyVjBIMHYzMnpNMiAyaDIuOTgxTDE2LjAxIDIxLjEwMyAyNy4wNCAySDMwdjI4SDJWMnoiPjwvcGF0aD48L2c+PCEtLS0tPjwvc3ZnPg==" alt="ADS FLOW" class="logo-af">
+<span class="logo-divider"></span>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABNCAMAAAAWy59DAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAIxUExURVxdWFxdWFpZWVhXWVtxNrCqRnmNRtCkPpmqUb+9Try8T7K4ULC0TFt0MbOyS1tyNYOPSJGjT7NwQFlYWXyLP5WiS7W2Tay0T6uqSGV5PFdWV15xPIKUScK/T2VzRYqYRX6RRo6iTpWpU6SxUZyrUJWpU3qNQVxuPIeSSF1yN5SnUp6uUputUlxtP52mS1xyN8XATr6wTlpWYVx0M2uAO2uAPmt9QISWSl1zNpSnUZCkUJSpU2ByPICSSldWWlhVXlxzNFt0Ml52NVt0MfCwNviyM+GvOFtzM26EOlt0MfWwNFtaWVt0MWV0QF1xOFx0Mlt0MVt0MVhUX+RlP+teQFxiUORdQe5wPeR5O7G0Tlt0McC/T5BeSFdVWpWVR1hTYoOXSWB4M3yRRGiAOHmPQWZ6PIugT1t0MldVWlhUXlhUYFhQaFlNcllKe1lMdllLeFlKellKelhOcFlOcVhOb1lKe1lKellOcllMdllOb1lKellMdFlLd1lLeVlNc1hTYFhOblpjTVpZW1hQaVhSZVlLd1lMdFlKe1lKe1lMdllNcVlKellKelhSZVlKe1hVXllLeFlKe1lKe1lLeVlLeVlLd1lMdllKe1lKellKe1lRaVlPb1lKellLeVlLeVhRaFhRaVhRaFhQallNcllRa1lMd1lNc1lNcllNdFlLeFlOclhQallSaFlLeFlKellLelhOcFlQa1lNcVlNdVlPb8TBT8u/S5SpU/myM+tdQP///3h68ScAAAC1dFJOUwALFylBX4is29zn98XKlyJItmcSPHe51zdZX2WU7Sxtssrz7Oz6pxMkMcv0/CmzT/vmHLl4aEZ0eOnW9yVYQSOl14X96vvSjejr8S7yGjyW9fZM0fhEsP2yteP2UGQONMjz2PLoj+SwVDt2kr3+2+rh7J2Ms/rdJUZUhpm5tsdyqKCQhV2NbabHk3HK2WDzar7Z+KHEs6XnzvYuMebUq1psSUJjFGh0XUudGEYWgruXhCpOWTw9WNKdAAAAAWJLR0S6o7FH2gAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+kLCBQiFgeyAckAABAUSURBVGje7Vr/VxRXlr+3XtM2oNsxTxqBGJBEe0FYskXixjH7XkiPQ1jMRCqT7K4ztZXs9k6q1dvpJrQ0pQgJ3xoYuofQpqFHARXzRdBMsluS/Hf7Q1U3DaLCRE9y9uRyDufAeVXvU5/75X3urQLYkaHCPGXePT5fuV1RuXff35UxP/x8DP3PlO3fW2EX7b5dUe591o87uxoQERGfGjx+oCpQbT9oFXuq2ON25crBmlpvlddb5a2qq/HzpwLQ/1yFvb0dKi97BER8/pn6hsO+xhcaG19sPNJ4pMLnO1rHnjBGDP49x6aA/TA7tLfqIbEYfKZqf/ORxmNHjrU4tr7e0nLsRZ+39Un6mpf9Q2BPG7YWEb5k/2N5+d69ewN79/oqDtm2bVcE2pRtWK9p8DW6uDaspaWl5QWflz05gG0Vtm0HmrgDsKI68NyesjaPp6m1tbXVU7cnUGHbtl29R936XDVHfZuQlWI81th+8EnhU7y2bd+//zLWldvVAe8rnialJBuRt3oC1bZtHwrUlLoNWZVvC3WbIB574ejxJ+RmJXDftu37/xSsCdQ0BbepFIhN3nLbtqtf3XBzsO5w47Et8BpPNDe3H21oaP7ViZPrLS0tzQe3QYivNSm7yg8lyL22bdsv/fOjahh6AuX2/ft1WKDP62tZ34TP52v3VomDUpVSttU3NJ9saWnc73nwRuL1jjd2wWywas+eNk/AtqsD+Jgq/nK1Xf6Ku+hAw5FN7m381XNVHpUDOiUbUKnxNq+3nHgwU55/PRRq33kRwmd/ferUb9pa217xBB+71uN91Sk2WLO/sZS8Ew1ej38L/6g0eU+0HKvaguX5zjdDXW/sHCDf8/333//Lszs7opCji8/3wgZ/J33tZYxvF2xqfXOjb3Mq+9/oCoXam3buYtxz6vvvT9Xs7sgpK81e39Ea5WH7YXfDCS/fxN/pUKjDs5vkLvvNqV8H3tpVVlWVFL+TDXWP1BLM66vZgq+rc8cCCbs9TX7PqzX+3TzRW6/6SjLX+9tHhxMe9G5EoXj7TCjU8/qOTxjU3vndO3V8dwrptUB1ZZG+9neVx157oOxgIcf29YRCPe0evtP9+Hv/+sOpf9ude1sDLxb92/jcToIdXcmr1HWEQqFQR83O6eDv/e6HH94rBERwB0Tymn+vKKZHs1fuVMkCwPOdHaFQKHS2bhcKHWvf+eGd97B4UrzyODIxUP37Ar6TzWXqLoqF5+2uUCgU6up8fjf+Uv+ga8UI/o8/BAKB1956+KbBtkB1eSH+TrQbuzgN/HUdPQ4+/+7kw6b8wJpA+aFAfdv2gj3oCZQfqnTpO+J7dec7Ia9pPxMKhUKhns4fJxGxpvqQbVcHXv5tcOvub9UEqisqC+490qwV3ftYnPhM5/sfhEKhUOjM200/Un6hp6Gx8vcVdnng5bbXCuRi8K1Wb6C6urJA3/oRr6dIcmuV1/OoUoP+zv3/+V8Of2//+C4AW1/1tbQcq7Tt8upAmWPewF673N6A19hev5EdQe/hcPP7VfVN/uB2h7Hf433/8JsOfx2dT6LZw2Bbw4mWliMtlZW2/ZJdUWnbduUGuPX1dd9/l/Kg1HeFQuFwuHmf19vmafUHseBz5Ac99Q3h8JshxzrqnlCfh03ewIZsr1xfX28pEaZ//LBtU3HBA50dPaHTXeFwOBze397u9dbXm3VmvVlf720/HH6zJ+TQd7q9jj+pLg+Vd73NJ7dtM0601z/QH7/W9uFZh6PT4XA4HG4ONx9+/3A4/GY4fLrHZS90trPpSTahqHq8hxu3Ymz849H67Y6OIKv78GwRSs/prp6eM6e7urpCRTu7r87/hAciyP313ubwiQLIkyd8R72Rh2QrcmZ2dpwtwPngTLjrTDgULsJrf+LwXGaOt3kbDjc3Nzcf3uctMx9ZIrjf01nw9Jnw6Z7TXaGuD8IuPA9/WvMk5H524PjxtqZuqTxGSSBXjrd1fthx9nQ45Li7p+d0z9mOzrqm4NMbd7n92Q5OCwcj9x9vq+/8sL2jo6Nj377XO+va2FOac/0Izrnf38o8TcebmD/If2boNgQIIjzNQeYv9ov9Yv/v7WdeQVCcOy9+zhCNC0RR9jMmsJ6IPtJ/egoPPOwg1WJEcfOnD7Teh3lR/TgWPS9/YniKGY0deOi0StPkU/Qw+pkh1WJTHlSUgqIMBoPBIEcMMrMvQRcNpVQJc2kYzgtCrpRIf64yw2B+jqVDBvTL7m65Ragil4bRz7cQYRisON5OJvv7+9mAdeny5cErQ4IDADQNDn8y/IkzMvZ7hz8Z/uTTpu6RKBER9Z23BEJQRA5IGan9tK8vGj0vENj53hG3yiDThy9cuXLhygVrtN/PRvV+AEBl1Bruu3DlwphuIABAcMDw90tjfHh4cPCyNd6/0VMnrYnLg6nU5JQzhzKnUxPDqT+lJmdmRvrS0xk/ABhXiCj6LgIAKOeJiK50s3PnLhBRYswyJQK3YtHhaDQ6nKk9F6ULBqp/Jpo1EQBQ9KU/i1q6PhaNX7w8kYrN9QOgMRyNjunjI9l0um+cA4A6nLo6cTka/XxKHx+O5SaMwtNNTkfnpkanUvF0SpcAkEwREc2bHFHRpimuI4A6TER9zkiR60RE51XkSiZBFDcQAQBr00SfJc4zRLWXaISjRUSXFQCMRIku6ioiJqNEFBtLIkCyb+HikETE5CBRbIQD4EiaiNKTkgP2T6YTE3kAAGDDiZzVj4jJyTjFrH6AvwwS0TWLAwAoFtEVA4F/SkSf8o36kcggAA4RUdzN4sgCEUUZAvBLRMMq6kR0zQDw9xItWBIBAMc/IrpsIIAYLP4vmSKK6giox4goazj/vJ7IWRwA+nuJ5pwtjD6inMWhf4KIUkmHXzNKNMKBjxDRxy5AcZ3oMx0BMFMKME5E5zkAyEWiyxJriSiuAYoYUU53bmdEiaKjCIq1QBfdCOWZGFEqiWjGiNKTzib9kwnKJgH4VJzitdwFEyO6PuoAHHa3FfNEg6oDcMQFGPkTUc7cyqCRJiIL3QcYVnGJiK4JRJOoCIZFE5Qe4mBEifrcCzGZIvpI52jmiHJTLuqxOOXGEdgg0fVCrslUgmjCAbjovJPG7itEV4QD8Lz7IJF5osRMgcE0c1d+REQZBEBtMXVVc4DFNUCdiKKOQ0D2EZHFuRYn6isU8f4JIpqTqEeJrs24qEfitGAhJq8TXReFWmUliGLg7yWiXrfEsizRdYE4QpQoMjhLlFtCAFwmopg7JjIWiBI6AgBXpYKAS0SUcxmMFRicJ0pbHK0E0VVDlYqiKP3GINHCmETtGlF01MWSWSCyOGYSRNOaKrnSz6UcJqJ5kL0JojmXQdZHlDM3x2BkmmhhpgDQZRC6PyIivaS4mkQUvwGQjxIt1Lo1NkYUHUA+REQLfXNzcxNzc8ODsXQ8ZToxGEu6LtbjRGOcZxaI0qmJibm5ubnJwVg8Pm1Bv8MgFBmMaYibYrDAIEwR0bWSGEzMlJwKo0SUu4mgjiwQTaoAbkwMSyd4F3otayRjWRlryNKTHMGME0VNN94yCaIxiZkEUWLYsoYsy7KsISujKSB7S2KQXSbKmYiZUoDFGFzeSBJkcSK6tQEQB4gofQMA858T5Wo5ACazRCkNgZsLRAsZBZAjIjov2dCMEeVc+cP1HNEkR3OWiKx+dI0jwrYMgpYj+tj9gkDLEeVGEQDHiSjnMsjSRLSVwdhNBBSDuVz6oqWJoWwi1qutIICYJaJSHYQIaOaIYu77GIdBBfNZIkqxjakPIqi9RDQhNxiMDwCyRaJBlys9TUS3EQBvFRhEgO44ES2XMLjkMphPzWrC6l1cXFy8ZAkn+dSxBFG8triaM8WJwYKA5Jk40SUO6nLcPRUKC/tBLhLRYiGyUkS5AQT+BdH1iHPzXiJKTyEALBUYVBWIJIhoqgTgl0SU+wpxiaaFgiuS5aVafGUhUsVTAwAUTVMAl+JEuSXuVpQ00ZwCyK4SUbbQ2/Ck2Q8sS0RZly0xS0RfICCbcwshmjkioq9VAMhniRICQTUVFGkimiwRWONEROOIWo5SlikMqfBim4dq7TwRzRkIgNwYGpIIfCZHFLecJYq1QDQoAbiWJaKrSQRA3q1PMYTRWSKa1RzltkxENHkHAI2rlBvRDDGSS1+cnU0vMgDgozmiq9qqteRoA4pu6Li1QSKiMQ7q3RhRPHdxdvCSpWvMDWSuZRcoMW3ptUNjczMMAdSviYguOdnJrhaqJ9euxommxzKmbg0PMQTIDGaz2awT7mvL9+5lU99IAEA5MzE/fS+b/asZ6TZuzuQBAFa0uenc/NVlFRQrejV6z1UgAAByLpW6l5pkgGrk7r3ZeIKIiBLzY8J1orH8+fzFa7H5QUusAQCwyWw2m3KEAYpLqWw2qyEAclY7Nx27dnE2O7bKEQCkZJIxR0vjHamqqnuqcIVFhCERndmeq3XzQjAOgJxzvqJuMIhra2trayo6Ijly6+432dk4EdFsxi1hXBWrpibkinMvLpmUBd3MpZRSOpIcURqrpiZKQrjkeywAhM1/7Xx+sLEcEbmavzG+uFBy7sHmLzHR/dlur7/xk01EQP4QkCU3X1kpLFrJW0XN89D12z7539Z8GZGVm8wR9erWjm7VdTYa1sSEpUJpebFKWyJ5EwGAGw80qKomNpqm3c9Q1ti36oApb0j2bX6NC8ZVxjiXzOAAsMZGv1A5YxwAJ4koJYsALxLlTI6SMc5VRPWOOSbXmJQ3GVcZk8ilisiYisiGTAUlY6pkXIo1zpiCKJmxM3xy9MZqZNQ0bsm7S0um/NKIjIpV9t2SdjcPIGduZCw28NXAdwj4NRHdKzDI7yaIvpYo7w4M3BDaGjONW98IYQmxJMSSGDfzpqYlk5a2JNioOSqYpemWWNLYEjOFENJMjn66s+jTvpD8jmkay+wu+/YWu61NaSt38mOGHDIQzGVVZMRk5LsxCXjzIlFuYMVJ7NtxSk8KBDmeN6zVcZXdlsJaW51R1VurtzV1KTNkCV3XdFm7ZC7fMaxVSzJLiltiSrPknTVhSbZDgEvn1pCbpjEkz0m1Np/RhlaR5//K5JABuKSviczq+VVxcwWAJydylBsbWF1d/fKbXDx1tx8B2bJUrRvLqlheMzJomihvC2v1jqkPWUIITVfMmVs6l5amq6qlsIxY1iwFMWkpxsjOXMz01YhhmobOMlJdYnpEqxUiX2tqloHAMiIzlNc1EUEAQPW7uxOp1Pz09PTg2P/8ZQUBQI6qMiNmNHP5DqtdExrnM0LUCksXuibywlSFaejC1A1dlbrKaoVu6EIYUk/qb++wwrCIIZlU8grjnClM4UzkFTUihAKALCIiKzIScSURcmnc/Oqrr/6X3XFLxxpbUfJrhhAGVxlKiTyvqkKzhJIXhioll1JlSYNLxhWDrzHJuJpMSi4NMbCb+a5bWZ1fCMX3Rg++Q3IrbUkZdlYU3/Ehqnomw9wroXA9Fs8KdL+xh/8DNCsI9pkOdyEAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjUtMTEtMDhUMjA6MzM6NTYrMDA6MDA+CJeSAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI1LTExLTA4VDIwOjMzOjU1KzAwOjAwfr01swAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyNS0xMS0wOFQyMDozNDoyMiswMDowMAQWOIIAAAAASUVORK5CYII=" alt="Clínica Nutrigene" class="logo-cl">
+</div>
+<h1 class="hero-title">Relatório Mensal</h1>
+<p class="hero-subtitle">Clínica Nutrigene — Meta Ads</p>
+<div class="hero-meta">
+<span class="hero-badge">Julho/2026</span>
+<span class="hero-period">01/07/2026 a 31/07/2026</span>
+</div>
+<button class="btn-download" onclick="downloadPDF()">Download PDF</button>
+</div>
+</header>
+<main class="main">
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="26" height="14" viewBox="0 0 52 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2C7.37 2 2 7.82 2 14s5.37 12 12 12c4.13 0 7.01-2.17 9.6-6.17.97-1.49 1.77-2.96 2.4-3.83.63.87 1.43 2.34 2.4 3.83C30.99 23.83 33.87 26 38 26c6.63 0 12-5.82 12-12S44.63 2 38 2c-4.13 0-7.01 2.17-9.6 6.17-.97 1.49-1.77 2.96-2.4 3.83-.63-.87-1.43-2.34-2.4-3.83C21.01 4.17 18.13 2 14 2z" fill="url(#mG)"/><defs><linearGradient id="mG" x1="2" y1="14" x2="50" y2="14" gradientUnits="userSpaceOnUse"><stop stop-color="#0081FB"/><stop offset="1" stop-color="#0064E0"/></linearGradient></defs></svg></div>
+<h2 class="section-title">Visão Geral - Todas as campanhas de anúncios</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-visao">
+<div class="kpi-grid">
+<div class="kpi-card" style="border-left-color:#1877F2;"><div class="kpi-label">Cliques (todos)</div><div class="kpi-value">727</div><div class="kpi-var up">&#9650; 51.14%</div></div>
+<div class="kpi-card" style="border-left-color:#00C853;"><div class="kpi-label">CTR (todos)</div><div class="kpi-value">5,88%</div><div class="kpi-var up">&#9650; 13.62%</div></div>
+<div class="kpi-card" style="border-left-color:#E4405F;"><div class="kpi-label">CPC (todos)</div><div class="kpi-value">R$ 0,64</div><div class="kpi-var up">&#9660; 34.63%</div></div>
+<div class="kpi-card" style="border-left-color:#833AB4;"><div class="kpi-label">Alcance</div><div class="kpi-value">11.079</div><div class="kpi-var up">&#9650; 32.78%</div></div>
+<div class="kpi-card" style="border-left-color:#FF6D00;"><div class="kpi-label">Frequência</div><div class="kpi-value">1,12</div><div class="kpi-var neutral">0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#1877F2;"><div class="kpi-label">Impressões</div><div class="kpi-value">12.355</div><div class="kpi-var up">&#9650; 33.02%</div></div>
+<div class="kpi-card" style="border-left-color:#E4405F;"><div class="kpi-label">Valor gasto</div><div class="kpi-value">R$ 466,12</div><div class="kpi-var up">&#9660; 1.19%</div></div>
+<div class="kpi-card" style="border-left-color:#00C853;"><div class="kpi-label">Conversas por mensagem iniciadas</div><div class="kpi-value">33</div><div class="kpi-var up">&#9650; 94.12%</div></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div>
+<h2 class="section-title">Visão Geral - Perfil do Instagram</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-ig">
+<p class="no-data" style="text-align:center;padding:24px;color:#6b7280;font-size:15px;">Conta do Instagram não conectada para visualização de indicadores, contate o Natan.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+<h2 class="section-title">Cliques em anúncios / Alcance</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-graficos">
+<div class="charts-row">
+<div class="chart-box"><h3 class="chart-title">Cliques em anúncios</h3><canvas id="chartCliques"></canvas></div>
+<div class="chart-box"><h3 class="chart-title">Alcance</h3><canvas id="chartAlcance"></canvas></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+<h2 class="section-title">Alcance demográfico (cliques)</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-idade">
+<div class="chart-center"><canvas id="chartIdade" style="max-width:400px;max-height:400px;"></canvas></div>
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Idade</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
+<tr><td>25-34</td><td>876</td><td>841</td><td>48</td><td>5</td><td>4,24</td><td>21,19</td></tr>
+<tr><td>35-44</td><td>2.681</td><td>2.472</td><td>114</td><td>3</td><td>24,84</td><td>74,51</td></tr>
+<tr><td>45-54</td><td>4.814</td><td>4.234</td><td>265</td><td>12</td><td>16,25</td><td>194,96</td></tr>
+<tr><td>55-64</td><td>3.379</td><td>3.091</td><td>233</td><td>13</td><td>12,20</td><td>158,66</td></tr>
+<tr><td>65+</td><td>605</td><td>579</td><td>67</td><td>0</td><td>0,00</td><td>16,80</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+<h2 class="section-title">Segmentação de gênero</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-genero">
+<div class="chart-center"><canvas id="chartGenero" style="max-width:400px;max-height:400px;"></canvas></div>
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Gênero</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
+<tr><td>mulher</td><td>11.956</td><td>10.756</td><td>703</td><td>32</td><td>14,33</td><td>458,45</td></tr>
+<tr><td>homem</td><td>373</td><td>367</td><td>24</td><td>1</td><td>7,50</td><td>7,50</td></tr>
+<tr><td>desconhecido</td><td>26</td><td>26</td><td>0</td><td>0</td><td>0,00</td><td>0,17</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+<h2 class="section-title">Campanhas</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-campanhas">
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Campanhas</th><th>Impressões</th><th>Alcance</th><th>Cliques (todos)</th><th>CPC (todos)</th><th>CPM médio</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th><th>Valor gasto</th></tr></thead><tbody>
+<tr><td>[ENGAJAMENTO] [WHATS] - Brasil - Consulta Online Sandra</td><td>3.769</td><td>3.079</td><td>164</td><td>1,80</td><td>78,40</td><td>31</td><td>9,53</td><td>295,49</td></tr>
+<tr><td>[TRÁFEGO] - Seguidores - Interesses</td><td>8.586</td><td>8.105</td><td>563</td><td>0,30</td><td>19,87</td><td>2</td><td>85,31</td><td>170,63</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+<h2 class="section-title">Principais Públicos</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-publicos">
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Conjuntos de anúncios</th><th>Cliques (todos)</th><th>CPC (todos)</th><th>Alcance</th><th>Frequência</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th></tr></thead><tbody>
+<tr><td>[PERFIL] - Brasil - 40 a 64 - Interesses específicos (Renda e interesse)</td><td>563</td><td>0,30</td><td>8.105</td><td>1,06</td><td>2</td><td>85,31</td></tr>
+<tr><td>[WHATS] - Brasil - 30 a 64 | F | LOL Pacientes Nutrigene</td><td>164</td><td>1,80</td><td>3.079</td><td>1,22</td><td>31</td><td>9,53</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+<h2 class="section-title">Plataformas de exposição dos anúncios</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-plataformas">
+<div class="tbl-wrapper"><table class="tbl"><thead><tr><th>Plataforma</th><th>Cliques (todos)</th><th>Alcance</th><th>Impressões</th><th>Valor gasto</th><th>Conversas por mensagem iniciadas</th><th>Custo por mensagem iniciada</th></tr></thead><tbody>
+<tr><td>Instagram</td><td>727</td><td>11.079</td><td>12.355</td><td>466,12</td><td>33</td><td>14,12</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div>
+<h2 class="section-title">Principais Concorrentes</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-concorrentes">
+<p class="no-data" style="text-align:center;padding:24px;color:#6b7280;font-size:15px;">Entre em contato com o Natan e informe o link do Instagram dos seus 4 principais concorrentes.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+<h2 class="section-title">Análise Estratégica – Julho/2026: Clínica Nutrigene - Meta Ads</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-conclusao">
+<div class="conclusao">
+<h4>O Que Aconteceu (Fatos e Numeros</h4>
+
+<p>Durante o mês de julho, a Nutrigene executou duas campanhas permanentes no Meta Ads com resultados muito positivos. A campanha de engajamento via WhatsApp gerou <strong>31 mensagens de leads</strong> com um investimento de R$ 295,49, enquanto a campanha de tráfego para o perfil alcançou <strong>581 cliques</strong> e conquistou <strong>201 novos seguidores</strong> (combinado orgânico e pago) com R$ 170,61 investidos.</p>
+
+<p>Os números revelam crescimento expressivo em relação ao mês anterior. A campanha de engajamento registrou <strong>+82,4% em mensagens</strong> e uma redução de <strong>53,9% no custo por mensagem</strong>, demonstrando maior eficiência. A campanha de tráfego apresentou <strong>+77,1% em cliques</strong> e <strong>+72,9% em alcance</strong>, sinalizando melhor performance nos anúncios do perfil.</p>
+
+<p>Uma otimização realizada em 31 de julho, que atualizou a lista de pacientes para audiências mais direcionadas, trouxe <strong>261 novos contatos</strong>, o que contribuiu significativamente para os resultados finais do mês.</p>
+
+<h4>Analise de Eficiencia do Investimento</h4>
+
+<p>O custo por lead na campanha de engajamento fechou em <strong>R$ 9,53</strong>, um índice bastante saudável para o segmento de saúde e nutrição. Isso significa que cada mensagem de WhatsApp recebida custou pouco mais de 9 reais, refletindo uma boa relação entre investimento e geração de oportunidades reais de vendas.</p>
+
+<p>Quando observamos os dados por faixa etária, a segmentação revelou padrões importantes. O público entre 45 a 54 anos foi o mais engajado, gerando 12 mensagens com custo de R$ 16,25 por lead. O grupo de 55 a 64 anos também se mostrou responsivo, com 13 mensagens ao custo de R$ 12,20 por lead. Já a faixa de 25 a 34 anos apresentou o melhor custo por lead, apenas R$ 4,24, apesar de ter gerado poucas mensagens (5), sugerindo oportunidade de expansão neste segmento.</p>
+
+<p>A campanha de tráfego para o perfil operou com eficiência, gerando novos seguidores e ampliando a audiência da clínica nas redes sociais. O conjunto de anúncios "[WHATS] Brasil 30 a 64 F LOL Pacientes Nutrigene" foi o principal responsável pelos 31 leads, consolidando-se como a audiência mais qualificada e responsiva.</p>
+
+<p>Em resumo, julho demonstrou um excelente desempenho das campanhas permanentes. O investimento total de <strong>R$ 466,10</strong> entre as duas campanhas gerou resultados mensuráveis em leads qualificados e crescimento do público. Os custos estão controlados, os índices de engajamento aumentaram significativamente e a otimização realizada ao final do mês preparou o terreno para resultados ainda melhores em agosto.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="footer-inner">
+<div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
+<div class="footer-meta">Relatório gerado automaticamente em 10/08/2026 09:17</div>
+</div>
+</footer>
+<script>
+function toggleSection(el){var b=el.nextElementSibling;var c=el.querySelector(".section-chevron");b.style.display=b.style.display==="none"?"block":"none";c.style.transform=b.style.display==="none"?"rotate(-90deg)":"";}
+function downloadPDF(){var el=document.body;var btn=document.querySelector(".btn-download");btn.textContent="Gerando PDF...";btn.disabled=true;document.querySelectorAll(".section-body").forEach(function(s){s.style.display="block";});document.querySelectorAll("canvas").forEach(function(c){var img=document.createElement("img");img.src=c.toDataURL("image/png");img.style.width="100%";img.className="chart-img-pdf";c.parentNode.insertBefore(img,c);c.style.display="none";});var opt={margin:[5,5,5,5],filename:"Cl-nica-Nutrigene-Julho-2026-MetaAds.pdf",image:{type:"jpeg",quality:0.95},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}};html2pdf().set(opt).from(el).save().then(function(){document.querySelectorAll(".chart-img-pdf").forEach(function(img){img.previousElementSibling&&(img.previousElementSibling.style.display="");img.remove();});btn.textContent="Download PDF";btn.disabled=false;});}
+window.addEventListener("beforeprint",function(){document.querySelectorAll("canvas").forEach(function(c){var i=document.createElement("img");i.src=c.toDataURL("image/png");i.style.width="100%";c.parentNode.insertBefore(i,c);c.style.display="none";});});
+window.addEventListener("afterprint",function(){document.querySelectorAll("canvas").forEach(function(c){c.style.display="";var i=c.previousElementSibling;if(i&&i.tagName==="IMG")i.remove();});});
+var isMobile=window.innerWidth<640;
+var lineOpts={responsive:true,aspectRatio:isMobile?1.5:2.2,plugins:{legend:{display:false}},scales:{x:{ticks:{maxRotation:isMobile?45:0,font:{size:isMobile?9:11}}},y:{beginAtZero:false}}};
+new Chart(document.getElementById("chartCliques"),{type:"line",data:{labels:["01/07","02/07","03/07","04/07","05/07","06/07","07/07","08/07","09/07","10/07","11/07","12/07","13/07","14/07","15/07","16/07","17/07","18/07","19/07","20/07","21/07","22/07","23/07","24/07","25/07","26/07","27/07","28/07","29/07","30/07","31/07"],datasets:[{data:[15,17,21,18,20,26,19,26,21,11,15,26,21,18,30,20,13,14,18,23,20,19,25,25,16,16,25,23,25,28,19],borderColor:"#1877F2",backgroundColor:"rgba(24,119,242,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:lineOpts});
+new Chart(document.getElementById("chartAlcance"),{type:"line",data:{labels:["01/07","02/07","03/07","04/07","05/07","06/07","07/07","08/07","09/07","10/07","11/07","12/07","13/07","14/07","15/07","16/07","17/07","18/07","19/07","20/07","21/07","22/07","23/07","24/07","25/07","26/07","27/07","28/07","29/07","30/07","31/07"],datasets:[{data:[366,300,366,330,431,474,407,453,326,309,305,492,565,539,417,354,315,287,403,439,366,341,383,335,278,433,486,453,476,391,354],borderColor:"#60A5FA",backgroundColor:"rgba(96,165,250,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:lineOpts});
+new Chart(document.getElementById("chartIdade"),{type:"pie",data:{labels:["25-34","35-44","45-54","55-64","65+"],datasets:[{data:[48,114,265,233,67],backgroundColor:["#1877F2","#E4405F","#FCAF45","#833AB4","#00C853"]}]},plugins:[ChartDataLabels],options:{responsive:true,plugins:{legend:{position:"bottom"},datalabels:{color:"#fff",font:{weight:"bold",size:11},formatter:function(v,ctx){var sum=ctx.dataset.data.reduce(function(a,b){return a+b},0);var pct=(v/sum*100).toFixed(1)+"%";return v+"\n"+pct;},textAlign:"center"}}}});
+new Chart(document.getElementById("chartGenero"),{type:"pie",data:{labels:["mulher","homem","desconhecido"],datasets:[{data:[703,24,0],backgroundColor:["#1877F2","#E4405F","#9CA3AF"]}]},plugins:[ChartDataLabels],options:{responsive:true,plugins:{legend:{position:"bottom"},datalabels:{color:"#fff",font:{weight:"bold",size:12},formatter:function(v,ctx){var sum=ctx.dataset.data.reduce(function(a,b){return a+b},0);var pct=(v/sum*100).toFixed(1)+"%";return v+"\n"+pct;},textAlign:"center"}}}});
+</script>
+</body>
+</html>

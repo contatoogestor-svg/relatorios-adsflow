@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Dog Time - Julho/2026 - Meta Ads</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Inter",-apple-system,sans-serif; background:#f0f2f5; color:#1f2937; }
+.hero { position:relative; background:#0a0a0a; color:#fff; padding:32px 20px 24px; text-align:center; overflow:hidden; }
+.hero-bg { position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(135deg,rgba(24,119,242,0.15),rgba(228,64,95,0.1)); }
+.hero-content { position:relative; z-index:1; max-width:900px; margin:0 auto; }
+.hero-logos { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:16px; }
+.logo-af { height:28px; filter:brightness(0) invert(1); }
+.logo-cl { height:32px; filter:brightness(0) invert(1); }
+.logo-divider { width:1px; height:28px; background:rgba(255,255,255,0.3); }
+.hero-title { font-size:20px; font-weight:700; letter-spacing:-0.3px; margin-bottom:4px; }
+.hero-subtitle { font-size:14px; font-weight:400; color:rgba(255,255,255,0.7); margin-bottom:12px; }
+.hero-meta { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:16px; }
+.hero-badge { background:rgba(24,119,242,0.2); border:1px solid rgba(24,119,242,0.4); color:#60A5FA; padding:4px 16px; border-radius:20px; font-size:13px; font-weight:600; }
+.hero-period { color:rgba(255,255,255,0.5); font-size:13px; }
+.btn-download { background:#1877F2; color:#fff; border:none; padding:10px 24px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; transition:background 0.2s; }
+.btn-download:hover { background:#1565C0; }
+.main { max-width:900px; margin:24px auto; padding:0 16px; }
+.section { background:#fff; border-radius:12px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,0.08); overflow:hidden; }
+.section-header { display:flex; align-items:center; gap:10px; padding:16px 20px; cursor:pointer; border-bottom:1px solid #e5e7eb; user-select:none; }
+.section-header:hover { background:#f9fafb; }
+.section-icon { flex-shrink:0; }
+.section-title { font-size:16px; font-weight:700; color:#1f2937; flex:1; margin:0; }
+.section-chevron { color:#9ca3af; font-size:12px; transition:transform 0.2s; }
+.section-body { padding:20px; }
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media(max-width:700px) { .kpi-grid { grid-template-columns:repeat(2,1fr); } }
+.kpi-card { background:#f9fafb; border:1px solid #e5e7eb; border-left:3px solid #1877F2; border-radius:8px; padding:14px 16px; }
+.kpi-label { font-size:11px; color:#6b7280; font-weight:500; margin-bottom:6px; }
+.kpi-value { font-size:24px; font-weight:700; color:#111827; margin-bottom:4px; }
+.kpi-var { font-size:12px; font-weight:600; }
+.kpi-var.up { color:#16a34a; }
+.kpi-var.down { color:#dc2626; }
+.kpi-var.neutral { color:#9ca3af; }
+.charts-row { display:flex; gap:16px; flex-wrap:wrap; }
+.chart-box { flex:1; min-width:280px; padding:0 8px 8px; }
+.chart-title { font-size:14px; font-weight:600; color:#374151; margin-bottom:12px; }
+.chart-center { display:flex; justify-content:center; margin-bottom:20px; }
+.tbl-wrapper { overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:16px; }
+.tbl { width:100%; border-collapse:collapse; min-width:600px; }
+.tbl th { font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:#6b7280; font-weight:600; text-align:center; padding:10px 8px; border-bottom:2px solid #e5e7eb; background:#e8f0fe; }
+.tbl th:first-child { text-align:left; }
+.tbl td { font-size:12px; padding:8px; border-bottom:1px solid #f3f4f6; color:#1f2937; text-align:center; }
+.tbl td:first-child { text-align:left; font-weight:600; }
+.tbl tr:nth-child(even) td { background:#f8f9fa; }
+.no-data { color:#9ca3af; font-style:italic; padding:20px 0; text-align:center; }
+.competitors-grid { display:flex; flex-direction:column; gap:12px; }
+.competitor-card { display:flex; align-items:center; gap:16px; padding:16px; border:1px solid #e5e7eb; border-radius:10px; flex-wrap:wrap; }
+.competitor-rank { width:28px; height:28px; background:#E4405F; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+.competitor-pic { width:48px; height:48px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+.competitor-info { flex:1; min-width:120px; }
+.competitor-name { font-size:14px; font-weight:700; color:#111827; margin:0 0 2px; }
+.competitor-bio { font-size:11px; color:#6b7280; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%; }
+.competitor-stats { display:flex; gap:20px; flex-shrink:0; }
+.competitor-stats div { text-align:center; }
+.competitor-stats strong { display:block; font-size:14px; font-weight:700; color:#111827; }
+.competitor-stats span { font-size:10px; color:#9ca3af; }
+.conclusao { background:#f9fafb; border-left:3px solid #1877F2; padding:20px 24px; border-radius:0 8px 8px 0; }
+.conclusao h4 { font-size:14px; font-weight:700; color:#111827; margin:16px 0 8px; }
+.conclusao h4:first-child { margin-top:0; }
+.conclusao p { font-size:13px; line-height:1.7; color:#374151; margin-bottom:8px; }
+.conclusao ul { padding-left:20px; margin-bottom:8px; }
+.conclusao li { font-size:13px; line-height:1.7; color:#374151; margin-bottom:4px; }
+.footer { max-width:900px; margin:0 auto 40px; padding:24px 16px; text-align:center; }
+.footer-brand { font-size:13px; font-weight:700; letter-spacing:1px; color:#374151; }
+.footer-meta { font-size:11px; color:#9ca3af; margin-top:4px; }
+@media (max-width:640px) { .charts-row { flex-direction:column; } .chart-box { min-width:100%; } .kpi-grid { grid-template-columns:1fr 1fr !important; } .competitor-card { flex-direction:column; align-items:flex-start; gap:12px; } .competitor-stats { width:100%; justify-content:space-around; padding-top:8px; border-top:1px solid #f3f4f6; } .competitor-info { min-width:0; width:100%; } .competitor-bio { white-space:normal; } }
+@media print { body { background:#fff; } .main { margin:0; padding:0; max-width:100%; } .section { box-shadow:none; page-break-inside:avoid; } .hero { padding:30px 20px; } .btn-download { display:none; } .section-chevron { display:none; } }
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="hero-bg"></div>
+<div class="hero-content">
+<div class="hero-logos">
+<img src="data:image/svg+xml;base64,PHN2ZyBkYXRhLXYtNDIzYmY5YWU9IiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTAxIDkwIiBjbGFzcz0iaWNvbkxlZnQiPjwhLS0tLT48IS0tLS0+PCEtLS0tPjxnIGRhdGEtdi00MjNiZjlhZT0iIiBpZD0iYjkwYjVlNWItYjk4Ny00ZTNjLWE0MGEtOGUyNDlmYTcxNmVmIiBmaWxsPSJibGFjayIgdHJhbnNmb3JtPSJtYXRyaXgoNS43MDM0MjE4MDUwNTUxOTksMCwwLDUuNzAzNDIxODA1MDU1MTk5LDExMS4xNDA2NzIyOTM1MjM5NSwtMy4wMjI4MTUwNjI0MzMxMDM2KSI+PHBhdGggZD0iTTguMzIgMTMuNTVMNy41NSAxMS42NUwzLjQwIDExLjY1TDIuNjMgMTMuNTVMLTAuMjAgMTMuNTVMNC4xMyAzLjc1TDYuODYgMy43NUwxMS4yMCAxMy41NUw4LjMyIDEzLjU1Wk00LjIxIDkuNjBMNi43MyA5LjYwTDUuNDcgNi40N0w0LjIxIDkuNjBaTTE3LjE5IDMuMTZMMTkuODUgMy4xNkwxOS44NSAxMy41NUwxNy4zMiAxMy41NUwxNy4zMiAxMi44MFExNi41OCAxMy42OCAxNS4wOSAxMy42OEwxNS4wOSAxMy42OFExNC4wNiAxMy42OCAxMy4yMCAxMy4yMFExMi4zNSAxMi43MSAxMS44NSAxMS44MlExMS4zNSAxMC45MiAxMS4zNSA5Ljc0TDExLjM1IDkuNzRRMTEuMzUgOC41NyAxMS44NSA3LjY4UTEyLjM1IDYuNzkgMTMuMjAgNi4zMVExNC4wNiA1Ljg0IDE1LjA5IDUuODRMMTUuMDkgNS44NFExNi40NSA1Ljg0IDE3LjE5IDYuNjJMMTcuMTkgNi42MkwxNy4xOSAzLjE2Wk0xNS42NSAxMS41NlExNi4zNCAxMS41NiAxNi43OSAxMS4wOFExNy4yMyAxMC42MCAxNy4yMyA5Ljc0TDE3LjIzIDkuNzRRMTcuMjMgOC45MCAxNi43OSA4LjQzUTE2LjM1IDcuOTUgMTUuNjUgNy45NUwxNS42NSA3Ljk1UTE0Ljk1IDcuOTUgMTQuNTAgOC40M1ExNC4wNiA4LjkwIDE0LjA2IDkuNzRMMTQuMDYgOS43NFExNC4wNiAxMC42MCAxNC41MCAxMS4wOFExNC45NSAxMS41NiAxNS42NSAxMS41NkwxNS42NSAxMS41NlpNMjQuMzIgMTMuNjhRMjMuMzcgMTMuNjggMjIuNDQgMTMuNDZRMjEuNTIgMTMuMjQgMjAuOTYgMTIuODlMMjAuOTYgMTIuODlMMjEuNzYgMTEuMDdRMjIuMjcgMTEuNDAgMjIuOTkgMTEuNThRMjMuNzAgMTEuNzcgMjQuNDAgMTEuNzdMMjQuNDAgMTEuNzdRMjUuMDUgMTEuNzcgMjUuMzIgMTEuNjRRMjUuNTkgMTEuNTEgMjUuNTkgMTEuMjZMMjUuNTkgMTEuMjZRMjUuNTkgMTEuMDAgMjUuMjYgMTAuOTBRMjQuOTMgMTAuNzkgMjQuMjIgMTAuNzBMMjQuMjIgMTAuNzBRMjMuMzEgMTAuNTggMjIuNjcgMTAuNDBRMjIuMDQgMTAuMjIgMjEuNTcgOS43M1EyMS4xMSA5LjI0IDIxLjExIDguMzZMMjEuMTEgOC4zNlEyMS4xMSA3LjYzIDIxLjU1IDcuMDZRMjEuOTggNi41MCAyMi44MSA2LjE3UTIzLjY1IDUuODQgMjQuODEgNS44NEwyNC44MSA1Ljg0UTI1LjYzIDUuODQgMjYuNDUgNi4wMVEyNy4yNiA2LjE3IDI3LjgwIDYuNDhMMjcuODAgNi40OEwyNy4wMSA4LjI5UTI2LjAwIDcuNzMgMjQuODIgNy43M0wyNC44MiA3LjczUTI0LjE5IDcuNzMgMjMuOTAgNy44N1EyMy42MCA4LjAyIDIzLjYwIDguMjZMMjMuNjAgOC4yNlEyMy42MCA4LjUzIDIzLjkzIDguNjNRMjQuMjUgOC43NCAyNC45OSA4Ljg1TDI0Ljk5IDguODVRMjUuOTMgOC45OSAyNi41NCA5LjE3UTI3LjE2IDkuMzUgMjcuNjEgOS44M1EyOC4wNyAxMC4zMiAyOC4wNyAxMS4xOUwyOC4wNyAxMS4xOVEyOC4wNyAxMS45MCAyNy42NCAxMi40N1EyNy4yMCAxMy4wMyAyNi4zNiAxMy4zNlEyNS41MSAxMy42OCAyNC4zMiAxMy42OEwyNC4zMiAxMy42OFpNNDEuMTAgNS44OUwzNi4xOSA1Ljg5TDM2LjE5IDguMDVMNDAuNTIgOC4wNUw0MC41MiAxMC4xOUwzNi4xOSAxMC4xOUwzNi4xOSAxMy41NUwzMy40MiAxMy41NUwzMy40MiAzLjc1TDQxLjEwIDMuNzVMNDEuMTAgNS44OVpNNDIuMjggMTMuNTVMNDIuMjggMy4xNkw0NC45NCAzLjE2TDQ0Ljk0IDEzLjU1TDQyLjI4IDEzLjU1Wk01MC40NyAxMy42OFE0OS4yNSAxMy42OCA0OC4yNyAxMy4xN1E0Ny4yOSAxMi42NyA0Ni43NCAxMS43N1E0Ni4xOSAxMC44OCA0Ni4xOSA5Ljc0TDQ2LjE5IDkuNzRRNDYuMTkgOC42MiA0Ni43NCA3LjczUTQ3LjI5IDYuODMgNDguMjcgNi4zM1E0OS4yNCA1Ljg0IDUwLjQ3IDUuODRMNTAuNDcgNS44NFE1MS43MCA1Ljg0IDUyLjY4IDYuMzNRNTMuNjYgNi44MyA1NC4yMSA3LjcyUTU0Ljc1IDguNjEgNTQuNzUgOS43NEw1NC43NSA5Ljc0UTU0Ljc1IDEwLjg4IDU0LjIxIDExLjc3UTUzLjY2IDEyLjY3IDUyLjY4IDEzLjE3UTUxLjcwIDEzLjY4IDUwLjQ3IDEzLjY4TDUwLjQ3IDEzLjY4Wk01MC40NyAxMS41NlE1MS4xNyAxMS41NiA1MS42MiAxMS4wOFE1Mi4wNyAxMC42MCA1Mi4wNyA5Ljc0TDUyLjA3IDkuNzRRNTIuMDcgOC45MCA1MS42MiA4LjQzUTUxLjE3IDcuOTUgNTAuNDcgNy45NUw1MC40NyA3Ljk1UTQ5Ljc3IDcuOTUgNDkuMzIgOC40M1E0OC44NyA4LjkwIDQ4Ljg3IDkuNzRMNDguODcgOS43NFE0OC44NyAxMC42MCA0OS4zMiAxMS4wOFE0OS43NyAxMS41NiA1MC40NyAxMS41Nkw1MC40NyAxMS41NlpNNjYuMDEgNS45Nkw2OC4zNSA1Ljk2TDY1LjY1IDEzLjU1TDYzLjA3IDEzLjU1TDYxLjY0IDkuNDJMNjAuMTYgMTMuNTVMNTcuNTggMTMuNTVMNTQuODggNS45Nkw1Ny40MCA1Ljk2TDU4Ljk1IDEwLjU2TDYwLjU2IDUuOTZMNjIuODMgNS45Nkw2NC40MCAxMC42MEw2Ni4wMSA1Ljk2WiI+PC9wYXRoPjwvZz48IS0tLS0+PGcgZGF0YS12LTQyM2JmOWFlPSIiIGlkPSJlNzhkM2M0ZC00NDkwLTQ5NzMtYjIwNy1kYTk3ZDI3NDExYTgiIHRyYW5zZm9ybT0ibWF0cml4KDIuODEyNSwwLDAsMi44MTI1LDAsMCkiIHN0cm9rZT0ibm9uZSIgZmlsbD0iYmxhY2siPjxwYXRoIGQ9Ik0wIDMyaDMyVjBIMHYzMnpNMiAyaDIuOTgxTDE2LjAxIDIxLjEwMyAyNy4wNCAySDMwdjI4SDJWMnoiPjwvcGF0aD48L2c+PCEtLS0tPjwvc3ZnPg==" alt="ADS FLOW" class="logo-af">
+<span class="logo-divider"></span>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABNCAYAAAAxWePoAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEvGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSfvu78nIGlkPSdXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQnPz4KPHg6eG1wbWV0YSB4bWxuczp4PSdhZG9iZTpuczptZXRhLyc+CjxyZGY6UkRGIHhtbG5zOnJkZj0naHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyc+CgogPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9JycKICB4bWxuczpBdHRyaWI9J2h0dHA6Ly9ucy5hdHRyaWJ1dGlvbi5jb20vYWRzLzEuMC8nPgogIDxBdHRyaWI6QWRzPgogICA8cmRmOlNlcT4KICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0nUmVzb3VyY2UnPgogICAgIDxBdHRyaWI6Q3JlYXRlZD4yMDI1LTEyLTE3PC9BdHRyaWI6Q3JlYXRlZD4KICAgICA8QXR0cmliOkV4dElkPjVkNDgzN2Q2LWE3NjQtNDczMi05ZTFiLTVjZDRhMTU2ZmNlYjwvQXR0cmliOkV4dElkPgogICAgIDxBdHRyaWI6RmJJZD41MjUyNjU5MTQxNzk1ODA8L0F0dHJpYjpGYklkPgogICAgIDxBdHRyaWI6VG91Y2hUeXBlPjI8L0F0dHJpYjpUb3VjaFR5cGU+CiAgICA8L3JkZjpsaT4KICAgPC9yZGY6U2VxPgogIDwvQXR0cmliOkFkcz4KIDwvcmRmOkRlc2NyaXB0aW9uPgoKIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PScnCiAgeG1sbnM6ZGM9J2h0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvJz4KICA8ZGM6dGl0bGU+CiAgIDxyZGY6QWx0PgogICAgPHJkZjpsaSB4bWw6bGFuZz0neC1kZWZhdWx0Jz5EZXNpZ24gc2VtIG5vbWUgLSAxPC9yZGY6bGk+CiAgIDwvcmRmOkFsdD4KICA8L2RjOnRpdGxlPgogPC9yZGY6RGVzY3JpcHRpb24+CgogPHJkZjpEZXNjcmlwdGlv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" alt="Dog Time" class="logo-cl">
+</div>
+<h1 class="hero-title">Relatório Mensal</h1>
+<p class="hero-subtitle">Dog Time — Meta Ads</p>
+<div class="hero-meta">
+<span class="hero-badge">Julho/2026</span>
+<span class="hero-period">01/07/2026 a 31/07/2026</span>
+</div>
+<button class="btn-download" onclick="downloadPDF()">Download PDF</button>
+</div>
+</header>
+<main class="main">
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="26" height="14" viewBox="0 0 52 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2C7.37 2 2 7.82 2 14s5.37 12 12 12c4.13 0 7.01-2.17 9.6-6.17.97-1.49 1.77-2.96 2.4-3.83.63.87 1.43 2.34 2.4 3.83C30.99 23.83 33.87 26 38 26c6.63 0 12-5.82 12-12S44.63 2 38 2c-4.13 0-7.01 2.17-9.6 6.17-.97 1.49-1.77 2.96-2.4 3.83-.63-.87-1.43-2.34-2.4-3.83C21.01 4.17 18.13 2 14 2z" fill="url(#mG)"/><defs><linearGradient id="mG" x1="2" y1="14" x2="50" y2="14" gradientUnits="userSpaceOnUse"><stop stop-color="#0081FB"/><stop offset="1" stop-color="#0064E0"/></linearGradient></defs></svg></div>
+<h2 class="section-title">Visão Geral - Todas as campanhas de anúncios</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-visao">
+<div class="kpi-grid">
+<div class="kpi-card" style="border-left-color:#1877F2;"><div class="kpi-label">Cliques (todos)</div><div class="kpi-value">0</div><div class="kpi-var neutral">—0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#00C853;"><div class="kpi-label">CTR (todos)</div><div class="kpi-value">0,00%</div><div class="kpi-var neutral">—0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#E4405F;"><div class="kpi-label">CPC (todos)</div><div class="kpi-value">R$ 0,00</div><div class="kpi-var neutral">—0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#833AB4;"><div class="kpi-label">Alcance</div><div class="kpi-value">0</div><div class="kpi-var neutral">—0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#FF6D00;"><div class="kpi-label">Frequência</div><div class="kpi-value">0,00</div><div class="kpi-var neutral">0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#1877F2;"><div class="kpi-label">Impressões</div><div class="kpi-value">0</div><div class="kpi-var neutral">—0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#E4405F;"><div class="kpi-label">Valor gasto</div><div class="kpi-value">R$ 0,00</div><div class="kpi-var neutral">—0.00%</div></div>
+<div class="kpi-card" style="border-left-color:#00C853;"><div class="kpi-label">Conversas por mensagem iniciadas</div><div class="kpi-value">0</div><div class="kpi-var neutral">—0.00%</div></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div>
+<h2 class="section-title">Visão Geral - Perfil do Instagram</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-ig">
+<p class="no-data" style="text-align:center;padding:24px;color:#6b7280;font-size:15px;">Conta do Instagram não conectada para visualização de indicadores, contate o Natan.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+<h2 class="section-title">Cliques em anúncios / Alcance</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-graficos">
+<div class="charts-row">
+<div class="chart-box"><h3 class="chart-title">Cliques em anúncios</h3><canvas id="chartCliques"></canvas></div>
+<div class="chart-box"><h3 class="chart-title">Alcance</h3><canvas id="chartAlcance"></canvas></div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+<h2 class="section-title">Alcance demográfico (cliques)</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-idade">
+<p class="no-data">Dados demográficos indisponíveis para este período.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+<h2 class="section-title">Segmentação de gênero</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-genero">
+<p class="no-data">Dados de gênero indisponíveis para este período.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+<h2 class="section-title">Campanhas</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-campanhas">
+<p class="no-data">Dados de campanhas indisponíveis para este período.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+<h2 class="section-title">Principais Públicos</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-publicos">
+<p class="no-data">Dados de públicos indisponíveis para este período.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+<h2 class="section-title">Plataformas de exposição dos anúncios</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-plataformas">
+<p class="no-data">Dados de plataformas indisponíveis para este período.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></div>
+<h2 class="section-title">Principais Concorrentes</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-concorrentes">
+<p class="no-data" style="text-align:center;padding:24px;color:#6b7280;font-size:15px;">Entre em contato com o Natan e informe o link do Instagram dos seus 4 principais concorrentes.</p>
+</div>
+</section>
+<section class="section">
+<div class="section-header" onclick="toggleSection(this)">
+<div class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+<h2 class="section-title">Análise Estratégica – Julho/2026: Dog Time - Meta Ads</h2>
+<span class="section-chevron">&#9660;</span>
+</div>
+<div class="section-body" id="sec-conclusao">
+<div class="conclusao">
+<h4>O Que Aconteceu (Fatos e Numeros)</h4>
+
+<p>Durante julho de 2026, as campanhas permanentes de engajamento e tráfego para o perfil da Dog Time apresentaram uma situação que merece atenção. A campanha de engajamento via WhatsApp registrou zero impressões, zero cliques e zero leads gerados, resultando em gasto nulo. Simultaneamente, a campanha de tráfego para o perfil também não apresentou atividade mensurável em termos de impressões e cliques, mantendo gasto zerado.</p>
+
+<p>Por outro lado, o crescimento orgânico do perfil se manteve ativo, com 56 novos seguidores conquistados durante o mês através de uma combinação de estratégias orgânicas e pagas.</p>
+
+<ul>
+<li>Campanha de Engajamento: 0 leads, R$ 0,00 investido</li>
+<li>Campanha de Tráfego Perfil: 0 cliques, R$ 0,00 investido</li>
+<li>Crescimento de Seguidores: 56 novos seguidores (orgânico mais pago)</li>
+</ul>
+
+<h4>Analise de Eficiencia do Investimento</h4>
+
+<p>A ausência de investimento nas campanhas permanentes durante julho indica que ambas estiveram pausadas ou desativadas durante o período. Isso explica o desempenho nulo em impressões, alcance e conversões. Embora nenhum capital tenha sido destinado a essas estratégias, também não houve retorno mensurável em leads qualificados via WhatsApp.</p>
+
+<p>O ponto positivo é que o perfil continuou crescendo organicamente, demonstrando que a conta mantém relevância e atração. Os 56 novos seguidores representam potencial de audience para futuras ativações de campanha.</p>
+
+<p>Para que possamos retomar o bom desempenho em capturas de leads de engajamento e visitas ao perfil, será necessário reativar as campanhas com investimento adequado. Isso permitirá mensurar novamente o custo por lead real e otimizar a eficiência conforme o comportamento da sua audiência pet lovers.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="footer-inner">
+<div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
+<div class="footer-meta">Relatório gerado automaticamente em 10/08/2026 09:17</div>
+</div>
+</footer>
+<script>
+function toggleSection(el){var b=el.nextElementSibling;var c=el.querySelector(".section-chevron");b.style.display=b.style.display==="none"?"block":"none";c.style.transform=b.style.display==="none"?"rotate(-90deg)":"";}
+function downloadPDF(){var el=document.body;var btn=document.querySelector(".btn-download");btn.textContent="Gerando PDF...";btn.disabled=true;document.querySelectorAll(".section-body").forEach(function(s){s.style.display="block";});document.querySelectorAll("canvas").forEach(function(c){var img=document.createElement("img");img.src=c.toDataURL("image/png");img.style.width="100%";img.className="chart-img-pdf";c.parentNode.insertBefore(img,c);c.style.display="none";});var opt={margin:[5,5,5,5],filename:"Dog-Time-Julho-2026-MetaAds.pdf",image:{type:"jpeg",quality:0.95},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}};html2pdf().set(opt).from(el).save().then(function(){document.querySelectorAll(".chart-img-pdf").forEach(function(img){img.previousElementSibling&&(img.previousElementSibling.style.display="");img.remove();});btn.textContent="Download PDF";btn.disabled=false;});}
+window.addEventListener("beforeprint",function(){document.querySelectorAll("canvas").forEach(function(c){var i=document.createElement("img");i.src=c.toDataURL("image/png");i.style.width="100%";c.parentNode.insertBefore(i,c);c.style.display="none";});});
+window.addEventListener("afterprint",function(){document.querySelectorAll("canvas").forEach(function(c){c.style.display="";var i=c.previousElementSibling;if(i&&i.tagName==="IMG")i.remove();});});
+var isMobile=window.innerWidth<640;
+var lineOpts={responsive:true,aspectRatio:isMobile?1.5:2.2,plugins:{legend:{display:false}},scales:{x:{ticks:{maxRotation:isMobile?45:0,font:{size:isMobile?9:11}}},y:{beginAtZero:false}}};
+new Chart(document.getElementById("chartCliques"),{type:"line",data:{labels:["01/07","02/07","03/07","04/07","05/07","06/07","07/07","08/07","09/07","10/07","11/07","12/07","13/07","14/07","15/07","16/07","17/07","18/07","19/07","20/07","21/07","22/07","23/07","24/07","25/07","26/07","27/07","28/07","29/07","30/07","31/07"],datasets:[{data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],borderColor:"#1877F2",backgroundColor:"rgba(24,119,242,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:lineOpts});
+new Chart(document.getElementById("chartAlcance"),{type:"line",data:{labels:["01/07","02/07","03/07","04/07","05/07","06/07","07/07","08/07","09/07","10/07","11/07","12/07","13/07","14/07","15/07","16/07","17/07","18/07","19/07","20/07","21/07","22/07","23/07","24/07","25/07","26/07","27/07","28/07","29/07","30/07","31/07"],datasets:[{data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],borderColor:"#60A5FA",backgroundColor:"rgba(96,165,250,0.1)",fill:true,tension:0.3,pointRadius:1}]},options:lineOpts});
+</script>
+</body>
+</html>
