@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Quebeck Automação - Julho/2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;color:#0f172a;background:#f1f5f9;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%)}
+.hero-bg{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23334155' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:0.5}
+.hero-content{position:relative;max-width:900px;margin:0 auto;padding:32px 20px 24px;text-align:center}
+.hero-logos{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.logo-af{height:28px;filter:brightness(0) invert(1);opacity:0.9}
+.logo-af-text{font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.5px}
+.logo-divider{width:1px;height:28px;background:rgba(255,255,255,0.3)}
+.logo-cl{height:32px;filter:brightness(0) invert(1)}
+.logo-cl-pill{filter:none;background:rgba(255,255,255,0.92);border-radius:6px;padding:3px 10px;object-fit:contain}
+.hero-title{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.3px;margin-bottom:4px}
+.hero-subtitle{font-size:14px;color:rgba(255,255,255,0.7);font-weight:400}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:12px}
+.hero-badge{background:rgba(59,130,246,0.2);color:#60a5fa;padding:4px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(59,130,246,0.4)}
+.hero-period{color:rgba(255,255,255,0.5);font-size:13px}
+.btn-download{margin-top:24px;display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:"Inter",sans-serif;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(37,99,235,0.3)}
+.btn-download:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,0.4)}
+.main{max-width:900px;margin:0 auto;padding:0 20px 40px}
+section.sec{background:#fff;border-radius:16px;margin-top:24px;box-shadow:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.06);border:1px solid #e2e8f0;overflow:hidden}
+.sec-head{display:flex;align-items:center;gap:12px;padding:20px 28px;border-bottom:1px solid #f1f5f9}
+.sec-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.sec-icon.blue{background:linear-gradient(135deg,#3b82f6,#2563eb)}
+.sec-icon.purple{background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
+.sec-icon.sky{background:linear-gradient(135deg,#0ea5e9,#0284c7)}
+.sec-icon.green{background:linear-gradient(135deg,#10b981,#059669)}
+.sec-icon.amber{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.sec-icon.rose{background:linear-gradient(135deg,#f43f5e,#e11d48)}
+.sec-icon.slate{background:linear-gradient(135deg,#64748b,#475569)}
+.sec-title{font-size:16px;font-weight:700;color:#0f172a;letter-spacing:-0.3px}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#f1f5f9;padding:1px}
+.kpi{background:#fff;padding:24px 24px 20px}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.kpi-name{font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px}
+.kpi-dot{width:8px;height:8px;border-radius:50%}
+.kpi-num{font-size:30px;font-weight:800;color:#0f172a;letter-spacing:-1px;line-height:1}
+.kpi-bottom{display:flex;align-items:center;gap:8px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700}
+.badge-up{background:#dcfce7;color:#16a34a}
+.badge-down{background:#fee2e2;color:#dc2626}
+.badge-neutral{background:#f1f5f9;color:#64748b}
+.badge svg{width:10px;height:10px}
+.funnel{padding:32px 40px;display:flex;flex-direction:column;align-items:center}
+.funnel-level{width:100%;text-align:center;color:#fff;position:relative;display:flex;align-items:center;justify-content:center;padding:22px 0}
+.fl-inner{display:flex;align-items:baseline;gap:16px;position:relative;z-index:1}
+.fl-label{font-size:13px;font-weight:500;opacity:0.9;text-transform:uppercase;letter-spacing:0.5px}
+.fl-value{font-size:28px;font-weight:800;letter-spacing:-0.5px}
+.fl-1{width:100%;background:linear-gradient(135deg,#1e40af,#3b82f6);clip-path:polygon(0 0,100% 0,94% 100%,6% 100%);border-radius:12px 12px 0 0}
+.fl-2{width:82%;background:linear-gradient(135deg,#0369a1,#0ea5e9);clip-path:polygon(4% 0,96% 0,90% 100%,10% 100%)}
+.fl-3{width:60%;background:linear-gradient(135deg,#047857,#10b981);clip-path:polygon(6% 0,94% 0,82% 100%,18% 100%);border-radius:0 0 12px 12px}
+.funnel-arrow{display:flex;align-items:center;justify-content:center;height:28px;position:relative;z-index:2}
+.funnel-rate{font-size:12px;font-weight:700;color:#64748b;background:#f8fafc;padding:2px 14px;border-radius:20px;border:1px solid #e2e8f0}
+.split-layout{display:grid;grid-template-columns:280px 1fr;gap:0;border-top:1px solid #f1f5f9}
+.split-chart{padding:24px;display:flex;align-items:center;justify-content:center;border-right:1px solid #f1f5f9}
+.split-table{overflow-x:auto}
+.chart-wrap{padding:24px 28px;position:relative;width:100%}
+.table-wrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;text-align:left;padding:12px 16px;border-bottom:2px solid #e2e8f0;background:#f8fafc;white-space:nowrap}
+.tbl td{font-size:13px;padding:11px 16px;border-bottom:1px solid #f1f5f9;color:#334155;white-space:nowrap}
+.tbl tbody tr:hover td{background:#f8fafc}
+.tbl .td-label{font-weight:600;color:#0f172a}
+.match-badge{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;font-weight:600;background:#f1f5f9;color:#64748b}
+.card-info{padding:24px 28px}
+.card-info p{font-size:14px;color:#475569;line-height:1.7;margin-bottom:12px}
+.link-ext{color:#3b82f6;font-weight:600;font-size:14px;text-decoration:none;transition:color 0.2s}
+.link-ext:hover{color:#2563eb;text-decoration:underline}
+.resultados-wrap{padding:28px}
+.res-bloco{margin-bottom:24px}
+.res-bloco:last-child{margin-bottom:0}
+.res-header{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #e2e8f0;letter-spacing:-0.2px}
+.res-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.res-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;text-align:center;transition:transform 0.15s,box-shadow 0.15s}
+.res-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.res-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.res-label{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.res-value{font-size:22px;font-weight:800;letter-spacing:-0.5px;line-height:1}
+.conclusao{padding:28px 28px 32px}
+.conclusao h4{font-size:16px;font-weight:700;color:#0f172a;margin:28px 0 10px;padding-bottom:8px;border-bottom:2px solid #3b82f6;display:inline-block}
+.conclusao h4:first-child{margin-top:0}
+.conclusao p{font-size:14px;line-height:1.85;color:#334155;margin-bottom:10px}
+.conclusao ul{margin:10px 0 14px 24px}
+.conclusao li{font-size:14px;color:#334155;padding:3px 0;line-height:1.8}
+.conclusao strong{color:#0f172a;font-weight:700}
+.footer{max-width:900px;margin:0 auto;padding:0 20px 40px}
+.footer-inner{text-align:center;padding:24px 0;border-top:1px solid #e2e8f0}
+.footer-brand{font-size:13px;font-weight:800;color:#0f172a;letter-spacing:-0.2px}
+.footer-meta{font-size:11px;color:#94a3b8;margin-top:4px}
+@media print{
+  body{background:#fff}
+  .hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .main{padding:0;max-width:100%}
+  section.sec{box-shadow:none;border:1px solid #e2e8f0;margin-top:16px;page-break-inside:avoid}
+  .btn-download{display:none}
+  canvas{display:none !important}
+  .print-img{display:block !important;width:100%}
+  .funnel-level{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sec-icon{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .badge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .kpi-dot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media(max-width:768px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .split-layout{grid-template-columns:1fr}
+  .hero-content{padding:32px 24px}
+  .hero-title{font-size:22px}
+  .fl-value{font-size:20px}
+  .fl-label{font-size:11px;letter-spacing:0}
+  .fl-inner{gap:8px}
+  .funnel{padding:24px 16px}
+  .funnel-level{padding:16px 0}
+  .fl-3{width:75%}
+  .res-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-logos">
+      <img src="data:image/svg+xml;base64,PHN2ZyBkYXRhLXYtNDIzYmY5YWU9IiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTAxIDkwIiBjbGFzcz0iaWNvbkxlZnQiPjwhLS0tLT48IS0tLS0+PCEtLS0tPjxnIGRhdGEtdi00MjNiZjlhZT0iIiBpZD0iYjkwYjVlNWItYjk4Ny00ZTNjLWE0MGEtOGUyNDlmYTcxNmVmIiBmaWxsPSJibGFjayIgdHJhbnNmb3JtPSJtYXRyaXgoNS43MDM0MjE4MDUwNTUxOTksMCwwLDUuNzAzNDIxODA1MDU1MTk5LDExMS4xNDA2NzIyOTM1MjM5NSwtMy4wMjI4MTUwNjI0MzMxMDM2KSI+PHBhdGggZD0iTTguMzIgMTMuNTVMNy41NSAxMS42NUwzLjQwIDExLjY1TDIuNjMgMTMuNTVMLTAuMjAgMTMuNTVMNC4xMyAzLjc1TDYuODYgMy43NUwxMS4yMCAxMy41NUw4LjMyIDEzLjU1Wk00LjIxIDkuNjBMNi43MyA5LjYwTDUuNDcgNi40N0w0LjIxIDkuNjBaTTE3LjE5IDMuMTZMMTkuODUgMy4xNkwxOS44NSAxMy41NUwxNy4zMiAxMy41NUwxNy4zMiAxMi44MFExNi41OCAxMy42OCAxNS4wOSAxMy42OEwxNS4wOSAxMy42OFExNC4wNiAxMy42OCAxMy4yMCAxMy4yMFExMi4zNSAxMi43MSAxMS44NSAxMS44MlExMS4zNSAxMC45MiAxMS4zNSA5Ljc0TDExLjM1IDkuNzRRMTEuMzUgOC41NyAxMS44NSA3LjY4UTEyLjM1IDYuNzkgMTMuMjAgNi4zMVExNC4wNiA1Ljg0IDE1LjA5IDUuODRMMTUuMDkgNS44NFExNi40NSA1Ljg0IDE3LjE5IDYuNjJMMTcuMTkgNi42MkwxNy4xOSAzLjE2Wk0xNS42NSAxMS41NlExNi4zNCAxMS41NiAxNi43OSAxMS4wOFExNy4yMyAxMC42MCAxNy4yMyA5Ljc0TDE3LjIzIDkuNzRRMTcuMjMgOC45MCAxNi43OSA4LjQzUTE2LjM1IDcuOTUgMTUuNjUgNy45NUwxNS42NSA3Ljk1UTE0Ljk1IDcuOTUgMTQuNTAgOC40M1ExNC4wNiA4LjkwIDE0LjA2IDkuNzRMMTQuMDYgOS43NFExNC4wNiAxMC42MCAxNC41MCAxMS4wOFExNC45NSAxMS41NiAxNS42NSAxMS41NkwxNS42NSAxMS41NlpNMjQuMzIgMTMuNjhRMjMuMzcgMTMuNjggMjIuNDQgMTMuNDZRMjEuNTIgMTMuMjQgMjAuOTYgMTIuODlMMjAuOTYgMTIuODlMMjEuNzYgMTEuMDdRMjIuMjcgMTEuNDAgMjIuOTkgMTEuNThRMjMuNzAgMTEuNzcgMjQuNDAgMTEuNzdMMjQuNDAgMTEuNzdRMjUuMDUgMTEuNzcgMjUuMzIgMTEuNjRRMjUuNTkgMTEuNTEgMjUuNTkgMTEuMjZMMjUuNTkgMTEuMjZRMjUuNTkgMTEuMDAgMjUuMjYgMTAuOTBRMjQuOTMgMTAuNzkgMjQuMjIgMTAuNzBMMjQuMjIgMTAuNzBRMjMuMzEgMTAuNTggMjIuNjcgMTAuNDBRMjIuMDQgMTAuMjIgMjEuNTcgOS43M1EyMS4xMSA5LjI0IDIxLjExIDguMzZMMjEuMTEgOC4zNlEyMS4xMSA3LjYzIDIxLjU1IDcuMDZRMjEuOTggNi41MCAyMi44MSA2LjE3UTIzLjY1IDUuODQgMjQuODEgNS44NEwyNC44MSA1Ljg0UTI1LjYzIDUuODQgMjYuNDUgNi4wMVEyNy4yNiA2LjE3IDI3LjgwIDYuNDhMMjcuODAgNi40OEwyNy4wMSA4LjI5UTI2LjAwIDcuNzMgMjQuODIgNy43M0wyNC44MiA3LjczUTI0LjE5IDcuNzMgMjMuOTAgNy44N1EyMy42MCA4LjAyIDIzLjYwIDguMjZMMjMuNjAgOC4yNlEyMy42MCA4LjUzIDIzLjkzIDguNjNRMjQuMjUgOC43NCAyNC45OSA4Ljg1TDI0Ljk5IDguODVRMjUuOTMgOC45OSAyNi41NCA5LjE3UTI3LjE2IDkuMzUgMjcuNjEgOS44M1EyOC4wNyAxMC4zMiAyOC4wNyAxMS4xOUwyOC4wNyAxMS4xOVEyOC4wNyAxMS45MCAyNy42NCAxMi40N1EyNy4yMCAxMy4wMyAyNi4zNiAxMy4zNlEyNS41MSAxMy42OCAyNC4zMiAxMy42OEwyNC4zMiAxMy42OFpNNDEuMTAgNS44OUwzNi4xOSA1Ljg5TDM2LjE5IDguMDVMNDAuNTIgOC4wNUw0MC41MiAxMC4xOUwzNi4xOSAxMC4xOUwzNi4xOSAxMy41NUwzMy40MiAxMy41NUwzMy40MiAzLjc1TDQxLjEwIDMuNzVMNDEuMTAgNS44OVpNNDIuMjggMTMuNTVMNDIuMjggMy4xNkw0NC45NCAzLjE2TDQ0Ljk0IDEzLjU1TDQyLjI4IDEzLjU1Wk01MC40NyAxMy42OFE0OS4yNSAxMy42OCA0OC4yNyAxMy4xN1E0Ny4yOSAxMi42NyA0Ni43NCAxMS43N1E0Ni4xOSAxMC44OCA0Ni4xOSA5Ljc0TDQ2LjE5IDkuNzRRNDYuMTkgOC42MiA0Ni43NCA3LjczUTQ3LjI5IDYuODMgNDguMjcgNi4zM1E0OS4yNCA1Ljg0IDUwLjQ3IDUuODRMNTAuNDcgNS44NFE1MS43MCA1Ljg0IDUyLjY4IDYuMzNRNTMuNjYgNi44MyA1NC4yMSA3LjcyUTU0Ljc1IDguNjEgNTQuNzUgOS43NEw1NC43NSA5Ljc0UTU0Ljc1IDEwLjg4IDU0LjIxIDExLjc3UTUzLjY2IDEyLjY3IDUyLjY4IDEzLjE3UTUxLjcwIDEzLjY4IDUwLjQ3IDEzLjY4TDUwLjQ3IDEzLjY4Wk01MC40NyAxMS41NlE1MS4xNyAxMS41NiA1MS42MiAxMS4wOFE1Mi4wNyAxMC42MCA1Mi4wNyA5Ljc0TDUyLjA3IDkuNzRRNTIuMDcgOC45MCA1MS42MiA4LjQzUTUxLjE3IDcuOTUgNTAuNDcgNy45NUw1MC40NyA3Ljk1UTQ5Ljc3IDcuOTUgNDkuMzIgOC40M1E0OC44NyA4LjkwIDQ4Ljg3IDkuNzRMNDguODcgOS43NFE0OC44NyAxMC42MCA0OS4zMiAxMS4wOFE0OS43NyAxMS41NiA1MC40NyAxMS41Nkw1MC40NyAxMS41NlpNNjYuMDEgNS45Nkw2OC4zNSA1Ljk2TDY1LjY1IDEzLjU1TDYzLjA3IDEzLjU1TDYxLjY0IDkuNDJMNjAuMTYgMTMuNTVMNTcuNTggMTMuNTVMNTQuODggNS45Nkw1Ny40MCA1Ljk2TDU4Ljk1IDEwLjU2TDYwLjU2IDUuOTZMNjIuODMgNS45Nkw2NC40MCAxMC42MEw2Ni4wMSA1Ljk2WiI+PC9wYXRoPjwvZz48IS0tLS0+PGcgZGF0YS12LTQyM2JmOWFlPSIiIGlkPSJlNzhkM2M0ZC00NDkwLTQ5NzMtYjIwNy1kYTk3ZDI3NDExYTgiIHRyYW5zZm9ybT0ibWF0cml4KDIuODEyNSwwLDAsMi44MTI1LDAsMCkiIHN0cm9rZT0ibm9uZSIgZmlsbD0iYmxhY2siPjxwYXRoIGQ9Ik0wIDMyaDMyVjBIMHYzMnpNMiAyaDIuOTgxTDE2LjAxIDIxLjEwMyAyNy4wNCAySDMwdjI4SDJWMnoiPjwvcGF0aD48L2c+PCEtLS0tPjwvc3ZnPg==" alt="ADS FLOW" class="logo-af">
+      <span class="logo-divider"></span>
+      <img src="data:image/png;base64,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" alt="Quebeck Automação" class="logo-cl">
+    </div>
+    <h1 class="hero-title">Relatório Mensal</h1>
+    <p class="hero-subtitle">Quebeck Automação — Google Ads</p>
+    <div class="hero-meta">
+      <span class="hero-badge">Julho/2026</span>
+      <span class="hero-period">01/07/2026 a 31/07/2026</span>
+    </div>
+    <button class="btn-download" onclick="window.print()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download PDF
+    </button>
+  </div>
+</header>
+<main class="main">
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+  <h2 class="sec-title">Visão Geral</h2>
+</div>
+<div class="kpi-grid">
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Cliques</span><span class="kpi-dot" style="background:#3b82f6"></span></div>
+  <div class="kpi-num">443</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>3,3%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Impressões</span><span class="kpi-dot" style="background:#8b5cf6"></span></div>
+  <div class="kpi-num">14.031</div>
+  <div class="kpi-bottom"><span class="badge badge-up"><svg viewBox="0 0 12 12"><path d="M6 2l4 5H2z" fill="currentColor"/></svg>+24,0%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">CPC Médio</span><span class="kpi-dot" style="background:#f59e0b"></span></div>
+  <div class="kpi-num">R$ 10,19</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 2l4 5H2z" fill="currentColor"/></svg>+2,1%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">CTR</span><span class="kpi-dot" style="background:#0ea5e9"></span></div>
+  <div class="kpi-num">3,16%</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>22,0%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Custo Total</span><span class="kpi-dot" style="background:#ef4444"></span></div>
+  <div class="kpi-num">R$ 4.515,81</div>
+  <div class="kpi-bottom"><span class="badge badge-up"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>1,3%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+<div class="kpi">
+  <div class="kpi-top"><span class="kpi-name">Conversões</span><span class="kpi-dot" style="background:#10b981"></span></div>
+  <div class="kpi-num">85</div>
+  <div class="kpi-bottom"><span class="badge badge-down"><svg viewBox="0 0 12 12"><path d="M6 10L2 5h8z" fill="currentColor"/></svg>5,6%</span><span style="font-size:11px;color:#94a3b8">vs mês anterior</span></div>
+</div>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon purple"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></div>
+  <h2 class="sec-title">Funil de Leads — Google Ads</h2>
+</div>
+<div class="funnel">
+  <div class="funnel-level fl-1">
+    <div class="fl-inner"><span class="fl-label">Impressões</span><span class="fl-value">14.031</span></div>
+  </div>
+  <div class="funnel-arrow"><span class="funnel-rate">3.2% CTR</span></div>
+  <div class="funnel-level fl-2">
+    <div class="fl-inner"><span class="fl-label">Cliques</span><span class="fl-value">443</span></div>
+  </div>
+  <div class="funnel-arrow"><span class="funnel-rate">19.2% Conv.</span></div>
+  <div class="funnel-level fl-3">
+    <div class="fl-inner"><span class="fl-label">Conversões (Leads)</span><span class="fl-value">85</span></div>
+  </div>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon sky"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg></div>
+  <h2 class="sec-title">Tipo de Dispositivo</h2>
+</div>
+<div class="split-layout">
+<div class="split-chart"><canvas id="chartDevice" height="260"></canvas></div>
+<div class="split-table">
+<table class="tbl"><thead><tr><th>Dispositivo</th><th>Cliques</th><th>CPC</th><th>Conv.</th><th>Custo</th></tr></thead><tbody>
+<tr><td class="td-label">Computadores</td><td>276</td><td>R$ 12,06</td><td>66</td><td>R$ 3.328,99</td></tr>
+<tr><td class="td-label">Celulares</td><td>166</td><td>R$ 7,12</td><td>19</td><td>R$ 1.182,13</td></tr>
+<tr><td class="td-label">Tablets</td><td>1</td><td>R$ 4,69</td><td>0</td><td>R$ 4,69</td></tr>
+</tbody></table>
+</div>
+</div>
+<script>
+new Chart(document.getElementById("chartDevice"),{type:"doughnut",data:{labels:["Computadores","Celulares","Tablets"],datasets:[{data:[276,166,1],backgroundColor:["#3b82f6","#8b5cf6","#f59e0b","#10b981","#ef4444"],borderWidth:0,borderRadius:4,hoverOffset:8}]},options:{responsive:true,cutout:"65%",plugins:{legend:{position:"bottom",labels:{padding:16,usePointStyle:true,pointStyle:"circle",font:{size:12,family:"Inter"}}}}}});
+</script>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon amber"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+  <h2 class="sec-title">Desempenho por Dia da Semana</h2>
+</div>
+<div class="chart-wrap"><canvas id="chartSemana"></canvas></div>
+<script>
+new Chart(document.getElementById("chartSemana"),{type:"bar",data:{labels:["Segunda","Terca","Quarta","Quinta","Sexta","Sabado","Domingo"],datasets:[{label:"Cliques",data:[86,83,74,113,87,0,0],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[17,24,14,18,12,0,0],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:window.innerWidth<=768?1.2:2.2,interaction:{intersect:false,mode:"index"},plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}},y:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}}}}});
+</script>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon rose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+  <h2 class="sec-title">Desempenho por Cidade</h2>
+</div>
+<div class="chart-wrap"><canvas id="chartCidades"></canvas></div>
+<script>
+new Chart(document.getElementById("chartCidades"),{type:"bar",data:{labels:["Sao Paulo","Curitiba","Goiania","Belo Horizonte","Guarulhos","Sao Bernardo do Campo","Campinas","Contagem","Barueri","Osasco"],datasets:[{label:"Cliques",data:[97,11,16,12,12,10,8,4,1,6],backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},{label:"Conversões",data:[18,6,2,4,3,2,2,3,0,1],backgroundColor:"#10b981",borderRadius:6,borderSkipped:false}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:true,aspectRatio:1.2,plugins:{legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{size:12,family:"Inter"}}}},scales:{x:{beginAtZero:true,grid:{color:"#f1f5f9"},ticks:{font:{size:11,family:"Inter"}}},y:{grid:{display:false},ticks:{font:{size:12,family:"Inter"}}}}}});
+</script>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Cidade</th><th>Impressões</th><th>Cliques</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">Sao Paulo</td><td>3.681</td><td>97</td><td>R$ 10,73</td><td>R$ 1.040,96</td><td>18</td></tr>
+<tr><td class="td-label">Curitiba</td><td>511</td><td>11</td><td>R$ 12,03</td><td>R$ 132,34</td><td>6</td></tr>
+<tr><td class="td-label">Goiania</td><td>499</td><td>16</td><td>R$ 11,45</td><td>R$ 183,24</td><td>2</td></tr>
+<tr><td class="td-label">Belo Horizonte</td><td>425</td><td>12</td><td>R$ 7,96</td><td>R$ 95,52</td><td>4</td></tr>
+<tr><td class="td-label">Guarulhos</td><td>376</td><td>12</td><td>R$ 10,53</td><td>R$ 126,41</td><td>3</td></tr>
+<tr><td class="td-label">Sao Bernardo do Campo</td><td>311</td><td>10</td><td>R$ 17,33</td><td>R$ 173,33</td><td>2</td></tr>
+<tr><td class="td-label">Campinas</td><td>274</td><td>8</td><td>R$ 16,27</td><td>R$ 130,19</td><td>2</td></tr>
+<tr><td class="td-label">Contagem</td><td>166</td><td>4</td><td>R$ 24,42</td><td>R$ 97,69</td><td>3</td></tr>
+<tr><td class="td-label">Barueri</td><td>162</td><td>1</td><td>R$ 12,68</td><td>R$ 12,68</td><td>0</td></tr>
+<tr><td class="td-label">Osasco</td><td>146</td><td>6</td><td>R$ 8,27</td><td>R$ 49,62</td><td>1</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon slate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+  <h2 class="sec-title">Grupos de Anúncio</h2>
+</div>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Grupo</th><th>Impr.</th><th>Cliques</th><th>% Impr.</th><th>% Topo</th><th>CPC</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">Impressora Industrial</td><td>9.866</td><td>244</td><td>17,69%</td><td>10,07%</td><td>R$ 10,17</td><td>R$ 2.481,84</td><td>47</td></tr>
+<tr><td class="td-label">Coletores de Dados</td><td>1.068</td><td>36</td><td>12,10%</td><td>9,99%</td><td>R$ 18,80</td><td>R$ 676,96</td><td>11</td></tr>
+<tr><td class="td-label">Leitores (RFID)</td><td>1.044</td><td>40</td><td>20,95%</td><td>14,33%</td><td>R$ 8,37</td><td>R$ 334,93</td><td>2</td></tr>
+<tr><td class="td-label">Tablets Robustos</td><td>932</td><td>69</td><td>29,01%</td><td>21,29%</td><td>R$ 6,51</td><td>R$ 449,13</td><td>16</td></tr>
+<tr><td class="td-label">Automação e Controle de Dados</td><td>651</td><td>30</td><td>13,03%</td><td>9,99%</td><td>R$ 14,78</td><td>R$ 443,40</td><td>7</td></tr>
+<tr><td class="td-label">MDM</td><td>287</td><td>23</td><td>10,48%</td><td>9,99%</td><td>R$ 5,57</td><td>R$ 128,13</td><td>2</td></tr>
+<tr><td class="td-label">WMS</td><td>142</td><td>1</td><td>9,99%</td><td>9,99%</td><td>R$ 1,42</td><td>R$ 1,42</td><td>0</td></tr>
+<tr><td class="td-label">Vestíveis</td><td>41</td><td>0</td><td>22,03%</td><td>14,29%</td><td>R$ 0,00</td><td>R$ 0,00</td><td>0</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+  <h2 class="sec-title">Principais Palavras-Chave</h2>
+</div>
+<div class="table-wrap">
+<table class="tbl"><thead><tr><th>Palavra-Chave</th><th>Tipo</th><th>Impr.</th><th>Cliques</th><th>CPC</th><th>% Impr.</th><th>Custo</th><th>Conv.</th></tr></thead><tbody>
+<tr><td class="td-label">impressora térmica</td><td><span class="match-badge">Frase</span></td><td>7.668</td><td>181</td><td>R$ 8,60</td><td>17,16%</td><td>R$ 1.555,90</td><td>31</td></tr>
+<tr><td class="td-label">impressora zebra</td><td><span class="match-badge">Frase</span></td><td>1.834</td><td>47</td><td>R$ 16,77</td><td>20,30%</td><td>R$ 788,38</td><td>13</td></tr>
+<tr><td class="td-label">tablet robusto</td><td><span class="match-badge">Frase</span></td><td>853</td><td>66</td><td>R$ 6,57</td><td>28,86%</td><td>R$ 433,72</td><td>13</td></tr>
+<tr><td class="td-label">coletor de dados</td><td><span class="match-badge">Frase</span></td><td>676</td><td>24</td><td>R$ 16,39</td><td>12,59%</td><td>R$ 393,26</td><td>8</td></tr>
+<tr><td class="td-label">leitor rfid</td><td><span class="match-badge">Frase</span></td><td>648</td><td>27</td><td>R$ 8,50</td><td>20,32%</td><td>R$ 229,55</td><td>2</td></tr>
+<tr><td class="td-label">impressora industrial</td><td><span class="match-badge">Frase</span></td><td>364</td><td>16</td><td>R$ 8,60</td><td>17,93%</td><td>R$ 137,55</td><td>3</td></tr>
+<tr><td class="td-label">locação de equipamentos de TI</td><td><span class="match-badge">Ampla</span></td><td>318</td><td>13</td><td>R$ 14,06</td><td>13,44%</td><td>R$ 182,83</td><td>4</td></tr>
+<tr><td class="td-label">coletor zebra</td><td><span class="match-badge">Frase</span></td><td>288</td><td>11</td><td>R$ 23,83</td><td>10,53%</td><td>R$ 262,14</td><td>3</td></tr>
+<tr><td class="td-label">gerenciamento de dispositivos</td><td><span class="match-badge">Frase</span></td><td>227</td><td>23</td><td>R$ 5,57</td><td>14,93%</td><td>R$ 128,13</td><td>2</td></tr>
+<tr><td class="td-label">locação de coletores</td><td><span class="match-badge">Ampla</span></td><td>225</td><td>8</td><td>R$ 20,85</td><td>10,75%</td><td>R$ 166,80</td><td>2</td></tr>
+<tr><td class="td-label">leitor zebra</td><td><span class="match-badge">Frase</span></td><td>199</td><td>3</td><td>R$ 11,72</td><td>20,59%</td><td>R$ 35,16</td><td>0</td></tr>
+<tr><td class="td-label">leitor honeywell</td><td><span class="match-badge">Frase</span></td><td>197</td><td>10</td><td>R$ 7,02</td><td>23,82%</td><td>R$ 70,22</td><td>0</td></tr>
+<tr><td class="td-label">sistema wms</td><td><span class="match-badge">Frase</span></td><td>141</td><td>1</td><td>R$ 1,42</td><td>9,99%</td><td>R$ 1,42</td><td>0</td></tr>
+<tr><td class="td-label">coletor honeywell</td><td><span class="match-badge">Frase</span></td><td>104</td><td>1</td><td>R$ 21,56</td><td>14,39%</td><td>R$ 21,56</td><td>0</td></tr>
+<tr><td class="td-label">tablet zebra</td><td><span class="match-badge">Frase</span></td><td>73</td><td>1</td><td>R$ 7,15</td><td>30,70%</td><td>R$ 7,15</td><td>0</td></tr>
+<tr><td class="td-label">locação de smartphones</td><td><span class="match-badge">Ampla</span></td><td>68</td><td>8</td><td>R$ 8,79</td><td>18,72%</td><td>R$ 70,33</td><td>0</td></tr>
+<tr><td class="td-label">mdm</td><td><span class="match-badge">Exata</span></td><td>60</td><td>0</td><td>R$ 0,00</td><td>9,99%</td><td>R$ 0,00</td><td>0</td></tr>
+<tr><td class="td-label">realwear</td><td><span class="match-badge">Frase</span></td><td>41</td><td>0</td><td>R$ 0,00</td><td>23,08%</td><td>R$ 0,00</td><td>0</td></tr>
+<tr><td class="td-label">locação de tablets</td><td><span class="match-badge">Ampla</span></td><td>40</td><td>1</td><td>R$ 23,44</td><td>18,06%</td><td>R$ 23,44</td><td>1</td></tr>
+<tr><td class="td-label">tablet honeywell</td><td><span class="match-badge">Frase</span></td><td>6</td><td>2</td><td>R$ 4,13</td><td>30,00%</td><td>R$ 8,26</td><td>3</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head">
+  <div class="sec-icon green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+  <h2 class="sec-title">Conclusão e Análise Estratégica</h2>
+</div>
+<div class="conclusao">
+<h4>O Que Aconteceu (Fatos e Números)</h4>
+
+<p>Durante julho, realizamos ajustes significativos na estratégia de Google Ads para a Quebeck Automação. O mês começou com a finalização da integração do formulário Zoho com o site da empresa, permitindo que os contatos gerados nas campanhas chegassem automaticamente ao CRM. No dia 22 de julho, aumentamos o orçamento diário para R$ 202, realocando recursos que estavam em outras plataformas.</p>
+
+<p>Em termos de alcance e engajamento, alcançamos 14.031 pessoas por mês, um aumento de 24% em relação ao mês anterior. Isso demonstra que nossas campanhas chegaram a muito mais potenciais clientes. No entanto, o número de cliques caiu 3,3%, totalizando 443 pessoas que realmente clicaram em nossos anúncios.</p>
+
+<p>O resultado mais importante: geramos 85 leads durante o mês, que são contatos qualificados encaminhados para seu time de vendas. O custo médio por lead foi de R$ 53,13, mantendo a eficiência de conversão em 19,19%. Os computadores seguem como o dispositivo com melhor desempenho, gerando 66 dos 85 leads.</p>
+
+<p>Quanto às palavras-chave, "impressora térmica" liderou com 181 cliques e 31 leads, seguida por "tablet robusto" com 66 cliques e 13 leads. "Impressora Zebra" e "coletor de dados" também geraram resultados sólidos com 13 e 8 leads respectivamente.</p>
+
+<h4>Análise Estratégica</h4>
+
+<p>Os números de julho revelam uma dinâmica interessante nas campanhas. O aumento significativo de pessoas alcançadas, combinado com o aumento de orçamento, coloca sua marca em posição de maior visibilidade no mercado de automação. Isso é positivo para construir reconhecimento de marca entre potenciais clientes.</p>
+
+<p>Observamos que enquanto o alcance cresceu, proporcionalmente menos pessoas clicaram nos anúncios. Isso sugere uma oportunidade para refinar a mensagem dos anúncios ou melhorar a relevância para as pessoas que os veem. Apesar disso, mantemos a eficiência em leads gerados, o que indica que quem realmente se interessa está chegando até vocês.</p>
+
+<p>A performance por dispositivo é clara: computadores são o principal canal de conversão em leads para o seu segmento. Isso faz sentido para tomadores de decisão em automação que pesquisam durante o trabalho. Celulares geram contatos também, mas com menor índice de conversão, sugerindo que esse público pode estar em fases diferentes da busca.</p>
+
+<p>Entre suas palavras-chave, "impressora térmica" é a estrela incontestável. É a que mais gera cliques e a que mais converte em leads. "Tablet robusto" também merece atenção, pois com menos cliques que outras palavras-chave, consegue uma taxa de conversão equilibrada. "Leitor RFID" é um ponto de observação: gera cliques mas com conversão em leads bem mais baixa, podendo indicar que o público que busca esse termo ainda não está pronto para deixar seus dados.</p>
+
+<p>A integração do formulário Zoho no início do mês foi fundamental para garantir que todos esses 85 leads chegassem corretamente ao seu time. Isso eliminou perdas de contatos e permite que seu time de vendas trabalhe com informações precisas e em tempo real.</p>
+</div>
+</section>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">ADS FLOW Produtos Digitais LTDA</div>
+    <div class="footer-meta">Relatório gerado automaticamente em 10/08/2026 08:11</div>
+  </div>
+</footer>
+<script>
+window.addEventListener("beforeprint",function(){document.querySelectorAll("canvas").forEach(function(c){var i=new Image();i.src=c.toDataURL("image/png");i.style.width="100%";i.className="print-img";c.parentNode.insertBefore(i,c);c.style.display="none"})});
+window.addEventListener("afterprint",function(){document.querySelectorAll(".print-img").forEach(function(i){i.remove()});document.querySelectorAll("canvas").forEach(function(c){c.style.display=""})});
+</script>
+</body>
+</html>
